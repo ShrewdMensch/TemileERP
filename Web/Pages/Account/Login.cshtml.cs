@@ -11,7 +11,7 @@ using Microsoft.AspNetCore.Mvc.RazorPages;
 using Microsoft.Extensions.Logging;
 using Utility;
 
-namespace Web.Pages
+namespace Web.Pages.Account
 {
     [AllowAnonymous]
     public class LoginModel : PageModel
@@ -69,13 +69,18 @@ namespace Web.Pages
                 {
                     _logger.LogInformation("User logged in.");
 
+                    if (String.IsNullOrWhiteSpace(returnUrl))
+                    {
+                        return RedirectToPage("/Dashboard");
+                    }
+
                     return LocalRedirect(returnUrl);
                 }
 
                 if (result.IsLockedOut)
                 {
                     _logger.LogWarning("User account locked out.");
-                    return RedirectToPage("Account/Lockout", new { area = "Identity" });
+                    return RedirectToPage("./Lockout");
                 }
                 else
                 {

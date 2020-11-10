@@ -11,6 +11,8 @@ using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc.Authorization;
 using Microsoft.EntityFrameworkCore;
 using Persistence;
+using AutoMapper;
+using Utility;
 
 namespace Web
 {
@@ -52,12 +54,10 @@ namespace Web
                 .AddSignInManager<SignInManager<AppUser>>()
                 .AddDefaultTokenProviders();
 
-            services.AddSignalR();
-
             services.AddRazorPages(options =>
                 {
                     options.Conventions.AuthorizeFolder("/");
-                    options.Conventions.AddPageRoute("/Login", "");
+                    options.Conventions.AddPageRoute("/Account/Login", "");
                 });
 
             services.AddControllers(opt =>
@@ -78,14 +78,18 @@ namespace Web
 
             services.ConfigureApplicationCookie(options =>
             {
-                options.AccessDeniedPath = "/AccessDenied";
+                options.AccessDeniedPath = "/Account/AccessDenied";
                 options.Cookie.Name = "ApplicationCookie";
                 options.Cookie.HttpOnly = true;
                 options.ExpireTimeSpan = TimeSpan.FromMinutes(60);
-                options.LoginPath = "/Login";
+                options.LoginPath = "/Account/Login";
                 options.ReturnUrlParameter = CookieAuthenticationDefaults.ReturnUrlParameter;
                 options.SlidingExpiration = true;
             });
+
+            services.AddAutoMapper(typeof(IRepository));
+            services.AddScoped<IUserAccessor, UserAccessor>();
+            services.AddScoped<IRepository, Repository>();
 
         }
 
@@ -108,11 +112,15 @@ namespace Web
 
             app.UseRouting();
 
+            app.UseAuthentication();
+            app.UseAuthorization();
+
             app.UseAuthorization();
 
             app.UseEndpoints(endpoints =>
             {
                 endpoints.MapRazorPages();
+                endpoints.MapControllers();
             });
         }
     }

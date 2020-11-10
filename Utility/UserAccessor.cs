@@ -36,7 +36,7 @@ namespace Utility
         }
         public AppUser GetUserFromClaimsPrincipal(ClaimsPrincipal claimsPrincipal)
         {
-            var userId = claimsPrincipal?.FindFirst(ClaimTypes.NameIdentifier).Value;
+            var userId = claimsPrincipal?.FindFirst(ClaimTypes.NameIdentifier)?.Value;
 
             return _userManager.FindByIdAsync(userId).Result;
         }

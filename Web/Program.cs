@@ -13,7 +13,7 @@ namespace Web
 {
     public class Program
     {
-         public static void Main(string[] args)
+        public static void Main(string[] args)
         {
             var host = CreateWebHostBuilder(args).Build();
 
@@ -24,12 +24,12 @@ namespace Web
 
                 {
                     var context = services.GetRequiredService<ApplicationDbContext>();
-                    // var userManager = services.GetRequiredService<UserManager<AppUser>>();
-                    // var roleManager = services.GetRequiredService<RoleManager<IdentityRole>>();
+                    var userManager = services.GetRequiredService<UserManager<AppUser>>();
+                    var roleManager = services.GetRequiredService<RoleManager<IdentityRole>>();
 
                     context.Database.Migrate();
 
-                    // Seed.SeedData(userManager, roleManager).Wait();
+                    Seed.SeedData(userManager, roleManager).Wait();
                 }
                 catch (Exception ex)
                 {

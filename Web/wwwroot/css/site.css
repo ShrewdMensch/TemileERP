@@ -74,7 +74,8 @@ body {
   overflow-x: hidden;
   overflow-y: auto;
   letter-spacing: 0.0312rem;
-  font-family: 'Poppins', sans-serif;
+  font-family: 'Lato',
+  sans-serif !important;
 }
 
 .footer {
@@ -240,8 +241,8 @@ tfoot tr {
 input,
 select,
 textarea {
-  border-radius: 10px !important;
-  padding: 5px 10px!important;
+  border-radius: 5px;
+  padding: 5px;
 }
 
 .select2-container .select2-selection--single,

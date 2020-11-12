@@ -1,3 +1,12 @@
+@functions{
+    string IsActiveLink(string link)
+    {
+        if (@ViewData["Name"]?.ToString() == link)
+            return "active";
+        else
+            return "";
+    }
+}
 <!--  BEGIN SIDEBAR  -->
 <div class="sidebar-wrapper sidebar-theme">
 
@@ -15,8 +24,8 @@
         </ul>
 
         <ul class="list-unstyled menu-categories" id="accordionExample">
-            <li class="menu active">
-                <a href="#dashboard" data-toggle="collapse" aria-expanded="true" class="dropdown-toggle">
+            <li class="menu @IsActiveLink("Dashboard")">
+                <a asp-page="/Dashboard" data-toggle="collapse" aria-expanded="true" class="dropdown-toggle">
                     <div class="">
                         <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none"
                             stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"
@@ -34,19 +43,19 @@
                         </svg>
                     </div>
                 </a>
-                <ul class="collapse submenu recent-submenu mini-recent-submenu list-unstyled show" id="dashboard"
+                <ul class="collapse submenu recent-submenu mini-recent-submenu list-unstyled" id="dashboard"
                     data-parent="#accordionExample">
-                    <li class="active">
-                        <a asp-page="Dashboard"> Analytics </a>
+                    <li class="@IsActiveLink("Dashboard")">
+                        <a asp-page="/Dashboard"> Analytics </a>
                     </li>
-                    <li>
-                        <a href=""> Other </a>
+                    <li class="@IsActiveLink("Dashboard")">
+                        <a asp-page="/Dashboard"> Other </a>
                     </li>
                 </ul>
             </li>
 
 
-            <li class="menu menu-heading">
+            <li class="menu menu-heading @IsActiveLink("Payroll")">
                 <div class="heading"><svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24"
                         fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"
                         stroke-linejoin="round" class="feather feather-circle">
@@ -55,7 +64,7 @@
             </li>
 
 
-            <li class="menu">
+            <li class="menu @IsActiveLink("Payroll")">
                 <a asp-page="/Accounting/Payroll" aria-expanded="false" class="dropdown-toggle">
                     <div class="">
                         <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none"
@@ -70,7 +79,7 @@
             </li>
 
             <li class="menu">
-                <a href="widgets.html" aria-expanded="false" class="dropdown-toggle">
+                <a href="" aria-expanded="false" class="dropdown-toggle">
                     <div class="">
                         <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none"
                             stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"
@@ -83,7 +92,7 @@
                 </a>
             </li>
 
-            <li class="menu menu-heading">
+            <li class="menu menu-heading @IsActiveLink("Safety")">
                 <div class="heading"><svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24"
                         fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"
                         stroke-linejoin="round" class="feather feather-circle">
@@ -91,8 +100,8 @@
                     </svg><span>SAFETY</span></div>
             </li>
 
-            <li class="menu">
-                <a href="table_basic.html" aria-expanded="false" class="dropdown-toggle">
+            <li class="menu @IsActiveLink("Safety")">
+                <a asp-page="/Safety/Index" aria-expanded="false" class="dropdown-toggle">
                     <div class="">
                         <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none"
                             stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"
@@ -108,7 +117,7 @@
                 </a>
             </li>
 
-            <li class="menu menu-heading">
+            <li class="menu menu-heading @IsActiveLink("Marine")">
                 <div class="heading"><svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24"
                         fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"
                         stroke-linejoin="round" class="feather feather-circle">
@@ -116,8 +125,8 @@
                     </svg><span>MARINE AND CREW MGT</span></div>
             </li>
 
-            <li class="menu">
-                <a href="table_basic.html" aria-expanded="false" class="dropdown-toggle">
+            <li class="menu @IsActiveLink("Marine")">
+                <a asp-page="/MarineAndCrew/Index" aria-expanded="false" class="dropdown-toggle">
                     <div class="">
                         <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none"
                             stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"
@@ -130,7 +139,7 @@
                     </div>
                 </a>
             </li>
-            <li class="menu menu-heading">
+            <li class="menu menu-heading @IsActiveLink("Inventory")">
                 <div class="heading"><svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24"
                         fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"
                         stroke-linejoin="round" class="feather feather-circle">
@@ -138,8 +147,8 @@
                     </svg><span>INVENTORY MGT</span></div>
             </li>
 
-            <li class="menu">
-                <a href="table_basic.html" aria-expanded="false" class="dropdown-toggle">
+            <li class="menu @IsActiveLink("Inventory")">
+                <a asp-page="/InventoryMgt/Index" aria-expanded="false" class="dropdown-toggle">
                     <div class="">
                         <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none"
                             stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"
@@ -153,7 +162,7 @@
                     </div>
                 </a>
             </li>
-            <li class="menu menu-heading">
+            <li class="menu menu-heading @IsActiveLink("Procurement")">
                 <div class="heading"><svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24"
                         fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"
                         stroke-linejoin="round" class="feather feather-circle">
@@ -161,8 +170,8 @@
                     </svg><span>PROCUREMENT</span></div>
             </li>
 
-            <li class="menu">
-                <a href="table_basic.html" aria-expanded="false" class="dropdown-toggle">
+            <li class="menu @IsActiveLink("Procurement")">
+                <a asp-page="/Procurement/Index" aria-expanded="false" class="dropdown-toggle">
                     <div class="">
                         <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none"
                             stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"

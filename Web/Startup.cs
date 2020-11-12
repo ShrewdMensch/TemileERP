@@ -122,6 +122,8 @@ namespace Web
                 endpoints.MapRazorPages();
                 endpoints.MapControllers();
             });
+
+            app.UseStatusCodePagesWithRedirects("/Error?code={0}");
         }
     }
 }

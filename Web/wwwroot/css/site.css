@@ -1,4 +1,5 @@
-﻿/* Please see documentation at https://docs.microsoft.com/aspnet/core/client-side/bundling-and-minification
+﻿<select class="selectpicker"multiple title="Select vessel"><option>Vessel 1</option><option>Vessel 2</option><option>Vessel 3</option></select>
+/* Please see documentation at https://docs.microsoft.com/aspnet/core/client-side/bundling-and-minification
 for details on configuring this project to bundle and minify static web assets. */
 
 a.navbar-brand {
@@ -12,15 +13,20 @@ a {
   color: #0366d6;
 }
 
+li a:hover {
+  text-decoration: none !important;
+}
+
 .btn-primary {
   color: #fff;
-  background-color: #1b6ec2;
+  background-color: #1b55e2;
   border-color: #1861ac;
 }
 
-.nav-pills .nav-link.active, .nav-pills .show > .nav-link {
+.nav-pills .nav-link.active,
+.nav-pills .show>.nav-link {
   color: #fff;
-  background-color: #1b6ec2;
+  background-color: #1b55e2;
   border-color: #1861ac;
 }
 
@@ -29,6 +35,7 @@ a {
 html {
   font-size: 14px;
 }
+
 @media (min-width: 768px) {
   html {
     font-size: 16px;
@@ -38,6 +45,7 @@ html {
 .border-top {
   border-top: 1px solid #e5e5e5;
 }
+
 .border-bottom {
   border-bottom: 1px solid #e5e5e5;
 }
@@ -74,7 +82,8 @@ body {
   bottom: 0;
   width: 100%;
   white-space: nowrap;
-  line-height: 60px; /* Vertically center the text there */
+  line-height: 60px;
+  /* Vertically center the text there */
 }
 
 input.parsley-success,
@@ -120,4 +129,127 @@ textarea.input-validation-error {
 
 .parsley-errors-list.filled {
   opacity: 1;
+}
+
+
+/* DataTable custom Styling */
+button.dt-button,
+div.dt-button,
+a.dt-button,
+input.dt-button {
+  display: inline-block;
+  font-weight: 400;
+  text-align: center;
+  vertical-align: middle;
+  -webkit-user-select: none;
+  -moz-user-select: none;
+  -ms-user-select: none;
+  user-select: none;
+  border: 1px solid transparent;
+  border-radius: 1.875rem !important;
+  padding: 0.375rem 0.75rem;
+  font-size: 0.8rem;
+  line-height: 1.5;
+  border-radius: 0.25rem;
+  box-shadow: 0px 5px 20px 0 rgba(0, 0, 0, 0.1);
+  will-change: opacity,
+    transform;
+  transition: all 0.3s ease-out;
+  -webkit-transition: all 0.3s ease-out;
+  color: #fff;
+  background-color: #1b55e2;
+  border-color: #1b55e2;
+}
+
+.dt-button:hover {
+  color: #fff !important;
+  background-color: #1b55e2 !important;
+  border-color: #1b55e2 !important;
+  -webkit-box-shadow: 0 2px 5px 0 rgba(0, 0, 0, 0.16),
+    0 2px 10px 0 rgba(0, 0, 0, 0.12);
+  -moz-box-shadow: 0 2px 5px 0 rgba(0, 0, 0, 0.16),
+    0 2px 10px 0 rgba(0, 0, 0, 0.12);
+  box-shadow: 0 2px 5px 0 #e0e6ed,
+    0 2px 10px 0 #e0e6ed;
+  -webkit-transform: translateY(-3px);
+  transform: translateY(-3px);
+}
+
+.dataTables_wrapper .dataTables_paginate .paginate_button {
+  background-color: #fff !important;
+  color: #009efb !important;
+  border-color: #1b55e2 !important;
+  box-shadow: 0px 5px 20px 0 rgba(0, 0, 0, 0.1);
+  will-change: opacity,
+    transform;
+  transition: all 0.3s ease-out;
+  -webkit-transition: all 0.3s ease-out;
+}
+
+.dataTables_wrapper .dataTables_paginate .paginate_button.disabled,
+.dataTables_wrapper .dataTables_paginate .paginate_button.disabled:hover,
+.dataTables_wrapper .dataTables_paginate .paginate_button.disabled:active {
+  background-color: #ddd !important;
+  color: #666 !important;
+
+  border-color: #1b55e2 !important;
+}
+
+.dataTables_wrapper .dataTables_paginate .paginate_button:hover {
+  background: none;
+  background-color: #308be6 !important;
+}
+
+.dataTables_wrapper .dataTables_paginate .paginate_button.current,
+.dataTables_wrapper .dataTables_paginate .paginate_button.current:hover {
+  background: none;
+  background-color: #1b55e2 !important;
+  color: #fff !important;
+}
+
+table.display tbody tr {
+  border-radius: 4px;
+  -webkit-transition: all 0.1s ease;
+  transition: all 0.1s ease;
+  border-bottom: 1px solid #e0e6ed;
+}
+
+table.display tbody tr:hover {
+  background-color: transparent !important;
+  -webkit-transform: translateY(-1px) scale(1.01);
+  transform: translateY(-1px) scale(1.01);
+}
+
+table.display thead tr {
+  background-color: #1b55e2;
+  color: #fff;
+}
+
+
+
+tbody td .big-cell {
+  width: 220px !important;
+}
+
+tfoot tr {
+  background-color: #ddd;
+  color: #666;
+}
+
+/* Custom Inputs */
+input,
+select,
+textarea {
+  border-radius: 10px !important;
+  padding: 5px 10px!important;
+}
+
+.select2-container .select2-selection--single,
+.select2-container--default .select2-selection--single .select2-selection__rendered {
+  border-radius: 10px !important;
+}
+
+table img.img-fluid.rounded-circle {
+  width: 35px !important;
+  margin: 0;
 }

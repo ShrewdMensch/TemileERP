@@ -852,10 +852,9 @@ code {
 .navbar .navbar-item .nav-item.user-profile-dropdown .dropdown-menu {
   right: 8px;
   left: auto;
-  min-width: 12rem;
   right: -16px;
   left: auto;
-  min-width: 14rem;
+  min-width: 18rem;
   border-top-left-radius: 4px;
   border-top-right-radius: 4px;
   top: 67px;

@@ -13,6 +13,7 @@ namespace Web.Pages
     public class ErrorModel : PageModel
     {
         public string RequestId { get; set; }
+        public string ErrorStatusCode { get; set; }
 
         public bool ShowRequestId => !string.IsNullOrEmpty(RequestId);
 
@@ -23,9 +24,10 @@ namespace Web.Pages
             _logger = logger;
         }
 
-        public void OnGet()
+        public void OnGet(string code)
         {
             RequestId = Activity.Current?.Id ?? HttpContext.TraceIdentifier;
+            ErrorStatusCode = code;
         }
     }
 }

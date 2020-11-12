@@ -1,15 +1,11 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Threading.Tasks;
-using Microsoft.AspNetCore.Authorization;
-using Microsoft.AspNetCore.Mvc;
+﻿using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc.RazorPages;
 using Microsoft.Extensions.Logging;
+using Persistence;
 
 namespace Web.Pages
 {
-    [AllowAnonymous]
+    [Authorize(Roles = UserRoles.SystemAdministrator)]
     public class DashboardModel : PageModel
     {
         private readonly ILogger<DashboardModel> _logger;

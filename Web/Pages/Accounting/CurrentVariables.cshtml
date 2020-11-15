@@ -1,0 +1,140 @@
+﻿@page "{handler?}"
+@model CurrentParemetersModel
+@{
+    ViewData["Title"] = "Current Month Paremeters";
+    ViewData["Name"] = "CurrentVariables";
+}
+
+<div class="page-header">
+    <div class="page-title">
+        <h3>Current Month Variables</h3>
+    </div>
+</div>
+
+<div class="row d-flex justify-content-end mt-3">
+    <div class="col-sm-12 col-md-4 layout-spacing">
+        <div class="widget widget-card-four">
+                            <div class="widget-content">
+                                <div class="w-content">
+                                    <div class="w-info">
+                                        <h6 class="value">40</h6>
+                                        <p class="">All Employees</p>
+                                    </div>
+                                    <div class="">
+                                        <div class="w-icon">
+                                            <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-dollar-sign"><line x1="12" y1="1" x2="12" y2="23"></line><path d="M17 5H9.5a3.5 3.5 0 0 0 0 7h5a3.5 3.5 0 0 1 0 7H6"></path></svg>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+    </div>
+    <div class="col-sm-12 col-md-4 layout-spacing">
+        <div class="widget widget-card-four">
+                            <div class="widget-content">
+                                <div class="w-content">
+                                    <div class="w-info">
+                                        <h6 class="value">100</h6>
+                                        <p class="">Employees with current variables</p>
+                                    </div>
+                                    <div class="">
+                                        <div class="w-icon">
+                                            <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-user-check"><path d="M16 21v-2a4 4 0 0 0-4-4H5a4 4 0 0 0-4 4v2"></path><circle cx="8.5" cy="7" r="4"></circle><polyline points="17 11 19 13 23 9"></polyline></svg>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+    </div>
+    <div class="col-sm-12 col-md-4 layout-spacing">
+        <div class="widget widget-card-four">
+                            <div class="widget-content">
+                                <div class="w-content">
+                                    <div class="w-info">
+                                        <h6 class="value">10</h6>
+                                        <p class="">Employees without current variables</p>
+                                    </div>
+                                    <div class="">
+                                        <div class="w-icon">
+                                            <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-user-minus"><path d="M16 21v-2a4 4 0 0 0-4-4H5a4 4 0 0 0-4 4v2"></path><circle cx="8.5" cy="7" r="4"></circle><line x1="23" y1="11" x2="17" y2="11"></line></svg>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+    </div>
+</div>
+<div class="row" id="cancel-row">
+
+    <div class="col-xl-12 col-lg-12 col-sm-12  layout-spacing">
+        <div class="widget-content widget-content-area br-6">
+                <table id="table" class="display text-left" style="width:100%">
+                                    <thead>
+                                        <tr>
+                                            <th></th>
+                                            <th>Name</th>
+                                            <th>DailyRate</th>
+                                            <th>Days</th>
+                                            <th>Platform</th>
+                                            <th>TotalPay</th>
+                                            <th>Deductions</th>
+                                            <th>NetPay</th>
+                                            <th>PhoneNumber</th>
+                                        </tr>
+                                    </thead>
+                                    <tbody>
+                                         <tr>
+                                             <td class="text-left">
+                                                 <a class="text-primary" data-toggle="modal" data-target="#personnelEditModal" data-id="personnel.Id">
+                                                     <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-edit">
+                                                        <path d="M11 4H4a2 2 0 0 0-2 2v14a2 2 0 0 0 2 2h14a2 2 0 0 0 2-2v-7"></path>
+                                                        <path d="M18.5 2.5a2.121 2.121 0 0 1 3 3L12 15l-4 1 1-4 9.5-9.5z"></path>
+                                                     </svg>
+                                                </a>
+                                             </td>
+                                            <td class="text-left">
+                                                <div class="d-flex">                                                        
+                                                    <div class="usr-img-frame mr-2 rounded-circle">
+                                                        <img alt="avatar" class="img-fluid rounded-circle" src="~/assets/img/90x90.jpg">
+                                                    </div>
+                                                    <p class="align-self-center mb-0 admin-name"> Grace Deiyaa </p>
+                                                </div>
+                                            </td>
+                                            <td class="text-left">20,0000.00</td>
+                                            <td class="text-left">25</td>
+                                            <td class="text-left">500,000.00</td> 
+                                            <td class="text-left">100,000.00</td>
+                                            <td class="text-left">600,000.00</td>
+                                            <td class="text-left">0.00</td>
+                                            <td class="text-left">600,000.00</td>
+                                        </tr>
+                                    </tbody>
+                                    <tfoot>
+                                        <tr>
+                                           <th></th>
+                                            <th>Name</th>
+                                            <th>DailyRate</th>
+                                            <th>Days</th>
+                                            <th>Platform</th>
+                                            <th>TotalPay</th>
+                                            <th>Deductions</th>
+                                            <th>NetPay</th>
+                                            <th>PhoneNumber</th>
+                                        </tr>
+                                    </tfoot>
+                                </table>
+        </div>
+    </div>
+
+</div>
+
+@section Scripts{
+    @{
+    await Html.RenderPartialAsync("_ValidationScriptsPartial");
+}
+     @{
+    await Html.RenderPartialAsync("/PartialViews/_DataTablesScriptsImport.cshtml");
+}   
+    <script src="~/js/app/currentparameters.js"></script>
+
+}

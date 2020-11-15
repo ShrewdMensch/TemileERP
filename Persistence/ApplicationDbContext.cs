@@ -18,5 +18,8 @@ namespace Persistence
 
         }
         public DbSet<Photo> Photos { get; set; }
+        public DbSet<Personnel> Personnels { get; set; }
+        public DbSet<Payroll> Payrolls { get; set; }
+        public DbSet<Deduction> Deductions { get; set; }
     }
 }

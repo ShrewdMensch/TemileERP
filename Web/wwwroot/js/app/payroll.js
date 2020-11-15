@@ -7,9 +7,6 @@ $(document).ready(function () {
       });
 
     $(".right-buttons").append(
-      '<div class="float-right mt-2"> <a data-toggle="modal" data-target="#personnelCreateModal" class="btn btn-purple btn-primary btn-rounded float-right"><i class="fa fa-plus m-r-5"></i> Add Personnel</a></div>'
-    );
-    $(".right-buttons").append(
       '<div class="float-right mr-2 mt-2"> <a data-toggle="modal" data-target="#userCreateFormModal" class="btn btn-purple btn-primary btn-rounded float-right"><i class="fa fa-pencil m-r-5"></i> Edit Timesheet</a></div>'
     );
 

@@ -211,7 +211,6 @@
     </div>
 
 </div>
-<partial name="/PartialViews/Payroll/_PersonnelCreateFormPartial.cshtml" />
 
 
 
@@ -219,16 +218,9 @@
     @{
     await Html.RenderPartialAsync("_ValidationScriptsPartial");
 }
-    <script src="~/plugins/datatable/dataTables.buttons.min.js"></script>
-    <script src="~/plugins/datatable/jszip.min.js"></script>
-    <script src="~/plugins/datatable/pdfmake.min.js"></script>
-    <script src="~/plugins/datatable/vfs_fonts.js"></script>
-    <script src="~/plugins/datatable/buttons.html5.min.js"></script>
-    <script src="~/plugins/datatable/buttons.print.min.js"></script>
-    <script src="~/plugins/datatable/buttons.flash.min.js"></script>
-    <script src="~/js/dataTables.defaults.js"></script>    
+     @{
+    await Html.RenderPartialAsync("/PartialViews/_DataTablesScriptsImport.cshtml");
+}    
     <script src="~/js/app/payroll.js"></script>
-    <script src="~/js/countries.js"></script>
-    <script src="~/js/banks.js"></script>
 
 }

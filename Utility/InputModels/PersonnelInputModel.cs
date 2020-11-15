@@ -1,0 +1,26 @@
+using System;
+using Domain.Utility;
+
+namespace Utility.InputModels
+{
+    public class PersonnelInputModel
+    {
+        public Guid Id { get; set; }
+        public string FirstName { get; set; }
+        public string Surname { get; set; }
+        public string OtherName { get; set; }
+        public Sex Sex { get; set; }
+        public string Address { get; set; }
+        public string Email { get; set; }
+        public string Nationality { get; set; }
+        public string Religion { get; set; }
+        public Double DailyRate { get; set; }
+        public string Bank { get; set; }
+        public string AccountName { get; set; }
+        public string AccountNumber { get; set; }
+        public string BVN { get; set; }
+        public string PhoneNo { get; set; }
+        public string NextOfKin { get; set; }
+        public string NextOfKinPhoneNo { get; set; }
+    }
+}

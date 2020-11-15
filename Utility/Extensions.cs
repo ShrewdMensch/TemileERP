@@ -3,6 +3,7 @@ using System;
 using System.Globalization;
 using System.Linq;
 using Microsoft.AspNetCore.Html;
+using Domain;
 
 namespace Utility
 {
@@ -207,6 +208,12 @@ namespace Utility
         /***********************************************************************************************************
                ******* Collection Extension Methods*************************************************************************
                ************************************************************************************************************/
+        public static Payroll GetCurrentPayroll(this IEnumerable<Payroll> payrolls)
+        {
+            var today = DateTime.Today.ToDateOnly();
+
+            return payrolls.FirstOrDefault(p => p.Date.ToDateOnly() == today);
+        }
 
     }
 }

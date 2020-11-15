@@ -1,0 +1,40 @@
+<script>
+    $(document).ready(function () {
+        var message = $('#message-body').val();
+        var title = $('#message-title').val();
+        var type = $('#message-icon').val();
+
+        if (message) {
+            var span = document.createElement("span");
+            span.innerHTML = message;
+            swal({
+                title: title,
+                content: span,
+                closeOnClickOutside: false,
+                icon: type,
+                button: "Ok",
+
+            }).then(function (value) {
+                if (message.includes("logout")) {
+                    swal({
+                        title: "Logout Prompt",
+                        text: "Do you want to logout right now?",
+                        closeOnClickOutside: false,
+                        buttons: {
+                            Yes: true,
+                            No: true,
+                        },
+                    }).then(function (value) {
+                        switch (value) {
+                            case "Yes":
+                                location.href = "/";
+                                break;
+                            default:
+                                break;
+                        }
+                    });
+                }
+            });
+        }
+    });
+</script>

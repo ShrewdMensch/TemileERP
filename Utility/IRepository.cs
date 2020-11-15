@@ -26,5 +26,14 @@ namespace Utility
         Task<bool> HasValues<TEntity>() where TEntity : class;
         Task<bool> SaveAll();
 
+
+        //Deduction Entity Related
+        Task<float> TotalDeduction();
+
+
+        //Payroll Entity Related
+        Task<int> GetNumberOfCurrentPayrollWithVariablesSet();
+        Task<int> GetNumberOfCurrentPayrollWithoutVariablesSet();
+
     }
 }

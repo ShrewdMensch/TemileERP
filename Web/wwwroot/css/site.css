@@ -213,6 +213,11 @@ input.dt-button {
   color: #fff !important;
 }
 
+.dataTables_wrapper input {
+  border-radius: 10px !important;
+  padding: 5px !important;
+}
+
 table.display tbody tr {
   border-radius: 4px;
   -webkit-transition: all 0.1s ease;
@@ -231,8 +236,6 @@ table.display thead tr {
   color: #fff;
 }
 
-
-
 tbody td .big-cell {
   width: 220px !important;
 }
@@ -242,13 +245,22 @@ tfoot tr {
   color: #666;
 }
 
-/* Custom Inputs */
-input,
-select,
-textarea {
-  border-radius: 5px;
-  padding: 5px;
+.table-cell-wrap {
+  white-space: nowrap !important;
+  -o-text-overflow: ellipsis !important;
+  text-overflow: ellipsis !important;
+  overflow: hidden !important;
+  width: 120px !important;
 }
+
+/* Custom Inputs */
+.modal-content input,
+.modal-content select,
+.modal-content textarea {
+  border-radius: 10px!important;
+  padding: .75rem 1.25rem!important;
+}
+
 
 .select2-container .select2-selection--single,
 .select2-container--default .select2-selection--single .select2-selection__rendered {

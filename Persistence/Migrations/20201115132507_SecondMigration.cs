@@ -13,7 +13,7 @@ namespace Persistence.Migrations
                 {
                     Id = table.Column<Guid>(nullable: false),
                     Name = table.Column<string>(nullable: true),
-                    Percentage = table.Column<int>(nullable: false)
+                    Percentage = table.Column<float>(nullable: false)
                 },
                 constraints: table =>
                 {
@@ -61,7 +61,7 @@ namespace Persistence.Migrations
                     Id = table.Column<Guid>(nullable: false),
                     DailyRate = table.Column<double>(nullable: false),
                     DaysWorked = table.Column<int>(nullable: false),
-                    TotalDeductions = table.Column<int>(nullable: false),
+                    TotalDeductions = table.Column<float>(nullable: false),
                     Platform = table.Column<string>(nullable: true),
                     Date = table.Column<DateTime>(nullable: false),
                     IsVariablesSet = table.Column<bool>(nullable: false),

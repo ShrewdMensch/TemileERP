@@ -3,7 +3,7 @@ $(document).ready(function () {
     $("#table")
       .addClass("nowrap")
       .dataTable({
-        columnDefs: [{ orderable: false, targets: 0 }],
+        columnDefs: [{ orderable: false, targets: 8 }],
       });
 
     $(".right-buttons").append(
@@ -92,12 +92,15 @@ $(document).ready(function () {
   $("#personnelCreateModal").on("hidden.bs.modal", function (event) {
     $("#personnelCreateForm").parsley().reset();
     $("#personnelCreateForm")[0].reset();
+    $("#Personnel_bank_group span.select2-selection__rendered").removeClass(
+      "parsley-error"
+    );
   });
 
   //Personnel Edit Information Logic
   //Personnel Edit Form and API pull logic
   var form = $("#personnelEditForm");
-  var initialform = $(form).serialize();
+  var initialform;
 
   $("#personnelEditForm :input, #personnelEditForm textarea").on(
     "change",
@@ -111,6 +114,7 @@ $(document).ready(function () {
     var id = button.data("id");
     var modal = $(this);
     $("#Personnel_Id").val(id);
+    initialform = $(form).serialize();
 
     modal.find(".modal-body .row").attr("hidden", true);
     modal.find("#loader").attr("hidden", false);

@@ -66,7 +66,18 @@ namespace Web.Pages.Accounting
 
             _repository.Add<Personnel>(personnel);
 
-            await _repository.SaveAll();
+            if (await _repository.SaveAll())
+            {
+                MessageTitle = "Personnel Information Update";
+                MessageIcon = MessageType.Success;
+                MessageBody = "Personnel has been updated successfully";
+            }
+            else
+            {
+                MessageTitle = "Personnel Information Update";
+                MessageIcon = MessageType.Error;
+                MessageBody = "Personnel could not be updated";
+            }
             return RedirectToPage();
         }
         public async Task<IActionResult> OnPostEditPersonnelAsync(PersonnelInputModel personnelInputModel)
@@ -116,7 +127,7 @@ namespace Web.Pages.Accounting
 
             MessageTitle = "Personnel Information Update";
             MessageIcon = MessageType.Success;
-            MessageBody = String.Format("Personnel with ID - {0} has been updated successfully", personnel.Id);
+            MessageBody = "Personnel has been updated successfully";
 
             return RedirectToPage();
         }

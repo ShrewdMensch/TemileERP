@@ -9,7 +9,7 @@ using Persistence;
 namespace Persistence.Migrations
 {
     [DbContext(typeof(ApplicationDbContext))]
-    [Migration("20201114135002_SecondMigration")]
+    [Migration("20201115132507_SecondMigration")]
     partial class SecondMigration
     {
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
@@ -131,8 +131,8 @@ namespace Persistence.Migrations
                     b.Property<string>("Name")
                         .HasColumnType("TEXT");
 
-                    b.Property<int>("Percentage")
-                        .HasColumnType("INTEGER");
+                    b.Property<float>("Percentage")
+                        .HasColumnType("REAL");
 
                     b.HasKey("Id");
 
@@ -163,8 +163,8 @@ namespace Persistence.Migrations
                     b.Property<string>("Platform")
                         .HasColumnType("TEXT");
 
-                    b.Property<int>("TotalDeductions")
-                        .HasColumnType("INTEGER");
+                    b.Property<float>("TotalDeductions")
+                        .HasColumnType("REAL");
 
                     b.HasKey("Id");
 

@@ -129,8 +129,8 @@ namespace Persistence.Migrations
                     b.Property<string>("Name")
                         .HasColumnType("TEXT");
 
-                    b.Property<int>("Percentage")
-                        .HasColumnType("INTEGER");
+                    b.Property<float>("Percentage")
+                        .HasColumnType("REAL");
 
                     b.HasKey("Id");
 
@@ -161,8 +161,8 @@ namespace Persistence.Migrations
                     b.Property<string>("Platform")
                         .HasColumnType("TEXT");
 
-                    b.Property<int>("TotalDeductions")
-                        .HasColumnType("INTEGER");
+                    b.Property<float>("TotalDeductions")
+                        .HasColumnType("REAL");
 
                     b.HasKey("Id");
 

@@ -1,5 +1,7 @@
 ﻿@page "{handler?}"
 @model PayrollModel
+@using Utility
+
 @{
     ViewData["Title"] = "Payroll Processing";
     ViewData["Name"] = "Payroll";
@@ -9,6 +11,11 @@
         <h3>Payroll Processing</h3>
     </div>
 </div>
+
+<input type="text" hidden id="message-body" value="@Model.MessageBody.GetHtmlString()">
+<input type="text" hidden id="message-title" value="@Model.MessageTitle">
+<input type="text" hidden id="message-icon" value="@Model.MessageIcon">
+
 
 <div class="row d-flex justify-content-end mt-3">
     <div class="col-sm-12 col-md-4 layout-spacing">
@@ -216,11 +223,16 @@
 
 @section Scripts{
     @{
-    await Html.RenderPartialAsync("_ValidationScriptsPartial");
-}
-     @{
-    await Html.RenderPartialAsync("/PartialViews/_DataTablesScriptsImport.cshtml");
-}    
+        await Html.RenderPartialAsync("_ValidationScriptsPartial");
+    }
+
+    @{
+        await Html.RenderPartialAsync("/PartialViews/_DataTablesScriptsImport.cshtml");
+    }    
+
+    @{
+        await Html.RenderPartialAsync("/PartialViews/_SweetAlertPartial.cshtml");
+    }
     <script src="~/js/app/payroll.js"></script>
 
 }

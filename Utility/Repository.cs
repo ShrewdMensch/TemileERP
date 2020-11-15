@@ -83,5 +83,33 @@ namespace Utility
             return _context.Set<TEntity>().Attach(entity);
         }
 
+        /***********************************************************************************************************
+                   ******* Deduction Entity Queries*************************************************************************
+                   ************************************************************************************************************/
+        public async Task<float> TotalDeduction()
+        {
+            var deductions = await GetAll<Deduction>();
+
+            return deductions.Sum(deduction => deduction.Percentage);
+        }
+
+        /***********************************************************************************************************
+                   ******* Payroll Entity Queries*************************************************************************
+                   ************************************************************************************************************/
+        public async Task<int> GetNumberOfCurrentPayrollWithVariablesSet()
+        {
+            var today = DateTime.Today.ToDateOnly();
+            var payrolls = (await GetAll<Payroll>()).Where(p => p.Date.ToDateOnly() == today && p.IsVariablesSet);
+
+            return payrolls.Count();
+        }
+
+        public async Task<int> GetNumberOfCurrentPayrollWithoutVariablesSet()
+        {
+            var today = DateTime.Today.ToDateOnly();
+            var payrolls = (await GetAll<Payroll>()).Where(p => p.Date.ToDateOnly() == today && !p.IsVariablesSet);
+
+            return payrolls.Count();
+        }
     }
 }

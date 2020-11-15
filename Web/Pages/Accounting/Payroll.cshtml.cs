@@ -3,7 +3,7 @@ using Microsoft.Extensions.Logging;
 
 namespace Web.Pages.Accounting
 {
-    public class PayrollModel : PageModel
+    public class PayrollModel : BasePageModel
     {
         private readonly ILogger<PayrollModel> _logger;
 

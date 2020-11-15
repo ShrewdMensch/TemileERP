@@ -24,5 +24,13 @@ namespace Web.API
             return Ok(Mapper.Map<IEnumerable<Personnel>, IEnumerable<PersonnelDto>>(users));
         }
 
+        [HttpGet("{id}/CurrentPayroll")]
+        public async Task<ActionResult<PersonnelCurrentPayrollDto>> GetCurrentPayroll(Guid id)
+        {
+            var personnel = await Repository.Get<Personnel>(id);
+
+            return Ok(Mapper.Map<Personnel, PersonnelCurrentPayrollDto>(personnel));
+        }
+
     }
 }

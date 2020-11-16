@@ -181,7 +181,6 @@ $(document).ready(function () {
     var id = button.data("id");
     var modal = $(this);
     $("#Personnel_Id").val(id);
-    initialform = $(form).serialize();
 
     modal.find(".modal-body .row").attr("hidden", true);
     modal.find("#loader").attr("hidden", false);

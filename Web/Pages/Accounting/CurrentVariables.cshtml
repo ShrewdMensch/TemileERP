@@ -9,7 +9,7 @@
     ViewData["Name"] = "CurrentVariables";
 
     var allPersonnelCount = Model.PersonnelCurrentPayrolls.Count();
-    var personnelWithPayrollVariablesSetCount = await repository.GetNumberOfCurrentPayroll();
+    var personnelWithPayrollVariablesSetCount = await repository.GetNumberOfCurrentPayrolls();
     var personnelWithoutPayrollVariablesSetCount = allPersonnelCount - personnelWithPayrollVariablesSetCount;
 }
 

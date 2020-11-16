@@ -96,10 +96,16 @@ namespace Utility
         /***********************************************************************************************************
                    ******* Payroll Entity Queries*************************************************************************
                    ************************************************************************************************************/
-        public async Task<int> GetNumberOfCurrentPayroll()
+        public async Task<int> GetNumberOfCurrentPayrolls()
         {
 
             return (await GetCurrentPayrolls()).Count();
+        }
+
+        public async Task<int> GetNumberOfAllPayrolls()
+        {
+
+            return (await GetAll<Payroll>()).Count();
         }
 
         public async Task<IEnumerable<Payroll>> GetCurrentPayrolls()
@@ -108,6 +114,19 @@ namespace Utility
             var payrolls = (await GetAll<Payroll>()).Where(p => p.Date.ToFormalMonthAndYear() == today);
 
             return payrolls;
+        }
+
+        public async Task<int> GetNumberOfActivePersonnels()
+        {
+            var personnels = (await GetAll<Personnel>()).Where(p => p.IsActive);
+
+            return personnels.Count();
+        }
+        public async Task<int> GetNumberOfInctivePersonnels()
+        {
+            var personnels = (await GetAll<Personnel>()).Where(p => !p.IsActive);
+
+            return personnels.Count();
         }
     }
 }

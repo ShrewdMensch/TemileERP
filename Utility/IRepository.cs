@@ -31,8 +31,14 @@ namespace Utility
         Task<float> TotalDeduction();
 
 
+        //Personnel Entity Related
+        Task<int> GetNumberOfActivePersonnels();
+        Task<int> GetNumberOfInctivePersonnels();
+
+
         //Payroll Entity Related
-        Task<int> GetNumberOfCurrentPayroll();
+        Task<int> GetNumberOfCurrentPayrolls();
+        Task<int> GetNumberOfAllPayrolls();
         Task<IEnumerable<Payroll>> GetCurrentPayrolls();
 
     }

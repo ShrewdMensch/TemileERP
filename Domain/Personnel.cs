@@ -7,6 +7,10 @@ namespace Domain
 {
     public class Personnel
     {
+        public Personnel()
+        {
+            IsActive = true;
+        }
         public Guid Id { get; set; }
 
         [Required]
@@ -37,6 +41,7 @@ namespace Domain
         public string PhoneNumber { get; set; }
         public string NextOfKin { get; set; }
         public string NextOfKinPhoneNumber { get; set; }
+        public bool IsActive { get; set; }
         public virtual Photo Photo { get; set; }
         public virtual ICollection<Payroll> Payrolls { get; set; }
 

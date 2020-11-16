@@ -1,0 +1,104 @@
+﻿@page "{handler?}"
+@model DeductionsModel
+@using static Utility.UtilityFunctions
+@using Utility
+@{
+    ViewData["Title"] = "Deductions";
+    ViewData["Name"] = "Deductions";
+}
+
+@section StyleSheets{
+    <link rel="stylesheet" href="~/plugins/bootstrap-touchspin/jquery.bootstrap-touchspin.min.css">
+}
+
+<div class="page-header">
+    <div class="page-title">
+        <h3>Deductions</h3>
+    </div>
+</div>
+
+<input type="text" hidden id="message-body" value="@Model.MessageBody.GetHtmlString()">
+<input type="text" hidden id="message-title" value="@Model.MessageTitle">
+<input type="text" hidden id="message-icon" value="@Model.MessageIcon">
+
+<div class="row" id="cancel-row">
+
+    <div class="col-xl-12 col-lg-12 col-sm-12  layout-spacing">
+        <div class="widget-content widget-content-area br-6">
+                <table id="table" class="display text-left" style="width:100%">
+                                    <thead>
+                                        <tr>
+                                            <th>Name</th>
+                                            <th>Percentage</th>
+                                            <th>DateAdded</th>
+                                            <th>ModifiedBy</th>
+                                            <th>LastModified</th>
+                                            <th></th>
+                                        </tr>
+                                    </thead>
+                                    <tbody>
+                                        @foreach (var deduction in Model.Deductions)
+                                        {
+                                            <tr>
+                                            <td>@deduction.Name</td>
+                                            <td>@deduction.Percentage%</td>
+                                            <td>@deduction.DateAdded</td> 
+                                            <td>@deduction.ModifiedBy</td>
+                                            <td>@deduction.LastModified</td>
+                                            <td class="float-right">
+                                                 <a class="text-primary" data-toggle="modal" data-target="#deductionEditModal" data-id="@deduction.Id">
+                                                     <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-edit">
+                                                        <path d="M11 4H4a2 2 0 0 0-2 2v14a2 2 0 0 0 2 2h14a2 2 0 0 0 2-2v-7"></path>
+                                                        <path d="M18.5 2.5a2.121 2.121 0 0 1 3 3L12 15l-4 1 1-4 9.5-9.5z"></path>
+                                                     </svg>
+                                                </a>
+                                                 <a class="text-danger" data-toggle="modal" data-target="#deductionDeleteModal"
+                                                  data-name="@deduction.Name" data-id="@deduction.Id">
+                                                     <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-delete"><path d="M21 4H8l-7 8 7 8h13a2 2 0 0 0 2-2V6a2 2 0 0 0-2-2z"></path><line x1="18" y1="9" x2="12" y2="15"></line><line x1="12" y1="9" x2="18" y2="15"></line></svg>
+                                                </a>
+                                            </td>
+                                        </tr>
+                                        }
+                                    </tbody>
+                                    <tfoot>
+                                        <tr>
+                                            <th>Name</th>
+                                            <th>Percentage</th>
+                                            <th>DateAdded</th>
+                                            <th>ModifiedBy</th>
+                                            <th>LastModified</th>
+                                            <th></th>
+                                        </tr>
+                                    </tfoot>
+                                </table>
+        </div>
+    </div>
+
+</div>
+
+<partial name="/PartialViews/Payroll/_DeductionCreationPartial.cshtml" />
+<partial name="/PartialViews/Payroll/_DeductionEditPartial.cshtml" />
+<partial name="/PartialViews/Payroll/_DeductionDeletePartial.cshtml" />
+
+@section Scripts{
+    @{
+        await Html.RenderPartialAsync("_ValidationScriptsPartial");
+    }
+
+    @{
+        await Html.RenderPartialAsync("/PartialViews/_DataTablesScriptsImport.cshtml");
+    }
+
+    @{
+        await Html.RenderPartialAsync("/PartialViews/_SweetAlertPartial.cshtml");
+    }
+
+    @{
+        await Html.RenderPartialAsync("/PartialViews/_BootstrapTouchspinScripts.cshtml");
+    }
+    
+    <script src="~/js/countries.js"></script>
+    <script src="~/js/banks.js"></script>
+    <script src="~/js/app/deductions.js"></script>
+
+}

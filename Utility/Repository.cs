@@ -96,20 +96,18 @@ namespace Utility
         /***********************************************************************************************************
                    ******* Payroll Entity Queries*************************************************************************
                    ************************************************************************************************************/
-        public async Task<int> GetNumberOfCurrentPayrollWithVariablesSet()
+        public async Task<int> GetNumberOfCurrentPayroll()
         {
-            var today = DateTime.Today.ToDateOnly();
-            var payrolls = (await GetAll<Payroll>()).Where(p => p.Date.ToDateOnly() == today && p.IsVariablesSet);
 
-            return payrolls.Count();
+            return (await GetCurrentPayrolls()).Count();
         }
 
-        public async Task<int> GetNumberOfCurrentPayrollWithoutVariablesSet()
+        public async Task<IEnumerable<Payroll>> GetCurrentPayrolls()
         {
-            var today = DateTime.Today.ToDateOnly();
-            var payrolls = (await GetAll<Payroll>()).Where(p => p.Date.ToDateOnly() == today && !p.IsVariablesSet);
+            var today = DateTime.Today.ToFormalMonthAndYear();
+            var payrolls = (await GetAll<Payroll>()).Where(p => p.Date.ToFormalMonthAndYear() == today);
 
-            return payrolls.Count();
+            return payrolls;
         }
     }
 }

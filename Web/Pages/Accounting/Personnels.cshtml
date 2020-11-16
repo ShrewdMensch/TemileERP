@@ -6,6 +6,9 @@
     ViewData["Title"] = "Personnels";
     ViewData["Name"] = "Personnels";
 }
+@section StyleSheets{
+    <link rel="stylesheet" href="~/plugins/bootstrap-touchspin/jquery.bootstrap-touchspin.min.css">
+}
 
 <div class="page-header">
     <div class="page-title">
@@ -39,7 +42,7 @@
                                         @foreach (var personnel in Model.Personnels)
                                         {
                                             <tr>
-                                            <td class="text-left">
+                                            <td>
                                                 <div class="d-flex">                                                        
                                                     <div class="usr-img-frame mr-2 rounded-circle">
                                                         <img alt="avatar" class="img-fluid rounded-circle" src="@GetUserImagePath(personnel?.Photo)">
@@ -47,14 +50,14 @@
                                                     <p class="align-self-center mb-0 admin-name"> @personnel.Name</p>
                                                 </div>
                                             </td>
-                                            <td class="text-left">@personnel.DailyRate.ToCurrency()</td>
-                                            <td class="text-left">@personnel.Sex</td>
-                                            <td class="text-left">@personnel.Email</td> 
-                                            <td class="text-left" title="@personnel.Bank"><div class="table-cell-wrap">@personnel.Bank</div></td>
-                                            <td class="text-left" title="@personnel.AccountName"><div class="table-cell-wrap">@personnel.AccountName</div></td>
-                                            <td class="text-left">@personnel.AccountNumber</td>
-                                            <td class="text-left">@personnel.PhoneNumber</td>
-                                            <td class="text-left">
+                                            <td>@personnel.DailyRate.ToCurrency()</td>
+                                            <td>@personnel.Sex</td>
+                                            <td>@personnel.Email</td> 
+                                            <td title="@personnel.Bank"><div class="table-cell-wrap">@personnel.Bank</div></td>
+                                            <td title="@personnel.AccountName"><div class="table-cell-wrap">@personnel.AccountName</div></td>
+                                            <td>@personnel.AccountNumber</td>
+                                            <td>@personnel.PhoneNumber</td>
+                                            <td>
                                                  <a class="text-primary" data-toggle="modal" data-target="#personnelEditModal" data-id="@personnel.Id">
                                                      <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-edit">
                                                         <path d="M11 4H4a2 2 0 0 0-2 2v14a2 2 0 0 0 2 2h14a2 2 0 0 0 2-2v-7"></path>
@@ -100,6 +103,9 @@
         await Html.RenderPartialAsync("/PartialViews/_SweetAlertPartial.cshtml");
     }
 
+    @{
+        await Html.RenderPartialAsync("/PartialViews/_BootstrapTouchspinScripts.cshtml");
+    }
     
     <script src="~/js/countries.js"></script>
     <script src="~/js/banks.js"></script>

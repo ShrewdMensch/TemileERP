@@ -9,7 +9,7 @@
     ViewData["Name"] = "CurrentVariables";
 
     var allPersonnelCount = Model.PersonnelCurrentPayrolls.Count();
-    var personnelWithPayrollVariablesSetCount = await repository.GetNumberOfCurrentPayrollWithVariablesSet();
+    var personnelWithPayrollVariablesSetCount = await repository.GetNumberOfCurrentPayroll();
     var personnelWithoutPayrollVariablesSetCount = allPersonnelCount - personnelWithPayrollVariablesSetCount;
 }
 
@@ -18,6 +18,9 @@
         <h3>Current Month Payroll Variables</h3>
     </div>
 </div>
+@section StyleSheets{
+    <link rel="stylesheet" href="~/plugins/bootstrap-touchspin/jquery.bootstrap-touchspin.min.css">
+}
 
 <input type="text" hidden id="message-body" value="@Model.MessageBody.GetHtmlString()">
 <input type="text" hidden id="message-title" value="@Model.MessageTitle">
@@ -165,7 +168,12 @@
 
     @{
         await Html.RenderPartialAsync("/PartialViews/_SweetAlertPartial.cshtml");
-    }   
+    }
+    
+    @{
+        await Html.RenderPartialAsync("/PartialViews/_BootstrapTouchspinScripts.cshtml");
+    }
+
     <script src="~/js/app/currentparameters.js"></script>
 
 }

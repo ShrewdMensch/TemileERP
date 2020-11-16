@@ -3,7 +3,7 @@
     <div class="modal fade animated fadeInRight custo-fadeInRight show" id="currentPayrollVariablesModal"
         data-backdrop="static" data-keyboard="false" tabindex="-1" aria-labelledby="staticBackdropLabel"
         aria-hidden="true">
-        <div class="modal-dialog modal-md  modal-dialog-centered modal-dialog-scrollable" role="document">
+        <div class="modal-dialog modal-sm  modal-dialog-centered modal-dialog-scrollable" role="document">
             <div class="modal-content">
                 <div class="modal-header">
                     <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none"
@@ -19,30 +19,36 @@
                 </div>
                 <div class="modal-body">
                     <div class="row">
-                        <div class="form-group col-sm-6">
+                        <div class="form-group col-sm-12">
                             <label class="control-label" for="Edit_Name">Personnel Name <span
                                     class="text-danger">*</span></label>
                             <input class="form-control" type="text" id="Edit_Name" readonly value="">
                             <input type="text" name="PayrollId" hidden id="Payroll_Id" value="">
                             <input type="text" name="PersonnelId" hidden id="Personnel_Id" value="">
                         </div>
-                        <div class="form-group col-sm-6 tb-alternating">
+                        <div class="form-group col-sm-12 tb-alternating">
                             <label class="control-label" for="Edit_DaysWorked">Days Worked <span
                                     class="text-danger">*</span></label>
-                            <input class="form-control" required id="Edit_DaysWorked" min="1" max="30" type="number"
+                            <input class="form-control" required id="Edit_DaysWorked" min="1" max="30" type="text"
+                                data-parsley-errors-container="#daysWorked_error"
+                                data-parsley-trigger-after-failure="change"
                                 data-parsley-required-message="Days worked is required"
                                 data-parsley-min-message="Days worked should be not < a day"
                                 data-parsley-max-message="Days worked should not be > 30 days" name="DaysWorked" />
+                            <span id="daysWorked_error"></span>
                         </div>
-                        <div class="form-group col-sm-6 tb-alternating">
+                        <div class="form-group col-sm-12 tb-alternating">
                             <label class="control-label" for="Edit_DailyRate">Daily Rate <span
                                     class="text-danger">*</span></label>
                             <input class="form-control" min="500" type="number" id="Edit_DailyRate" required
+                                data-parsley-errors-container="#dailyRate_error"
+                                data-parsley-trigger-after-failure="change"
                                 data-parsley-required-message="Daily rate is required."
                                 data-parsley-min-message="Daily rate should not be less than 500" name="DailyRate"
                                 value="">
+                            <span id="dailyRate_error"></span>
                         </div>
-                        <div class="form-group col-sm-6 tb-alternating">
+                        <div class="form-group col-sm-12 tb-alternating">
                             <label class="control-label" for="Edit_DailyRate">Platform <span
                                     class="text-danger">*</span></label>
                             <input class="form-control" type="text" id="Edit_Platform" required

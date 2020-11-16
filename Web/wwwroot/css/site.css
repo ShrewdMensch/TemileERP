@@ -236,6 +236,19 @@ table.display thead tr {
   color: #fff;
 }
 
+table.display td,
+table.display th {
+  text-align: left!important;
+}
+table.display td a {
+  text-align: right!important;
+}
+
+table img.img-fluid.rounded-circle {
+  width: 35px !important;
+  margin: 0;
+}
+
 tbody td .big-cell {
   width: 220px !important;
 }
@@ -257,8 +270,8 @@ tfoot tr {
 .modal-content input,
 .modal-content select,
 .modal-content textarea {
-  border-radius: 10px!important;
-  padding: .75rem 1.25rem!important;
+  border-radius: 10px;
+  padding: .75rem 1.25rem;
 }
 
 
@@ -271,9 +284,15 @@ tfoot tr {
 margin-bottom: 0!important;
 }
 
-table img.img-fluid.rounded-circle {
-  width: 35px !important;
-  margin: 0;
+li.select2-results__option{
+   transition: all 0.3s ease-in;
+   -o-transition: all 0.3s ease-in;
+   -moz-transition: all 0.3s ease-in;
+   -webkit-transition: all 0.3s ease-in;
+}
+li.select2-results__option:hover {
+  background-color: #1b55e2 !important;
+  color: #fff!important;
 }
 
 /* Modal Styles */
@@ -293,4 +312,16 @@ table img.img-fluid.rounded-circle {
   color: #fff;
   height: 32px;
   margin-right: 10px;
+}
+
+/* Sweet Alerts Styles */
+.swal-title {
+  text-align: center !important;
+}
+
+.swal-text,
+.swal-content {
+  text-align: center !important;
+  margin-top: 25px !important;
+  font-size: 18px !important;
 }

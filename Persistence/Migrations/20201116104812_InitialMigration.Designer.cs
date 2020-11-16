@@ -9,7 +9,7 @@ using Persistence;
 namespace Persistence.Migrations
 {
     [DbContext(typeof(ApplicationDbContext))]
-    [Migration("20201110165332_InitialMigration")]
+    [Migration("20201116104812_InitialMigration")]
     partial class InitialMigration
     {
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
@@ -120,6 +120,161 @@ namespace Persistence.Migrations
                     b.HasIndex("PhotoId");
 
                     b.ToTable("AspNetUsers");
+                });
+
+            modelBuilder.Entity("Domain.Deduction", b =>
+                {
+                    b.Property<Guid>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("TEXT");
+
+                    b.Property<string>("AddedById")
+                        .HasColumnType("TEXT");
+
+                    b.Property<DateTime>("DateAdded")
+                        .HasColumnType("TEXT");
+
+                    b.Property<DateTime>("LastModified")
+                        .HasColumnType("TEXT");
+
+                    b.Property<string>("ModifiedById")
+                        .HasColumnType("TEXT");
+
+                    b.Property<string>("Name")
+                        .HasColumnType("TEXT");
+
+                    b.Property<float>("Percentage")
+                        .HasColumnType("REAL");
+
+                    b.HasKey("Id");
+
+                    b.HasIndex("AddedById");
+
+                    b.HasIndex("ModifiedById");
+
+                    b.ToTable("Deductions");
+                });
+
+            modelBuilder.Entity("Domain.DeductionSummary", b =>
+                {
+                    b.Property<Guid>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("TEXT");
+
+                    b.Property<string>("DeductionName")
+                        .HasColumnType("TEXT");
+
+                    b.Property<float>("DeductionPercentage")
+                        .HasColumnType("REAL");
+
+                    b.Property<Guid>("PayrollId")
+                        .HasColumnType("TEXT");
+
+                    b.HasKey("Id");
+
+                    b.HasIndex("PayrollId");
+
+                    b.ToTable("DeductionSummaries");
+                });
+
+            modelBuilder.Entity("Domain.Payroll", b =>
+                {
+                    b.Property<Guid>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("TEXT");
+
+                    b.Property<double>("DailyRate")
+                        .HasColumnType("REAL");
+
+                    b.Property<DateTime>("Date")
+                        .HasColumnType("TEXT");
+
+                    b.Property<int>("DaysWorked")
+                        .HasColumnType("INTEGER");
+
+                    b.Property<bool>("IsVariablesSet")
+                        .HasColumnType("INTEGER");
+
+                    b.Property<Guid>("PersonnelId")
+                        .HasColumnType("TEXT");
+
+                    b.Property<string>("Platform")
+                        .HasColumnType("TEXT");
+
+                    b.Property<float>("TotalDeductions")
+                        .HasColumnType("REAL");
+
+                    b.HasKey("Id");
+
+                    b.HasIndex("PersonnelId");
+
+                    b.ToTable("Payrolls");
+                });
+
+            modelBuilder.Entity("Domain.Personnel", b =>
+                {
+                    b.Property<Guid>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("TEXT");
+
+                    b.Property<string>("AccountName")
+                        .HasColumnType("TEXT");
+
+                    b.Property<string>("AccountNumber")
+                        .HasColumnType("TEXT");
+
+                    b.Property<string>("Address")
+                        .HasColumnType("TEXT");
+
+                    b.Property<string>("BVN")
+                        .HasColumnType("TEXT");
+
+                    b.Property<string>("Bank")
+                        .HasColumnType("TEXT");
+
+                    b.Property<double>("DailyRate")
+                        .HasColumnType("REAL");
+
+                    b.Property<string>("Email")
+                        .HasColumnType("TEXT");
+
+                    b.Property<string>("FirstName")
+                        .IsRequired()
+                        .HasColumnType("TEXT");
+
+                    b.Property<string>("LastName")
+                        .IsRequired()
+                        .HasColumnType("TEXT");
+
+                    b.Property<string>("Nationality")
+                        .HasColumnType("TEXT");
+
+                    b.Property<string>("NextOfKin")
+                        .HasColumnType("TEXT");
+
+                    b.Property<string>("NextOfKinPhoneNumber")
+                        .HasColumnType("TEXT");
+
+                    b.Property<string>("OtherName")
+                        .HasColumnType("TEXT");
+
+                    b.Property<string>("PhoneNumber")
+                        .HasColumnType("TEXT");
+
+                    b.Property<Guid?>("PhotoId")
+                        .HasColumnType("TEXT");
+
+                    b.Property<string>("Religion")
+                        .HasColumnType("TEXT");
+
+                    b.Property<int>("Sex")
+                        .HasColumnType("INTEGER");
+
+                    b.HasKey("Id");
+
+                    b.HasIndex("PhotoId");
+
+                    b.ToTable("Personnels");
                 });
 
             modelBuilder.Entity("Domain.Photo", b =>
@@ -265,6 +420,42 @@ namespace Persistence.Migrations
                 });
 
             modelBuilder.Entity("Domain.AppUser", b =>
+                {
+                    b.HasOne("Domain.Photo", "Photo")
+                        .WithMany()
+                        .HasForeignKey("PhotoId");
+                });
+
+            modelBuilder.Entity("Domain.Deduction", b =>
+                {
+                    b.HasOne("Domain.AppUser", "AddedBy")
+                        .WithMany()
+                        .HasForeignKey("AddedById");
+
+                    b.HasOne("Domain.AppUser", "ModifiedBy")
+                        .WithMany()
+                        .HasForeignKey("ModifiedById");
+                });
+
+            modelBuilder.Entity("Domain.DeductionSummary", b =>
+                {
+                    b.HasOne("Domain.Payroll", "Payroll")
+                        .WithMany("DeductionSummaries")
+                        .HasForeignKey("PayrollId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+                });
+
+            modelBuilder.Entity("Domain.Payroll", b =>
+                {
+                    b.HasOne("Domain.Personnel", "Personnel")
+                        .WithMany("Payrolls")
+                        .HasForeignKey("PersonnelId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+                });
+
+            modelBuilder.Entity("Domain.Personnel", b =>
                 {
                     b.HasOne("Domain.Photo", "Photo")
                         .WithMany()

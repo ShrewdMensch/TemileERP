@@ -2,7 +2,7 @@ using System;
 
 namespace Utility.DTOs
 {
-    public class PersonnelCurrentPayrollDto
+    public class PersonnelPayrollDto
     {
         public Guid PersonnelId { get; set; }
         public Guid PayrollId { get; set; }
@@ -17,5 +17,6 @@ namespace Utility.DTOs
         public bool IsPayrollVariablesSet { get; set; }
         public string PhoneNumber { get; set; }
         public string PersonnelPhoto { get; set; }
+        public string Period { get; set; }
     }
 }

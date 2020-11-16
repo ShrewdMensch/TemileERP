@@ -1,12 +1,20 @@
 ﻿@page
 @model DashboardModel
+@using Utility
+
 @{
     ViewData["Title"] = "Dashboard";
     ViewData["Name"] = "Dashboard";
 }
 
-<div class="row layout-top-spacing">
+@section StyleSheets{
+    <link href="~/plugins/apex/apexcharts.css" rel="stylesheet" type="text/css">
+}
 
+<div class="row layout-top-spacing">
+<input type="text" hidden id="message-body" value="@Model.MessageBody.GetHtmlString()">
+<input type="text" hidden id="message-title" value="@Model.MessageTitle">
+<input type="text" hidden id="message-icon" value="@Model.MessageIcon">
     <div class="col-xl-5 col-lg-12 col-md-12 col-sm-12 col-12 layout-spacing">
         <div class="widget widget-one">
             <div class="widget-heading">
@@ -534,3 +542,9 @@
     </div>
 
 </div>
+
+@section Scripts{
+    @{
+        await Html.RenderPartialAsync("/PartialViews/_ChartScriptsImport.cshtml");
+    }
+}

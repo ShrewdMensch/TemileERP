@@ -19,17 +19,17 @@ namespace Web.API
         [HttpGet("All")]
         public async Task<ActionResult<PersonnelDto>> GetAll()
         {
-            var users = await Repository.GetAll<Personnel>();
+            var personnels = await Repository.GetAll<Personnel>();
 
-            return Ok(Mapper.Map<IEnumerable<Personnel>, IEnumerable<PersonnelDto>>(users));
+            return Ok(Mapper.Map<IEnumerable<Personnel>, IEnumerable<PersonnelDto>>(personnels));
         }
 
         [HttpGet("{id}/CurrentPayroll")]
-        public async Task<ActionResult<PersonnelCurrentPayrollDto>> GetCurrentPayroll(Guid id)
+        public async Task<ActionResult<PersonnelPayrollDto>> GetCurrentPayroll(Guid id)
         {
             var personnel = await Repository.Get<Personnel>(id);
 
-            return Ok(Mapper.Map<Personnel, PersonnelCurrentPayrollDto>(personnel));
+            return Ok(Mapper.Map<Personnel, PersonnelPayrollDto>(personnel));
         }
 
     }

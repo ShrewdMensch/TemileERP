@@ -39,15 +39,16 @@
                                     class="text-muted-light">(optional)</span></label>
                             <input class="form-control" type="text" id="Personnel_OtherName" name="OtherName" value="">
                         </div>
-                        <div class="form-group col-sm-6 tb-alternating">
+                        <div class="form-group col-sm-6 tb-alternating" id="Personnel_sex_group">
                             <label class="control-label" for="Personnel_Sex">Sex <span
                                     class="text-danger">*</span></label>
                             <select required data-parsley-required-message="Sex is required." id="Personnel_Sex"
-                                name="Sex" class="form-control">
-                                <option value="">--Select Sex--</option>
+                                data-parsley-errors-container="#personnel_sex-error"
+                                data-parsley-trigger-after-failure="change" name="Sex" class="form-control">
                                 <option value="Male">Male</option>
                                 <option value="Female">Female</option>
                             </select>
+                            <span id="personnel_sex-error"></span>
                         </div>
                         <div class="form-group col-sm-6 tb-alternating">
                             <label class="control-label" for="Personnel_Nationality">Nationality <span
@@ -56,16 +57,18 @@
                                 class="form-control" type="text" id="Personnel_Nationality" name="Nationality" value="">
                             </select>
                         </div>
-                        <div class="form-group col-sm-6 tb-alternating">
+                        <div class="form-group col-sm-6 tb-alternating" id="Personnel_religion_group">
                             <label class="control-label" for="Personnel_Religion">Religion <span
                                     class="text-danger">*</span></label>
                             <select required data-parsley-required-message="Religion is required." class="form-control"
-                                type="text" id="Personnel_Religion" name="Religion" value="">
-                                <option value="">--Select Religion--</option>
+                                data-parsley-errors-container="#personnel_religion-error"
+                                data-parsley-trigger-after-failure="change" type="text" id="Personnel_Religion"
+                                name="Religion" value="">
                                 <option value="Islam">Islam</option>
                                 <option value="Christianity">Christianity</option>
                                 <option value="Others">Others</option>
                             </select>
+                            <span id="personnel_religion-error"></span>
                         </div>
                         <div class="form-group col-sm-6 tb-alternating">
                             <label class="control-label" for="Personnel_Email">Email <span
@@ -76,17 +79,22 @@
                         <div class="form-group col-sm-6 tb-alternating">
                             <label class="control-label" for="Personnel_DailyRate">Daily Rate <span
                                     class="text-danger">*</span></label>
-                            <input class="form-control" min="500" type="number" id="Personnel_DailyRate" required
+                            <input class="form-control" min="500" type="text" id="Personnel_DailyRate" required
+                                data-parsley-errors-container="#personnel_dailyRate_error"
+                                data-parsley-trigger-after-failure="change"
                                 data-parsley-required-message="Daily rate is required."
                                 data-parsley-min-message="Daily rate should not be less than 500" name="DailyRate"
                                 value="">
+                            <span id="personnel_dailyRate_error"></span>
                         </div>
                         <div class="form-group col-sm-6 tb-alternating" id="Personnel_bank_group">
                             <label class="control-label" for="Personnel_Bank">Bank <span
                                     class="text-danger">*</span></label>
                             <select class="form-control" id="Personnel_Bank" required
-                                data-parsley-errors-container="#bank-error"
-                                data-parsley-required-message="Bank is required." name="Bank" value=""></select>
+                                data-parsley-errors-container="#bank-error" data-parsley-trigger-after-failure="change"
+                                data-parsley-required-message="Bank is required." name="Bank" value="">
+                                <option value="">Select Bank...</option>
+                            </select>
                             <span id="bank-error"></span>
                         </div>
                         <div class="form-group col-sm-6 tb-alternating">

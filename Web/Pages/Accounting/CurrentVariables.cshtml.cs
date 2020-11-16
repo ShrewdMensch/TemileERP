@@ -26,13 +26,13 @@ namespace Web.Pages.Accounting
         }
 
         [BindProperty]
-        public IEnumerable<PersonnelCurrentPayrollDto> PersonnelCurrentPayrolls { get; set; }
+        public IEnumerable<PersonnelPayrollDto> PersonnelCurrentPayrolls { get; set; }
 
         public async Task<IActionResult> OnGet()
         {
             var personnels = await _repository.GetAll<Personnel>();
 
-            PersonnelCurrentPayrolls = _mapper.Map<IEnumerable<Personnel>, IEnumerable<PersonnelCurrentPayrollDto>>(personnels);
+            PersonnelCurrentPayrolls = _mapper.Map<IEnumerable<Personnel>, IEnumerable<PersonnelPayrollDto>>(personnels);
 
             return Page();
         }
@@ -41,6 +41,7 @@ namespace Web.Pages.Accounting
         {
             var personnel = await _repository.Get<Personnel>(setPayrollVariablesInput.PersonnelId);
             var payroll = await _repository.Get<Payroll>(setPayrollVariablesInput.PayrollId);
+            var deductions = await _repository.GetAll<Deduction>();
 
             if (personnel == null)
             {
@@ -51,7 +52,7 @@ namespace Web.Pages.Accounting
                 return RedirectToPage();
             }
 
-            if (payroll == null) //No current Payroll yet - Create newly
+            if (payroll == null) //No current Payroll yet - Create new one
             {
                 var newPayroll = new Payroll
                 {
@@ -63,6 +64,20 @@ namespace Web.Pages.Accounting
                 };
 
                 _repository.Add<Payroll>(newPayroll);
+
+
+                foreach (var deduction in deductions)
+                {
+                    var deductionSummary = new DeductionSummary
+                    {
+                        DeductionName = deduction.Name,
+                        DeductionPercentage = deduction.Percentage,
+                        Payroll = newPayroll
+                    };
+
+                    _repository.Add(deductionSummary);
+                }
+
             }
 
             else
@@ -71,6 +86,20 @@ namespace Web.Pages.Accounting
                 payroll.DailyRate = setPayrollVariablesInput.DailyRate;
                 payroll.Platform = setPayrollVariablesInput.Platform;
                 payroll.TotalDeductions = await _repository.TotalDeduction();
+
+                //Remove existing deduction summaries before adding possibly updated ones
+                _repository.RemoveRange<DeductionSummary>(payroll.DeductionSummaries);
+
+                foreach (var deduction in deductions)
+                {
+                    var deductionSummary = new DeductionSummary
+                    {
+                        DeductionName = deduction.Name,
+                        DeductionPercentage = deduction.Percentage
+                    };
+
+                    payroll.DeductionSummaries.Add(deductionSummary);
+                }
 
             }
 

@@ -63,6 +63,10 @@ namespace Utility
         {
             return theDateTime.ToString("MMMM, dd, yyyy");
         }
+        public static string ToFormalShortDateWithTime(this DateTime theDateTime)
+        {
+            return theDateTime.ToString("MMMM, dd, yyyy @ hh:mm tt");
+        }
 
         public static string ToFormalMonthAndYear(this DateTime theDateTime)
         {
@@ -169,6 +173,14 @@ namespace Utility
 
         }
 
+        public static string ToTitleCase(this string theString)
+        {
+            var myTextInfo = new CultureInfo("en-US", false).TextInfo;
+
+            return myTextInfo.ToTitleCase(theString);
+
+        }
+
         public static HtmlString GetHtmlString(this string theString)
         {
             var htmlString = new HtmlString(theString);
@@ -210,9 +222,9 @@ namespace Utility
                ************************************************************************************************************/
         public static Payroll GetCurrentPayroll(this IEnumerable<Payroll> payrolls)
         {
-            var today = DateTime.Today.ToDateOnly();
+            var today = DateTime.Today.ToFormalMonthAndYear();
 
-            return payrolls.FirstOrDefault(p => p.Date.ToDateOnly() == today);
+            return payrolls.FirstOrDefault(p => p.Date.ToFormalMonthAndYear() == today);
         }
 
     }

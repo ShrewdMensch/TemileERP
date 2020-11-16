@@ -5,6 +5,10 @@ $(document).ready(function () {
       .dataTable({
         columnDefs: [{ orderable: false, targets: 8 }],
       });
+
+    $(".right-buttons").append(
+      '<div class="float-right mt-2"> <a href="/Accounting/Deductions/ApplyDeduction" class="btn btn-purple btn-primary btn-rounded float-right"><i class="fas fa-sync m-r-5"></i> Reapply Deductions</a></div>'
+    );
   }
 
   //Personnel Edit Information Logic
@@ -51,5 +55,26 @@ $(document).ready(function () {
         alert("Error occurred...");
       },
     });
+  });
+  $("input[name='DailyRate']").TouchSpin({
+    min: 500,
+    max: 10000000,
+    step: 10,
+    decimals: 2,
+    boostat: 5,
+    initval: 0,
+    prefix: "₦",
+    buttondown_class: "btn btn-classic btn-danger",
+    buttonup_class: "btn btn-classic btn-primary",
+  });
+  $("input[name='DaysWorked']").TouchSpin({
+    min: 1,
+    max: 30,
+    step: 1,
+    decimals: 0,
+    boostat: 5,
+    postfix: "days",
+    buttondown_class: "btn btn-classic btn-danger",
+    buttonup_class: "btn btn-classic btn-primary",
   });
 });

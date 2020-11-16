@@ -11,20 +11,43 @@ $(document).ready(function () {
     );
   }
 
-  $("#Personnel_Nationality, #Edit_Nationality").select2({
+  $("#Personnel_Religion").select2({
+    minimumResultsForSearch: Infinity,
+    width: "100%",
+    dropdownParent: $("#personnelCreateModal"),
+    placeholder: "Select religion...",
+  });
+  $("#Personnel_Sex").select2({
+    minimumResultsForSearch: Infinity,
+    dropdownParent: $("#personnelCreateModal"),
+    width: "100%",
+    placeholder: "Select sex...",
+  });
+
+  $("#Personnel_Nationality").select2({
     data: countries,
     placeholder: "Select nationality...",
     dropdownParent: $("#personnelCreateModal"),
     width: "100%",
   });
 
-  $("#Personnel_Bank, #Edit_Bank").select2({
+  $("#Personnel_Bank").select2({
     data: banks,
     placeholder: "Select bank...",
     dropdownParent: $("#personnelCreateModal"),
     width: "100%",
   });
 
+  $("#Edit_Religion").select2({
+    minimumResultsForSearch: Infinity,
+    width: "100%",
+    dropdownParent: $("#personnelEditModal"),
+  });
+  $("#Edit_Sex").select2({
+    minimumResultsForSearch: Infinity,
+    dropdownParent: $("#personnelEditModal"),
+    width: "100%",
+  });
   $("#Edit_Nationality").select2({
     data: countries,
     placeholder: "Select nationality...",
@@ -80,6 +103,46 @@ $(document).ready(function () {
         "parsley-error"
       );
     });
+  $("#Personnel_Sex")
+    .parsley()
+    .on("field:success", function () {
+      $("#Personnel_sex_group span.select2-selection__rendered").removeClass(
+        "parsley-error"
+      );
+      $("#Personnel_sex_group span.select2-selection__rendered").addClass(
+        "parsley-success"
+      );
+    });
+  $("#Personnel_Sex")
+    .parsley()
+    .on("field:error", function () {
+      $("#Personnel_sex_group span.select2-selection__rendered").removeClass(
+        "parsley-success"
+      );
+      $("#Personnel_sex_group span.select2-selection__rendered").addClass(
+        "parsley-error"
+      );
+    });
+  $("#Personnel_Religion")
+    .parsley()
+    .on("field:success", function () {
+      $(
+        "#Personnel_religion_group span.select2-selection__rendered"
+      ).removeClass("parsley-error");
+      $("#Personnel_religion_group span.select2-selection__rendered").addClass(
+        "parsley-success"
+      );
+    });
+  $("#Personnel_Religion")
+    .parsley()
+    .on("field:error", function () {
+      $(
+        "#Personnel_religion_group span.select2-selection__rendered"
+      ).removeClass("parsley-success");
+      $("#Personnel_religion_group span.select2-selection__rendered").addClass(
+        "parsley-error"
+      );
+    });
 
   //Personnel Create Logic
   $("#personnelCreateModal").on("shown.bs.modal", function (event) {
@@ -87,6 +150,10 @@ $(document).ready(function () {
     $("#Personnel_Nationality").trigger("change");
     $("#Personnel_Bank").val("");
     $("#Personnel_Bank").trigger("change");
+    $("#Personnel_Sex").val("");
+    $("#Personnel_Sex").trigger("change");
+    $("#Personnel_Religion").val("");
+    $("#Personnel_Religion").trigger("change");
   });
 
   $("#personnelCreateModal").on("hidden.bs.modal", function (event) {
@@ -166,5 +233,17 @@ $(document).ready(function () {
         alert("Error occurred...");
       },
     });
+  });
+
+  $("input[name='DailyRate']").TouchSpin({
+    min: 500,
+    max: 10000000,
+    step: 10,
+    decimals: 2,
+    boostat: 5,
+    initval: 0,
+    prefix: "₦",
+    buttondown_class: "btn btn-classic btn-danger",
+    buttonup_class: "btn btn-classic btn-primary",
   });
 });

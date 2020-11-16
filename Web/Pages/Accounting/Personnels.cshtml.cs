@@ -41,14 +41,14 @@ namespace Web.Pages.Accounting
         }
         public async Task<IActionResult> OnPostCreatePersonnelAsync(PersonnelInputModel personnelInputModel)
         {
-            var myTextInfo = new CultureInfo("en-US", false).TextInfo;
             var otherNameIsEmptyOrNull = String.IsNullOrWhiteSpace(personnelInputModel.OtherName);
+            MessageTitle = "Personnel Creation";
 
             var personnel = new Personnel
             {
-                FirstName = myTextInfo.ToTitleCase(personnelInputModel.FirstName),
-                LastName = myTextInfo.ToTitleCase(personnelInputModel.Surname),
-                OtherName = otherNameIsEmptyOrNull ? null : myTextInfo.ToTitleCase(personnelInputModel.OtherName),
+                FirstName = personnelInputModel.FirstName.ToTitleCase(),
+                LastName = personnelInputModel.Surname.ToTitleCase(),
+                OtherName = otherNameIsEmptyOrNull ? null : personnelInputModel.OtherName.ToTitleCase(),
                 Sex = personnelInputModel.Sex,
                 Nationality = personnelInputModel.Nationality,
                 Religion = personnelInputModel.Religion,
@@ -68,30 +68,26 @@ namespace Web.Pages.Accounting
 
             if (await _repository.SaveAll())
             {
-                MessageTitle = "Personnel Information Update";
                 MessageIcon = MessageType.Success;
-                MessageBody = "Personnel has been updated successfully";
+                MessageBody = "Personnel has been added successfully";
             }
             else
             {
-                MessageTitle = "Personnel Information Update";
                 MessageIcon = MessageType.Error;
-                MessageBody = "Personnel could not be updated";
+                MessageBody = "Personnel could not be added";
             }
             return RedirectToPage();
         }
         public async Task<IActionResult> OnPostEditPersonnelAsync(PersonnelInputModel personnelInputModel)
         {
-
-            var myTextInfo = new CultureInfo("en-US", false).TextInfo;
             var otherNameIsEmptyOrNull = String.IsNullOrWhiteSpace(personnelInputModel.OtherName);
 
             var personnel = new Personnel
             {
                 Id = personnelInputModel.Id,
-                FirstName = myTextInfo.ToTitleCase(personnelInputModel.FirstName),
-                LastName = myTextInfo.ToTitleCase(personnelInputModel.Surname),
-                OtherName = otherNameIsEmptyOrNull ? null : myTextInfo.ToTitleCase(personnelInputModel.OtherName),
+                FirstName = personnelInputModel.FirstName.ToTitleCase(),
+                LastName = personnelInputModel.Surname.ToTitleCase(),
+                OtherName = otherNameIsEmptyOrNull ? null : personnelInputModel.OtherName.ToTitleCase(),
                 Sex = personnelInputModel.Sex,
                 Nationality = personnelInputModel.Nationality,
                 Religion = personnelInputModel.Religion,

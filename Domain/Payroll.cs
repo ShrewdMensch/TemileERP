@@ -1,4 +1,5 @@
 using System;
+using System.Collections.Generic;
 
 namespace Domain
 {
@@ -22,5 +23,6 @@ namespace Domain
         public bool IsVariablesSet { get; set; }
         public Guid PersonnelId { get; set; }
         public virtual Personnel Personnel { get; set; }
+        public virtual ICollection<DeductionSummary> DeductionSummaries { get; set; }
     }
 }

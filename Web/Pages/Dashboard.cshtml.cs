@@ -6,7 +6,7 @@ using Persistence;
 namespace Web.Pages
 {
     [Authorize(Roles = UserRoles.SystemAdministrator)]
-    public class DashboardModel : PageModel
+    public class DashboardModel : BasePageModel
     {
         private readonly ILogger<DashboardModel> _logger;
 

@@ -32,8 +32,8 @@ namespace Utility
 
 
         //Payroll Entity Related
-        Task<int> GetNumberOfCurrentPayrollWithVariablesSet();
-        Task<int> GetNumberOfCurrentPayrollWithoutVariablesSet();
+        Task<int> GetNumberOfCurrentPayroll();
+        Task<IEnumerable<Payroll>> GetCurrentPayrolls();
 
     }
 }

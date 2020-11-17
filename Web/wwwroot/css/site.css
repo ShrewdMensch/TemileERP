@@ -346,3 +346,83 @@ li.select2-results__option:hover {
   margin-top: 25px !important;
   font-size: 18px !important;
 }
+
+/*Payroll Print Modal Styles */
+.payslip-title {
+  margin-bottom: 20px;
+  text-align: center;
+  text-decoration: underline;
+  text-transform: uppercase;
+}
+
+.invoice-details,
+.invoice-payment-details>li span {
+  float: right;
+  text-align: right;
+}
+.text-uppercase {
+  text-transform: uppercase !important;
+  font-size: 1.5rem;
+}
+.inv-logo {
+  height: auto;
+  margin-bottom: 20px;
+  max-height: 100px;
+  width: auto;
+}
+.card-box {
+  background-color: #fff;
+  border-radius: 4px;
+  margin-bottom: 30px;
+  padding: 20px;
+  position: relative;
+  box-shadow: 0 1px 2px 0 rgba(0, 0, 0, 0.1);
+}
+
+.payrollPrintModal h6 {
+  font-size: 0.925rem!important;
+}
+.payrollPrintModal .table .summation{
+  background-color: #eee!important;
+}
+
+
+.payrollPrintModal .inv--payment-info {
+  font-size: 13px;
+  font-weight: 600;
+  margin-bottom: 52px;
+}
+.payrollPrintModal .inv-title {
+  color: #1b55e2;
+  font-weight: 600;
+  margin-bottom: 15px;
+}
+.payrollPrintModal list-number {
+    margin-bottom: 2px;
+}
+.m-b-10 {
+  margin-bottom: 10px !important;
+}
+.m-b-20 {
+  margin-bottom: 20px !important;
+}
+.m-b-0 {
+  margin-bottom: 0px !important;
+}
+.payrollPrintModal table{
+  border: 1px solid #e0e6ed!important;
+}
+.payrollPrintModal table th{
+  border: none!important;
+  color: #1b55e2!important;
+}
+.payrollPrintModal table thead tr{
+  border: none!important;
+  background: #ebedf2!important;
+}
+.modal-body .table>tbody:before {
+  line-height: 0!important;
+  content: ""!important;
+  color: transparent!important;
+  display: none!important;
+}

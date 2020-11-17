@@ -5,7 +5,10 @@ $(document).ready(function () {
     });
 
     $(".right-buttons").append(
-      '<div class="float-right mt-2"> <a data-toggle="modal" data-target="#deductionCreateModal" class="btn btn-purple btn-primary btn-rounded float-right"><i class="fa fa-plus m-r-5"></i> Add Deduction</a></div>'
+      '<div class="float-right mt-2"> <a data-toggle="modal" data-target="#deductionCreateModal" class="btn btn-primary btn-rounded float-right"><i class="fa fa-plus m-r-5"></i> Add Deduction</a></div>'
+    );
+    $(".right-buttons").append(
+      '<div class="float-right mt-2 mr-2"> <a href="/Accounting/Deductions/ApplyDeduction" class="btn btn-primary btn-rounded float-right"><i class="fas fa-sync m-r-5"></i> Reapply Deductions On All Current Payroll</a></div>'
     );
   }
 

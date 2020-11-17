@@ -10,7 +10,7 @@ namespace Web.API
     public class PersonnelsController : BaseController
     {
         [HttpGet("{id}")]
-        public async Task<ActionResult<PersonnelDto>> Get(Guid id)
+        public async Task<ActionResult<PersonnelDto>> Get(string id)
         {
             var user = await Repository.Get<Personnel>(id);
             return Ok(Mapper.Map<Personnel, PersonnelDto>(user));
@@ -25,7 +25,7 @@ namespace Web.API
         }
 
         [HttpGet("{id}/CurrentPayroll")]
-        public async Task<ActionResult<PersonnelPayrollDto>> GetCurrentPayroll(Guid id)
+        public async Task<ActionResult<PersonnelPayrollDto>> GetCurrentPayroll(string id)
         {
             var personnel = await Repository.Get<Personnel>(id);
 

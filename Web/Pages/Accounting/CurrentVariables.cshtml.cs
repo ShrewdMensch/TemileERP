@@ -58,48 +58,68 @@ namespace Web.Pages.Accounting
                 {
                     DaysWorked = setPayrollVariablesInput.DaysWorked,
                     DailyRate = setPayrollVariablesInput.DailyRate,
-                    Platform = setPayrollVariablesInput.Platform,
+                    Vessel = setPayrollVariablesInput.Vessel,
                     PersonnelId = setPayrollVariablesInput.PersonnelId,
-                    TotalDeductions = await _repository.TotalDeduction()
+                    TotalDeductedPercentage = await _repository.TotalDeduction()
                 };
 
-                _repository.Add<Payroll>(newPayroll);
+                newPayroll.Id = await _repository.GenerateNewPayrollId();
+
+
+                _repository.Add(newPayroll);
 
 
                 foreach (var deduction in deductions)
                 {
-                    var deductionSummary = new DeductionSummary
+                    var deductionDetail = new DeductionDetail
                     {
                         DeductionName = deduction.Name,
-                        DeductionPercentage = deduction.Percentage,
+                        DeductedPercentage = deduction.Percentage,
+                        DeductedAmount = newPayroll.GrossPay * (deduction.Percentage / 100),
                         Payroll = newPayroll
                     };
 
-                    _repository.Add(deductionSummary);
+                    _repository.Add(deductionDetail);
                 }
 
+                var newPayrollPaymentDetail = new PaymentDetail
+                {
+                    Bank = newPayroll.Personnel.Bank,
+                    BVN = newPayroll.Personnel.BVN,
+                    AccountName = newPayroll.Personnel.AccountName,
+                    AccountNumber = newPayroll.Personnel.AccountNumber,
+                    Payroll = newPayroll
+                };
+
+                _repository.Add(newPayrollPaymentDetail);
             }
 
             else
             {
                 payroll.DaysWorked = setPayrollVariablesInput.DaysWorked;
                 payroll.DailyRate = setPayrollVariablesInput.DailyRate;
-                payroll.Platform = setPayrollVariablesInput.Platform;
-                payroll.TotalDeductions = await _repository.TotalDeduction();
+                payroll.Vessel = setPayrollVariablesInput.Vessel;
+                payroll.TotalDeductedPercentage = await _repository.TotalDeduction();
 
-                //Remove existing deduction summaries before adding possibly updated ones
-                _repository.RemoveRange<DeductionSummary>(payroll.DeductionSummaries);
+                //Remove existing deduction details before adding possibly updated ones
+                _repository.RemoveRange(payroll.DeductionDetails);
 
                 foreach (var deduction in deductions)
                 {
-                    var deductionSummary = new DeductionSummary
+                    var deductionDetail = new DeductionDetail
                     {
                         DeductionName = deduction.Name,
-                        DeductionPercentage = deduction.Percentage
+                        DeductedPercentage = deduction.Percentage,
+                        DeductedAmount = payroll.GrossPay * (deduction.Percentage / 100)
                     };
 
-                    payroll.DeductionSummaries.Add(deductionSummary);
+                    payroll.DeductionDetails.Add(deductionDetail);
                 }
+
+                payroll.PaymentDetail.Bank = payroll.Personnel.Bank;
+                payroll.PaymentDetail.BVN = payroll.Personnel.BVN;
+                payroll.PaymentDetail.AccountName = payroll.Personnel.AccountName;
+                payroll.PaymentDetail.AccountNumber = payroll.Personnel.AccountNumber;
 
             }
 

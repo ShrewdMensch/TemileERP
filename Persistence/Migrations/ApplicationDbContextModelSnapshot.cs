@@ -153,32 +153,63 @@ namespace Persistence.Migrations
                     b.ToTable("Deductions");
                 });
 
-            modelBuilder.Entity("Domain.DeductionSummary", b =>
+            modelBuilder.Entity("Domain.DeductionDetail", b =>
                 {
                     b.Property<Guid>("Id")
                         .ValueGeneratedOnAdd()
                         .HasColumnType("TEXT");
 
+                    b.Property<double>("DeductedAmount")
+                        .HasColumnType("REAL");
+
+                    b.Property<float>("DeductedPercentage")
+                        .HasColumnType("REAL");
+
                     b.Property<string>("DeductionName")
                         .HasColumnType("TEXT");
 
-                    b.Property<float>("DeductionPercentage")
-                        .HasColumnType("REAL");
-
-                    b.Property<Guid>("PayrollId")
+                    b.Property<string>("PayrollId")
                         .HasColumnType("TEXT");
 
                     b.HasKey("Id");
 
                     b.HasIndex("PayrollId");
 
-                    b.ToTable("DeductionSummaries");
+                    b.ToTable("DeductionDetails");
+                });
+
+            modelBuilder.Entity("Domain.PaymentDetail", b =>
+                {
+                    b.Property<Guid>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("TEXT");
+
+                    b.Property<string>("AccountName")
+                        .HasColumnType("TEXT");
+
+                    b.Property<string>("AccountNumber")
+                        .HasColumnType("TEXT");
+
+                    b.Property<string>("BVN")
+                        .HasColumnType("TEXT");
+
+                    b.Property<string>("Bank")
+                        .HasColumnType("TEXT");
+
+                    b.Property<string>("PayrollId")
+                        .HasColumnType("TEXT");
+
+                    b.HasKey("Id");
+
+                    b.HasIndex("PayrollId")
+                        .IsUnique();
+
+                    b.ToTable("PaymentDetails");
                 });
 
             modelBuilder.Entity("Domain.Payroll", b =>
                 {
-                    b.Property<Guid>("Id")
-                        .ValueGeneratedOnAdd()
+                    b.Property<string>("Id")
                         .HasColumnType("TEXT");
 
                     b.Property<double>("DailyRate")
@@ -193,14 +224,14 @@ namespace Persistence.Migrations
                     b.Property<bool>("IsVariablesSet")
                         .HasColumnType("INTEGER");
 
-                    b.Property<Guid>("PersonnelId")
+                    b.Property<string>("PersonnelId")
                         .HasColumnType("TEXT");
 
-                    b.Property<string>("Platform")
-                        .HasColumnType("TEXT");
-
-                    b.Property<float>("TotalDeductions")
+                    b.Property<float>("TotalDeductedPercentage")
                         .HasColumnType("REAL");
+
+                    b.Property<string>("Vessel")
+                        .HasColumnType("TEXT");
 
                     b.HasKey("Id");
 
@@ -211,8 +242,7 @@ namespace Persistence.Migrations
 
             modelBuilder.Entity("Domain.Personnel", b =>
                 {
-                    b.Property<Guid>("Id")
-                        .ValueGeneratedOnAdd()
+                    b.Property<string>("Id")
                         .HasColumnType("TEXT");
 
                     b.Property<string>("AccountName")
@@ -232,6 +262,12 @@ namespace Persistence.Migrations
 
                     b.Property<double>("DailyRate")
                         .HasColumnType("REAL");
+
+                    b.Property<DateTime>("DateJoined")
+                        .HasColumnType("TEXT");
+
+                    b.Property<string>("Designation")
+                        .HasColumnType("TEXT");
 
                     b.Property<string>("Email")
                         .HasColumnType("TEXT");
@@ -438,22 +474,25 @@ namespace Persistence.Migrations
                         .HasForeignKey("ModifiedById");
                 });
 
-            modelBuilder.Entity("Domain.DeductionSummary", b =>
+            modelBuilder.Entity("Domain.DeductionDetail", b =>
                 {
                     b.HasOne("Domain.Payroll", "Payroll")
-                        .WithMany("DeductionSummaries")
-                        .HasForeignKey("PayrollId")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
+                        .WithMany("DeductionDetails")
+                        .HasForeignKey("PayrollId");
+                });
+
+            modelBuilder.Entity("Domain.PaymentDetail", b =>
+                {
+                    b.HasOne("Domain.Payroll", "Payroll")
+                        .WithOne("PaymentDetail")
+                        .HasForeignKey("Domain.PaymentDetail", "PayrollId");
                 });
 
             modelBuilder.Entity("Domain.Payroll", b =>
                 {
                     b.HasOne("Domain.Personnel", "Personnel")
                         .WithMany("Payrolls")
-                        .HasForeignKey("PersonnelId")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
+                        .HasForeignKey("PersonnelId");
                 });
 
             modelBuilder.Entity("Domain.Personnel", b =>

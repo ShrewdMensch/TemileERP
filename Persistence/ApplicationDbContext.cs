@@ -16,11 +16,19 @@ namespace Persistence
         {
             base.OnModelCreating(builder);
 
+            builder.Entity<Personnel>(b =>
+            {
+                b.HasKey(p => p.Id);
+                b.Property(p => p.Id).ValueGeneratedNever();
+            });
+
+
         }
         public DbSet<Photo> Photos { get; set; }
         public DbSet<Personnel> Personnels { get; set; }
         public DbSet<Payroll> Payrolls { get; set; }
         public DbSet<Deduction> Deductions { get; set; }
-        public DbSet<DeductionSummary> DeductionSummaries { get; set; }
+        public DbSet<DeductionDetail> DeductionDetails { get; set; }
+        public DbSet<PaymentDetail> PaymentDetails { get; set; }
     }
 }

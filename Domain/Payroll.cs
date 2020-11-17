@@ -11,18 +11,19 @@ namespace Domain
             IsVariablesSet = true;
         }
 
-        public Guid Id { get; set; }
+        public string Id { get; set; }
         public Double DailyRate { get; set; }
         public int DaysWorked { get; set; }
-        public Double TotalPay => DailyRate * DaysWorked;
-        public Double NetPay => TotalPay - ActualDeductions;
-        public float TotalDeductions { get; set; }
-        public double ActualDeductions => TotalPay * (TotalDeductions / 100);
-        public string Platform { get; set; }
+        public Double GrossPay => DailyRate * DaysWorked;
+        public Double NetPay => GrossPay - TotalDeductedAmount;
+        public float TotalDeductedPercentage { get; set; }
+        public double TotalDeductedAmount => GrossPay * (TotalDeductedPercentage / 100);
+        public string Vessel { get; set; }
         public DateTime Date { get; set; }
         public bool IsVariablesSet { get; set; }
-        public Guid PersonnelId { get; set; }
+        public string PersonnelId { get; set; }
         public virtual Personnel Personnel { get; set; }
-        public virtual ICollection<DeductionSummary> DeductionSummaries { get; set; }
+        public virtual ICollection<DeductionDetail> DeductionDetails { get; set; }
+        public virtual PaymentDetail PaymentDetail { get; set; }
     }
 }

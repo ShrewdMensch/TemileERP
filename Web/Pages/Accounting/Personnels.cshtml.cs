@@ -64,7 +64,9 @@ namespace Web.Pages.Accounting
                 Address = personnelInputModel.Address
             };
 
-            _repository.Add<Personnel>(personnel);
+            personnel.Id = await _repository.GenerateNewPersonnelId(personnel);
+
+            _repository.Add(personnel);
 
             if (await _repository.SaveAll())
             {
@@ -127,7 +129,7 @@ namespace Web.Pages.Accounting
 
             return RedirectToPage();
         }
-        private bool PersonnelExists(Guid id)
+        private bool PersonnelExists(string id)
         {
             return _repository.Get<Personnel>(id) != null;
         }

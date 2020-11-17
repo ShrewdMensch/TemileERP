@@ -4,7 +4,7 @@ namespace Utility.DTOs
 {
     public class PersonnelDto
     {
-        public Guid Id { get; set; }
+        public string Id { get; set; }
 
         public string FirstName { get; set; }
 
@@ -21,6 +21,7 @@ namespace Utility.DTOs
         public string Email { get; set; }
         public string Nationality { get; set; }
         public string Religion { get; set; }
+        public string Designation { get; set; }
         public Double DailyRate { get; set; }
         public string Bank { get; set; }
         public string AccountName { get; set; }

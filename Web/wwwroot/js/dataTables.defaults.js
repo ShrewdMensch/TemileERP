@@ -9,7 +9,8 @@ $.extend($.fn.dataTable.defaults, {
   ],
   columnDefs: [{ targets: [-1, -3], className: "dt-body-right" }],
   language: {
-    emptyTable: "<p><strong>No record found...</strong></p>",
+    emptyTable:
+      '<p class="text-center"><strong>No record found...</strong></p>',
     paginate: {
       previous: '<i class="fa fa-angle-double-left"></i>',
       next: '<i class="fa fa-angle-double-right"></i>',

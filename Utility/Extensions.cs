@@ -217,6 +217,11 @@ namespace Utility
             return number.ToString("C", new CultureInfo("en-NG", false));
         }
 
+        public static string ToPercentageStr(this float number)
+        {
+            return String.Format("{0}%", number.ToString());
+        }
+
         /***********************************************************************************************************
                ******* Collection Extension Methods*************************************************************************
                ************************************************************************************************************/

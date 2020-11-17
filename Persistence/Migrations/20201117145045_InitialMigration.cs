@@ -101,7 +101,7 @@ namespace Persistence.Migrations
                 name: "Personnels",
                 columns: table => new
                 {
-                    Id = table.Column<Guid>(nullable: false),
+                    Id = table.Column<string>(nullable: false),
                     FirstName = table.Column<string>(nullable: false),
                     LastName = table.Column<string>(nullable: false),
                     OtherName = table.Column<string>(nullable: true),
@@ -118,6 +118,9 @@ namespace Persistence.Migrations
                     PhoneNumber = table.Column<string>(nullable: true),
                     NextOfKin = table.Column<string>(nullable: true),
                     NextOfKinPhoneNumber = table.Column<string>(nullable: true),
+                    Designation = table.Column<string>(nullable: true),
+                    IsActive = table.Column<bool>(nullable: false),
+                    DateJoined = table.Column<DateTime>(nullable: false),
                     PhotoId = table.Column<Guid>(nullable: true)
                 },
                 constraints: table =>
@@ -249,14 +252,14 @@ namespace Persistence.Migrations
                 name: "Payrolls",
                 columns: table => new
                 {
-                    Id = table.Column<Guid>(nullable: false),
+                    Id = table.Column<string>(nullable: false),
                     DailyRate = table.Column<double>(nullable: false),
                     DaysWorked = table.Column<int>(nullable: false),
-                    TotalDeductions = table.Column<float>(nullable: false),
-                    Platform = table.Column<string>(nullable: true),
+                    TotalDeductedPercentage = table.Column<float>(nullable: false),
+                    Vessel = table.Column<string>(nullable: true),
                     Date = table.Column<DateTime>(nullable: false),
                     IsVariablesSet = table.Column<bool>(nullable: false),
-                    PersonnelId = table.Column<Guid>(nullable: false)
+                    PersonnelId = table.Column<string>(nullable: true)
                 },
                 constraints: table =>
                 {
@@ -266,27 +269,50 @@ namespace Persistence.Migrations
                         column: x => x.PersonnelId,
                         principalTable: "Personnels",
                         principalColumn: "Id",
-                        onDelete: ReferentialAction.Cascade);
+                        onDelete: ReferentialAction.Restrict);
                 });
 
             migrationBuilder.CreateTable(
-                name: "DeductionSummaries",
+                name: "DeductionDetails",
                 columns: table => new
                 {
                     Id = table.Column<Guid>(nullable: false),
                     DeductionName = table.Column<string>(nullable: true),
-                    DeductionPercentage = table.Column<float>(nullable: false),
-                    PayrollId = table.Column<Guid>(nullable: false)
+                    DeductedPercentage = table.Column<float>(nullable: false),
+                    DeductedAmount = table.Column<double>(nullable: false),
+                    PayrollId = table.Column<string>(nullable: true)
                 },
                 constraints: table =>
                 {
-                    table.PrimaryKey("PK_DeductionSummaries", x => x.Id);
+                    table.PrimaryKey("PK_DeductionDetails", x => x.Id);
                     table.ForeignKey(
-                        name: "FK_DeductionSummaries_Payrolls_PayrollId",
+                        name: "FK_DeductionDetails_Payrolls_PayrollId",
                         column: x => x.PayrollId,
                         principalTable: "Payrolls",
                         principalColumn: "Id",
-                        onDelete: ReferentialAction.Cascade);
+                        onDelete: ReferentialAction.Restrict);
+                });
+
+            migrationBuilder.CreateTable(
+                name: "PaymentDetails",
+                columns: table => new
+                {
+                    Id = table.Column<Guid>(nullable: false),
+                    Bank = table.Column<string>(nullable: true),
+                    AccountName = table.Column<string>(nullable: true),
+                    AccountNumber = table.Column<string>(nullable: true),
+                    BVN = table.Column<string>(nullable: true),
+                    PayrollId = table.Column<string>(nullable: true)
+                },
+                constraints: table =>
+                {
+                    table.PrimaryKey("PK_PaymentDetails", x => x.Id);
+                    table.ForeignKey(
+                        name: "FK_PaymentDetails_Payrolls_PayrollId",
+                        column: x => x.PayrollId,
+                        principalTable: "Payrolls",
+                        principalColumn: "Id",
+                        onDelete: ReferentialAction.Restrict);
                 });
 
             migrationBuilder.CreateIndex(
@@ -332,6 +358,11 @@ namespace Persistence.Migrations
                 column: "PhotoId");
 
             migrationBuilder.CreateIndex(
+                name: "IX_DeductionDetails_PayrollId",
+                table: "DeductionDetails",
+                column: "PayrollId");
+
+            migrationBuilder.CreateIndex(
                 name: "IX_Deductions_AddedById",
                 table: "Deductions",
                 column: "AddedById");
@@ -342,9 +373,10 @@ namespace Persistence.Migrations
                 column: "ModifiedById");
 
             migrationBuilder.CreateIndex(
-                name: "IX_DeductionSummaries_PayrollId",
-                table: "DeductionSummaries",
-                column: "PayrollId");
+                name: "IX_PaymentDetails_PayrollId",
+                table: "PaymentDetails",
+                column: "PayrollId",
+                unique: true);
 
             migrationBuilder.CreateIndex(
                 name: "IX_Payrolls_PersonnelId",
@@ -375,10 +407,13 @@ namespace Persistence.Migrations
                 name: "AspNetUserTokens");
 
             migrationBuilder.DropTable(
+                name: "DeductionDetails");
+
+            migrationBuilder.DropTable(
                 name: "Deductions");
 
             migrationBuilder.DropTable(
-                name: "DeductionSummaries");
+                name: "PaymentDetails");
 
             migrationBuilder.DropTable(
                 name: "AspNetRoles");

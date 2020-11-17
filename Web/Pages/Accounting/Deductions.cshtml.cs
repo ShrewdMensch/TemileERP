@@ -55,7 +55,7 @@ namespace Web.Pages.Accounting
                 ModifiedBy = currentUser
             };
 
-            _repository.Add<Deduction>(newDeduction);
+            _repository.Add(newDeduction);
 
             if (await _repository.SaveAll())
             {
@@ -144,19 +144,25 @@ namespace Web.Pages.Accounting
 
             foreach (var currentPayroll in currentPayrolls)
             {
-                currentPayroll.TotalDeductions = totalDeductions;
-                _repository.RemoveRange<DeductionSummary>(currentPayroll.DeductionSummaries);
+                currentPayroll.TotalDeductedPercentage = totalDeductions;
+                _repository.RemoveRange(currentPayroll.DeductionDetails);
 
                 foreach (var deduction in deductions)
                 {
-                    var deductionSummary = new DeductionSummary
+                    var deductionDetail = new DeductionDetail
                     {
                         DeductionName = deduction.Name,
-                        DeductionPercentage = deduction.Percentage
+                        DeductedPercentage = deduction.Percentage,
+                        DeductedAmount = currentPayroll.GrossPay * (deduction.Percentage / 100)
                     };
 
-                    currentPayroll.DeductionSummaries.Add(deductionSummary);
+                    currentPayroll.DeductionDetails.Add(deductionDetail);
                 }
+
+                currentPayroll.PaymentDetail.Bank = currentPayroll.Personnel.Bank;
+                currentPayroll.PaymentDetail.BVN = currentPayroll.Personnel.BVN;
+                currentPayroll.PaymentDetail.AccountName = currentPayroll.Personnel.AccountName;
+                currentPayroll.PaymentDetail.AccountNumber = currentPayroll.Personnel.AccountNumber;
             }
 
             if (await _repository.SaveAll())

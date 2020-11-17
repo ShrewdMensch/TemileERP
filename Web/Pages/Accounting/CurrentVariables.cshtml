@@ -89,8 +89,8 @@
                                             <th>Name</th>
                                             <th>DailyRate</th>
                                             <th>DaysWorked</th>
-                                            <th>Platform</th>
-                                            <th>TotalPay</th>
+                                            <th>Vessel</th>
+                                            <th>GrossPay</th>
                                             <th>Deductions(%)</th>
                                             <th>NetPay</th>
                                             <th>VariablesSet</th>
@@ -111,9 +111,9 @@
                                             </td>
                                             <td class="text-left">@payroll.DailyRate.ToCurrency()</td>
                                             <td class="text-left">@payroll.DaysWorked</td>
-                                            <td class="text-left">@payroll.Platform</td> 
-                                            <td class="text-left">@payroll.TotalPay.ToCurrency()</td>
-                                            <td class="text-left">@payroll.ActualDeductions.ToCurrency() (@payroll.TotalDeductions%)</td>
+                                            <td class="text-left">@payroll.Vessel</td> 
+                                            <td class="text-left">@payroll.GrossPay.ToCurrency()</td>
+                                            <td class="text-left">@payroll.TotalDeductedAmount.ToCurrency() (@payroll.TotalDeductedPercentage%)</td>
                                             <td class="text-left">@payroll.NetPay.ToCurrency()</td>
                                             <td class="text-left">
                                                 @if(payroll.IsPayrollVariablesSet){
@@ -141,8 +141,8 @@
                                             <th>Name</th>
                                             <th>DailyRate</th>
                                             <th>DaysWorked</th>
-                                            <th>Platform</th>
-                                            <th>TotalPay</th>
+                                            <th>Vessel</th>
+                                            <th>GrossPay</th>
                                             <th>Deductions(%)</th>
                                             <th>NetPay</th>
                                             <th>VariablesSet</th>

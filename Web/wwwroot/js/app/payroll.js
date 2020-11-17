@@ -3,7 +3,7 @@ $(document).ready(function () {
     $("#table")
       .addClass("nowrap")
       .dataTable({
-        columnDefs: [{ orderable: false, targets: 0 }],
+        columnDefs: [{ orderable: false, targets: 8 }],
       });
 
     // $(".right-buttons").append(
@@ -43,5 +43,92 @@ $(document).ready(function () {
     $("#Personnel_Nationality").trigger("change");
     $("#Personnel_Bank").val("");
     $("#Personnel_Bank").trigger("change");
+  });
+
+  $("#payrollPrintModal").on("shown.bs.modal", function (event) {
+    var button = $(event.relatedTarget);
+    var payrollId = button.data("payroll-id");
+    var modal = $(this);
+    $("#Payroll_Id").val(payrollId);
+
+    modal.find(".modal-body .row").attr("hidden", true);
+    modal.find("#loader").attr("hidden", false);
+    $(".spinner-border").attr("hidden", false);
+
+    $.ajax({
+      url: "/api/payments/" + payrollId,
+      dataType: "json",
+      type: "GET",
+      success: function (data) {
+        $("#paySlipNumber").text(data.paymentSlipNumber);
+        $("#personnelName").text(data.personnelName);
+        $("#personnelId").text(data.personnelId);
+        $("#personnelDesignation").text(
+          data.personnelDesignation ? data.personnelDesignation : ""
+        );
+        $("#personnelDateJoined").text(data.personnelDateJoined);
+        $("#bank").text(data.bank);
+        $("#accountName").text(data.accountName);
+        $("#accountNumber").text(data.accountNumber);
+        $("#bvn").text(data.bvn);
+        $("#dailyRate").text(data.dailyRate);
+        $("#daysWorked").text(data.daysWorked);
+        $("#grossPay").text(data.grossPay);
+        $("#grossPay2").text(data.grossPay);
+        $("#netPay").text(data.netPay);
+        $("#netPayInWords").text(
+          toWords(parseInt(data.netPayRaw).toString()) + " naira"
+        );
+        $("#vessel").text(data.vessel);
+        $("#date").text(data.date);
+        $("#dateTitle").text(data.date);
+
+        modal.find("#deductions").html("");
+
+        $.each(data.deductions, function (index, value) {
+          var valueHtml =
+            "<tr><td><strong>" +
+            value.deductionName +
+            '</strong><span class="float-right">' +
+            value.deductedAmount +
+            " (" +
+            value.deductedPercentage +
+            ")" +
+            "</span></td></tr>";
+          modal.find("#deductions").append(valueHtml);
+        });
+
+        var totalHtml =
+          '<tr class="summation"><td><strong>Total Deductions</strong> <span class="float-right"><strong>' +
+          data.totalDeductedAmount +
+          " (" +
+          data.totalDeductedPercentage +
+          ")</strong></span></tr>";
+
+        modal.find("#deductions").append(totalHtml);
+
+        modal.find(".modal-body .row").attr("hidden", false);
+        $("#loader").attr("hidden", true);
+        $(".spinner-border").attr("hidden", true);
+      },
+      error: function () {
+        alert("Error occurred...");
+      },
+    });
+  });
+
+  $("#printBtn").click(function () {
+    var year = new Date().getFullYear();
+    $("#salaryContainer").print({
+      title: "Monthly Payroll",
+      append: "",
+      iframe: false,
+      deferred: $.Deferred(),
+      doctype: "<!doctype html>",
+      prepend:
+        '<br><p class="text-primary font-weight-bold">Temile and Sons Limited ©' +
+        year +
+        "</p>",
+    });
   });
 });

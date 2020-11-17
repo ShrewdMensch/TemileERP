@@ -116,6 +116,32 @@ namespace Utility
             return payrolls;
         }
 
+        public async Task<string> GenerateNewPayrollId()
+        {
+            var dateAdded = DateTime.Today;
+            var payrolls = await GetAll<Payroll>();
+            var numberOfPayrollsForToday = payrolls.Where(c => c.Date.ToFormalDate() == dateAdded.ToFormalDate());
+
+            var payrollId = String.Format("{0}{1:D2}{2:D2}{3:D4}",
+            dateAdded.Year, dateAdded.Month, dateAdded.Day, (numberOfPayrollsForToday.Count() + 1));
+
+            return payrollId;
+        }
+
+        /***********************************************************************************************************
+                ******* Personnel Related Queries*************************************************************************
+                ************************************************************************************************************/
+        public async Task<string> GenerateNewPersonnelId(Personnel personnel)
+        {
+            var personnels = await GetAll<Personnel>();
+            var numberOfPayrollsForToday = personnels.Where(c => c.DateJoined.ToFormalDate() == DateTime.Today.ToFormalDate());
+            var dateJoined = personnel.DateJoined;
+
+            var personnelId = String.Format("TEM{0}{1:D2}{2:D2}{3:D4}",
+            dateJoined.Year, dateJoined.Month, dateJoined.Day, (numberOfPayrollsForToday.Count() + 1));
+
+            return personnelId;
+        }
         public async Task<int> GetNumberOfActivePersonnels()
         {
             var personnels = (await GetAll<Personnel>()).Where(p => p.IsActive);

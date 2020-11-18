@@ -122,7 +122,7 @@ $(document).ready(function () {
     $("#salaryContainer").print({
       title: "Monthly Payroll",
       append: "",
-      iframe: true,
+      iframe: false,
       deferred: $.Deferred(),
       doctype: "<!doctype html>",
       prepend:

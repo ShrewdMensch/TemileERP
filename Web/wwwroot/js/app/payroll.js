@@ -70,7 +70,7 @@ $(document).ready(function () {
         $("#bank").text(data.bank);
         $("#accountName").text(data.accountName);
         $("#accountNumber").text(data.accountNumber);
-        $("#bvn").text(data.bvn);
+        // $("#bvn").text(data.bvn);
         $("#dailyRate").text(data.dailyRate);
         $("#daysWorked").text(data.daysWorked);
         $("#grossPay").text(data.grossPay);
@@ -122,7 +122,7 @@ $(document).ready(function () {
     $("#salaryContainer").print({
       title: "Monthly Payroll",
       append: "",
-      iframe: false,
+      iframe: true,
       deferred: $.Deferred(),
       doctype: "<!doctype html>",
       prepend:

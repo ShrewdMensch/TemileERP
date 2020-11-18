@@ -11,6 +11,36 @@ $(document).ready(function () {
     );
   }
 
+  if ($("#table2").length > 0) {
+    $("#table2")
+      .addClass("nowrap")
+      .DataTable({
+        stateSave: false,
+        dom: "tip",
+        lengthMenu: [[10], [10]],
+        ajax: {
+          url: "/api/personnels/AllPlusPayroll",
+          dataSrc: "",
+        },
+        columns: [
+          {
+            data: "personnelName",
+          },
+          {
+            data: "dailyRate",
+          },
+          {
+            data: "daysWorked",
+          },
+          {
+            data: "vessel",
+          },
+          {
+            data: "grossPay",
+          },
+        ],
+      });
+  }
   //Personnel Edit Information Logic
   //Personnel Edit Form and API pull logic
   var form = $("#currentPayrollVariablesForm");
@@ -43,7 +73,7 @@ $(document).ready(function () {
         $("#Edit_Name").val(data.personnelName);
         $("#Edit_Name").attr("title", data.personnelName);
         $("#Edit_DailyRate").val(data.dailyRate);
-        $("#Edit_Platform").val(data.platform);
+        $("#Edit_Vessel").val(data.vessel);
         $("#Edit_DaysWorked").val(data.daysWorked);
 
         initialform = $(form).serialize();
@@ -56,6 +86,17 @@ $(document).ready(function () {
       },
     });
   });
+
+  $("#personnelPayrollTableModal").on("shown.bs.modal", function (event) {
+    var button = $(event.relatedTarget);
+    var modal = $(this);
+    var query = button.data("query");
+    var tableTitle = button.data("title");
+    var table = $("#table2").DataTable();
+    modal.find("#tableTitle").text(tableTitle);
+    table.ajax.url("/api/personnels/" + query).load(null, false);
+  });
+
   $("input[name='DailyRate']").TouchSpin({
     min: 500,
     max: 10000000,

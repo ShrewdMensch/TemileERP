@@ -11,6 +11,10 @@
     var allPersonnelCount = Model.PersonnelCurrentPayrolls.Count();
     var personnelWithPayrollVariablesSetCount = await repository.GetNumberOfCurrentPayrolls();
     var personnelWithoutPayrollVariablesSetCount = allPersonnelCount - personnelWithPayrollVariablesSetCount;
+
+    var allEmployeeStr = "All Employees";
+    var allEmployeeWithCurrentPayrollStr = "Personnels with current variables";
+    var allEmployeeWithoutCurrentPayrollStr = "Personnels without current variables";
 }
 
 <div class="page-header">
@@ -29,11 +33,12 @@
 <div class="row d-flex justify-content-end mt-3">
     <div class="col-sm-12 col-md-4 layout-spacing">
         <div class="widget widget-card-four">
+            <a data-toggle="modal" data-query="AllPlusPayroll" data-title="@allEmployeeStr" data-target="#personnelPayrollTableModal"  class="">
                             <div class="widget-content">
                                 <div class="w-content">
                                     <div class="w-info">
                                         <h6 class="value">@allPersonnelCount</h6>
-                                        <p class="">All Employees</p>
+                                        <p>@allEmployeeStr</p>
                                     </div>
                                     <div class="">
                                         <div class="w-icon">
@@ -42,15 +47,17 @@
                                     </div>
                                 </div>
                             </div>
+            </a>
                         </div>
     </div>
     <div class="col-sm-12 col-md-4 layout-spacing">
         <div class="widget widget-card-four">
                             <div class="widget-content">
+                                <a data-toggle="modal" data-query="HasCurrentPayroll" data-title="@allEmployeeWithCurrentPayrollStr" data-target="#personnelPayrollTableModal"  class="">
                                 <div class="w-content">
                                     <div class="w-info">
                                         <h6 class="value">@personnelWithPayrollVariablesSetCount</h6>
-                                        <p class="">Personnels with current variables</p>
+                                        <p class="">@allEmployeeWithCurrentPayrollStr</p>
                                     </div>
                                     <div class="">
                                         <div class="w-icon">
@@ -58,16 +65,18 @@
                                         </div>
                                     </div>
                                 </div>
+                                </a>
                             </div>
                         </div>
     </div>
     <div class="col-sm-12 col-md-4 layout-spacing">
         <div class="widget widget-card-four">
+            <a data-toggle="modal" data-query="HasNoCurrentPayroll" data-title="@allEmployeeWithoutCurrentPayrollStr" data-target="#personnelPayrollTableModal"  class="">
                             <div class="widget-content">
                                 <div class="w-content">
                                     <div class="w-info">
                                         <h6 class="value">@personnelWithoutPayrollVariablesSetCount</h6>
-                                        <p class="">Personnels without current variables</p>
+                                        <p class="">@allEmployeeWithoutCurrentPayrollStr</p>
                                     </div>
                                     <div class="">
                                         <div class="w-icon">
@@ -76,6 +85,7 @@
                                     </div>
                                 </div>
                             </div>
+            </a>
                         </div>
     </div>
 </div>
@@ -155,6 +165,7 @@
 
 </div>
 <partial name="/PartialViews/Payroll/_EditPayrollVariablesPartial.cshtml" />
+<partial name="/PartialViews/Payroll/_PersonnelPayrollTablesModalPartial.cshtml" />
 
 
 @section Scripts{

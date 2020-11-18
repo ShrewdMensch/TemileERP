@@ -28,6 +28,7 @@ namespace Utility.AutoMapper
             .ForMember(destination => destination.TotalDeductedAmount, option => option.MapFrom(source => source.Payrolls.GetCurrentPayroll().TotalDeductedAmount))
             .ForMember(destination => destination.NetPay, option => option.MapFrom(source => source.Payrolls.GetCurrentPayroll().NetPay))
             .ForMember(destination => destination.Vessel, option => option.MapFrom(source => source.Payrolls.GetCurrentPayroll().Vessel))
+            .ForMember(destination => destination.Period, option => option.MapFrom(source => source.Payrolls.GetCurrentPayroll().Date.ToFormalMonthAndYear()))
             .ForMember(destination => destination.IsPayrollVariablesSet, option => option.MapFrom(source => source.Payrolls.GetCurrentPayroll().IsVariablesSet));
 
             //Payroll Related

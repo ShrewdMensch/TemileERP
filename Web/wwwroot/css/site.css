@@ -400,6 +400,10 @@ li.select2-results__option:hover {
 .payrollPrintModal list-number {
     margin-bottom: 2px;
 }
+.payrollPrintModal p {
+    color: #0e0d0d!important;
+    font-weight: 900!important;
+}
 .m-b-10 {
   margin-bottom: 10px !important;
 }
@@ -425,4 +429,9 @@ li.select2-results__option:hover {
   content: ""!important;
   color: transparent!important;
   display: none!important;
+}
+
+/* Personnel-Payroll Details  Modal */
+#personnelPayrollTableModal table thead tr th {
+  color: #fff!important;
 }

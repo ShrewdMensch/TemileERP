@@ -35,12 +35,13 @@ namespace Utility
         Task<string> GenerateNewPersonnelId(Personnel personnel);
         Task<int> GetNumberOfActivePersonnels();
         Task<int> GetNumberOfInctivePersonnels();
+        Task<IEnumerable<Personnel>> GetPersonnelsWithCurrentPayroll();
 
 
         //Payroll Entity Related
         Task<int> GetNumberOfCurrentPayrolls();
-        Task<int> GetNumberOfAllPayrolls();
         Task<IEnumerable<Payroll>> GetCurrentPayrolls();
+        Task<int> GetNumberOfAllPayrolls();
         Task<string> GenerateNewPayrollId();
 
     }

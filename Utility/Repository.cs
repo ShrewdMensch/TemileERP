@@ -154,5 +154,13 @@ namespace Utility
 
             return personnels.Count();
         }
+        public async Task<IEnumerable<Personnel>> GetPersonnelsWithCurrentPayroll()
+        {
+            var currentPayrolls = (await GetCurrentPayrolls());
+
+            var personnelsWithCurrentPayroll = currentPayrolls.Select(p => p.Personnel);
+
+            return personnelsWithCurrentPayroll;
+        }
     }
 }

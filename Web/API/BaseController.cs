@@ -9,6 +9,7 @@ namespace Web.API
 {
     [Route("api/[controller]")]
     [ApiController]
+    [Microsoft.AspNetCore.Authorization.AllowAnonymous]
     public class BaseController : ControllerBase
     {
         private IRepository _repository;

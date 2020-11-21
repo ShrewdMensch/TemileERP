@@ -120,10 +120,10 @@ namespace Utility
         {
             var dateAdded = DateTime.Today;
             var payrolls = await GetAll<Payroll>();
-            var numberOfPayrollsForToday = payrolls.Where(c => c.Date.ToFormalDate() == dateAdded.ToFormalDate());
+            var payrollsForToday = payrolls.Where(c => c.Date.ToFormalDate() == dateAdded.ToFormalDate());
 
             var payrollId = String.Format("{0}{1:D2}{2:D2}{3:D4}",
-            dateAdded.Year, dateAdded.Month, dateAdded.Day, (numberOfPayrollsForToday.Count() + 1));
+            dateAdded.Year, dateAdded.Month, dateAdded.Day, (payrollsForToday.Count() + 1));
 
             return payrollId;
         }
@@ -134,11 +134,11 @@ namespace Utility
         public async Task<string> GenerateNewPersonnelId(Personnel personnel)
         {
             var personnels = await GetAll<Personnel>();
-            var numberOfPayrollsForToday = personnels.Where(c => c.DateJoined.ToFormalDate() == DateTime.Today.ToFormalDate());
+            var personnelsForToday = personnels.Where(c => c.DateJoined.ToFormalDate() == DateTime.Today.ToFormalDate());
             var dateJoined = personnel.DateJoined;
 
             var personnelId = String.Format("TEM{0}{1:D2}{2:D2}{3:D4}",
-            dateJoined.Year, dateJoined.Month, dateJoined.Day, (numberOfPayrollsForToday.Count() + 1));
+            dateJoined.Year, dateJoined.Month, dateJoined.Day, (personnelsForToday.Count() + 1));
 
             return personnelId;
         }

@@ -222,19 +222,18 @@ table.display tbody tr {
   transition: all 0.1s ease-in;
 }
 
-table.display tbody tr:nth-child(odd),
-table.dataTable tbody tr:nth-child(odd) tr {
-  background-color: #eee !important;
+table.display tbody tr:nth-child(odd) {
+  background-color: #f1f2f3 !important;
 }
 
 table.display tbody tr td.sorting_1 {
   background-color: transparent !important;
 }
 
-table.display tbody tr:hover {
+/* table.display tbody tr:hover {
   -webkit-transform: translateY(-1px) scale(1.01);
   transform: translateY(-1px) scale(1.01);
-}
+} */
 
 
 table.display thead tr {
@@ -248,8 +247,8 @@ table.display th {
   text-align: left !important;
 }
 
-table.display td a {
-  text-align: right !important;
+table.display td a svg {
+  margin-right: 5px!important;
 }
 
 table.display thead th {
@@ -273,12 +272,18 @@ tfoot tr {
   color: #666;
 }
 
-.table-cell-wrap {
-  white-space: nowrap !important;
-  -o-text-overflow: ellipsis !important;
-  text-overflow: ellipsis !important;
-  overflow: hidden !important;
-  width: 120px !important;
+.table-cell-wrap-sm, .table-cell-wrap-lg {
+    white-space: nowrap !important;
+    -o-text-overflow: ellipsis !important;
+    text-overflow: ellipsis !important;
+    overflow: hidden !important;
+}
+.table-cell-wrap-sm {
+  width: 110px !important;
+}
+
+.table-cell-wrap-lg {
+    width: 220px !important;
 }
 
 /* Custom Inputs */
@@ -401,7 +406,7 @@ li.select2-results__option:hover {
     margin-bottom: 2px;
 }
 .payrollPrintModal p {
-    color: #0e0d0d!important;
+    color: #555!important;
     font-weight: 900!important;
 }
 .m-b-10 {

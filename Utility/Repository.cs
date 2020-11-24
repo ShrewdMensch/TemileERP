@@ -162,5 +162,11 @@ namespace Utility
 
             return personnelsWithCurrentPayroll;
         }
+        public async Task<IEnumerable<Personnel>> GetActivePersonnels()
+        {
+            var personnels = (await GetAll<Personnel>()).Where(p => p.IsActive);
+
+            return personnels;
+        }
     }
 }

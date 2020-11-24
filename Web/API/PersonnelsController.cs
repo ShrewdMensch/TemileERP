@@ -57,9 +57,8 @@ namespace Web.API
         {
             var personnel = await Repository.Get<Personnel>(id);
 
-            var currentPayroll = personnel.Payrolls.GetCurrentPayroll();
+            return Ok(Mapper.Map<Personnel, PersonnelPayrollDto>(personnel));
 
-            return Ok(Mapper.Map<Payroll, PersonnelPayrollDto>(currentPayroll));
         }
 
     }

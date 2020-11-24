@@ -14,8 +14,8 @@ namespace Domain
         }
         public string Id { get; set; }
 
-        [Required]
         [Display(Name = "First Name")]
+        [Required]
         public string FirstName { get; set; }
 
         [Required]
@@ -28,6 +28,8 @@ namespace Domain
         public string MiddleInitial => OtherName.GetInitial();
 
         public string Name => FirstName.Combine(MiddleInitial, LastName);
+
+        public string FullName => FirstName.Combine(OtherName, LastName);
 
         public Sex Sex { get; set; }
         public string Address { get; set; }

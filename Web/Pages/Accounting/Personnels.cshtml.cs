@@ -129,6 +129,28 @@ namespace Web.Pages.Accounting
 
             return RedirectToPage();
         }
+
+        public async Task<IActionResult> OnGetEnableOrDisablePersonnel(string id)
+        {
+            var personnel = await _repository.Get<Personnel>(id);
+
+            personnel.IsActive = !personnel.IsActive;
+
+            var clause = (personnel.IsActive) ? "active" : "inactive";
+
+            if (await _repository.SaveAll())
+            {
+                MessageIcon = MessageType.Success;
+                MessageBody = String.Format("Personnel, {1} has been successfully set {0}", clause, personnel.Name);
+            }
+            else
+            {
+                MessageIcon = MessageType.Error;
+                MessageBody = String.Format("Personnel {1} could not be set {0}", clause, personnel.Name);
+            }
+            return RedirectToPage();
+        }
+
         private bool PersonnelExists(string id)
         {
             return _repository.Get<Personnel>(id) != null;

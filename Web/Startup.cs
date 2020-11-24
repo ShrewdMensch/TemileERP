@@ -58,7 +58,7 @@ namespace Web
                 {
                     options.Conventions.AuthorizeFolder("/");
                     options.Conventions.AddPageRoute("/Account/Login", "");
-                });
+                }).AddRazorRuntimeCompilation();
 
             services.AddControllers(opt =>
             {

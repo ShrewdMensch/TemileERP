@@ -36,6 +36,7 @@ namespace Utility
         Task<int> GetNumberOfActivePersonnels();
         Task<int> GetNumberOfInctivePersonnels();
         Task<IEnumerable<Personnel>> GetPersonnelsWithCurrentPayroll();
+        Task<IEnumerable<Personnel>> GetActivePersonnels();
 
 
         //Payroll Entity Related

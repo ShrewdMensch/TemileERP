@@ -12,6 +12,8 @@ namespace Utility.AutoMapper
             //Personnel Related
             CreateMap<Personnel, PersonnelDto>()
             .ForMember(destination => destination.Sex, option => option.MapFrom(source => source.Sex.ToString()))
+            .ForMember(destination => destination.DateJoined, option => option.MapFrom(source => source.DateJoined.ToFormalShortDate()))
+            .ForMember(destination => destination.DailyRate, option => option.MapFrom(source => source.DailyRate.ToCurrency()))
             .ForMember(destination => destination.Photo, option => option.MapFrom(source => source.Photo.Url));
 
             CreateMap<Personnel, PersonnelPayrollDto>()

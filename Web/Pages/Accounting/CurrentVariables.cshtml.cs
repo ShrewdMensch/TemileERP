@@ -30,7 +30,7 @@ namespace Web.Pages.Accounting
 
         public async Task<IActionResult> OnGet()
         {
-            var personnels = await _repository.GetAll<Personnel>();
+            var personnels = await _repository.GetActivePersonnels();
 
             PersonnelCurrentPayrolls = _mapper.Map<IEnumerable<Personnel>, IEnumerable<PersonnelPayrollDto>>(personnels);
 

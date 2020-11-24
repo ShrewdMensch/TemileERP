@@ -1,0 +1,99 @@
+﻿<!-- Modal -->
+    <div class="modal fade animated fadeInUpBig custo-fadeInUpBig show" id="personnelDetailsModal" tabindex="-1" aria-labelledby="staticBackdropLabel" aria-hidden="true">
+        <div class="modal-dialog modal-xl modal-dialog-centered modal-dialog-scrollable">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title" id="exampleModalLabel"><span id="name"></span>'s Profile</h5>
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                        <span aria-hidden="true">&times;</span>
+                    </button>
+                </div>
+                <div class="modal-body p-sm-2 p-md-3 p-lg-5">
+                    <div class="profile-header" id="profile-data">
+                        <div class="row">
+                            <div class="col-sm-12">
+                                <div class="profile-view">
+                                    <div class="profile-img-wrap">
+                                        <div class="profile-img">
+                                            <a href="#"><img id="photo" class="avatar" src="~/assets//img/user.jpg" alt=""></a>
+                                        </div>
+                                    </div>
+                                    <div class="profile-basic">
+                                        <div class="row">
+                                            <div class="col-sm-12 col-md-12 col-lg-5 mb-3">
+                                                <div class="profile-info-center">
+                                                    <h3 class="user-name m-t-0 mb-0" id="fullName"></h3>
+                                                    <small class="text-muted" id="occupation"></small>
+                                                    <small class="text-muted" id="email"></small>
+                                                    <div class="staff-id">
+                                                        Staff ID : <span class="staff-id" id="id"></span>
+                                                    </div>
+                                                    <div class="staff-id">DailyRate : <span class="staff-id" id="dailyRate"></span></div>
+                                                    <div class="joined">Joined <span class="" id="dateJoined"></span></div>
+                                                    <div class="staff-msg" id="status"></div>
+                                                    <div class="staff-msg" id="messageBtn"></div>
+                                                </div>
+                                            </div>
+                                            <div class="col-sm-12 col-md-12 col-lg-7 profile-info-right">
+                                                <ul class="personal-info">
+                                                    <li class="d-flex">
+                                                        <span class="title">Phone:</span>
+                                                        <span class="text" id="phone"></span>
+                                                    </li>
+                                                    <li class="d-flex">
+                                                        <span class="title">Nationality:</span>
+                                                        <span class="text" id="nationality"></span>
+                                                    </li>
+                                                    <li class="d-flex">
+                                                        <span class="title">Religion:</span>
+                                                        <span class="text" id="religion"></span>
+                                                    </li>
+                                                    <li class="d-flex">
+                                                        <span class="title">Address:</span>
+                                                        <span class="text" id="address"></span>
+                                                    </li>
+                                                    <li class="d-flex">
+                                                        <span class="title">Gender:</span>
+                                                        <span class="text" id="sex"></span>
+                                                    </li>
+                                                    <li class="d-flex">
+                                                        <span class="title">Bank:</span>
+                                                        <span class="text" id="bank"></span>
+                                                    </li>
+                                                    <li class="d-flex">
+                                                        <span class="title">Account Name:</span>
+                                                        <span class="text" id="accountName"></span>
+                                                    </li>
+                                                    <li class="d-flex">
+                                                        <span class="title">Account Number:</span>
+                                                        <span class="text" id="accountNumber"></span>
+                                                    </li>
+                                                    <li class="d-flex">
+                                                        <span class="title">BVN:</span>
+                                                        <span class="text" id="bvn"></span>
+                                                    </li>
+                                                    <li class="d-flex">
+                                                        <span class="title">NextOfKin:</span>
+                                                        <span class="text" id="kin"></span>
+                                                    </li>
+                                                    <li class="d-flex">
+                                                        <span class="title">Kin Number:</span>
+                                                        <span class="text" id="kinNumber"></span>
+                                                    </li>
+                                                </ul>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="d-flex justify-content-center" id="loader" hidden="hidden">
+                        <div class="spinner-border" role="status" hidden="hidden">
+                            <span class="sr-only">Loading...</span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>

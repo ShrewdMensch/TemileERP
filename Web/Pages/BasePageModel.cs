@@ -3,6 +3,8 @@ using Microsoft.AspNetCore.Mvc.RazorPages;
 
 namespace Web.Pages
 {
+
+    [ValidateAntiForgeryToken]
     public class BasePageModel : PageModel
     {
         [TempData]

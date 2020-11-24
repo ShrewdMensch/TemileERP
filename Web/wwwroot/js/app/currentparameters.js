@@ -70,7 +70,7 @@ $(document).ready(function () {
       dataType: "json",
       type: "GET",
       success: function (data) {
-        $("#Edit_Name").val(data.personnelName);
+          $("#Edit_Name").val(data.personnelName);
         $("#Edit_Name").attr("title", data.personnelName);
         $("#Edit_DailyRate").val(data.dailyRate);
         $("#Edit_Vessel").val(data.vessel);

@@ -1,0 +1,215 @@
+﻿/*-----------------
+	20. Profile
+-----------------------*/
+
+.card-box.profile-header {
+    margin: 0;
+}
+
+.profile-details {
+    text-align: center;
+}
+
+.personal-info li .title {
+    color: #515365;
+    float: left;
+    font-weight: 500;
+    margin-right: 30px;
+    width: 25%;
+}
+
+.personal-info li .text {
+    color: #888da8;
+    display: block;
+    overflow: hidden;
+}
+
+.personal-info li {
+    margin-bottom: 10px;
+}
+
+.personal-info {
+    list-style: none;
+    margin-bottom: 0;
+    padding: 0;
+}
+
+    .personal-info .text > a {
+        color: #009efb;
+    }
+
+.profile-view .profile-img-wrap {
+    height: 150px;
+    width: 150px;
+}
+
+.profile-view .profile-img {
+    width: 150px;
+    height: 150px;
+}
+
+    .profile-view .profile-img .avatar {
+        font-size: 24px;
+        height: 150px;
+        line-height: 150px;
+        margin: 0;
+        width: 150px;
+    }
+
+.profile-view .profile-basic {
+    margin-left: 170px;
+}
+
+.staff-msg {
+    margin-top: 30px;
+}
+
+.staff-id, .joined {
+    margin-top: 5px;
+}
+
+.joined {
+    margin-top: 5px;
+    font-size:12px;
+    font-weight:700;
+    font-style:italic;
+}
+
+.personnel-link {
+    border-bottom: 2px dotted #1b55e2;
+    color: #1b55e2;
+    padding-bottom: 1px;
+}
+.person-active {
+    background: #28a745;
+}
+
+.patient-status, .person-active, .person-inactive {
+    color: #fff;
+    padding: 5px 10px;
+    border-radius: 4px;
+    font-size: 13px;
+}
+
+.profile-info-right {
+    border-left: 2px dashed #ccc;
+    padding-left: 30px;
+}
+
+.personal-info {
+    list-style: none;
+    margin-bottom: 0;
+    padding: 0;
+}
+
+.user-name {
+    color: #333;
+}
+
+.profile-img-wrap {
+    height: 120px;
+    position: absolute;
+    width: 120px;
+    background: #fff;
+    overflow: hidden;
+}
+
+.profile-view .profile-img-wrap {
+    height: 150px;
+    width: 150px;
+}
+
+.profile-view .profile-img {
+    width: 150px;
+    height: 150px;
+}
+
+.profile-img {
+    cursor: pointer;
+    height: 80px;
+    margin: 0 auto;
+    position: relative;
+    width: 80px;
+}
+
+.personal-info li .text {
+    color: #888da8;
+    display: block;
+    overflow: hidden;
+}
+
+.profile-view .profile-img .avatar {
+    font-size: 24px;
+    height: 150px;
+    line-height: 150px;
+    margin: 0;
+    width: 150px;
+}
+
+.avatar {
+    background-color: #aaa;
+    border-radius: 50%;
+    color: #fff;
+    display: inline-block;
+    font-weight: 500;
+    height: 30px;
+    line-height: 30px;
+    margin: 0 10px 0 0;
+    overflow: hidden;
+    text-align: center;
+    text-decoration: none;
+    text-transform: uppercase;
+    vertical-align: middle;
+    width: 30px;
+    position: relative;
+    white-space: nowrap;
+}
+
+@media only screen and (max-width: 991px) {
+    .profile-info-center {
+        text-align: center;
+    }
+
+    .profile-view .profile-img {
+        height: 100px;
+        width: 100px;
+    }
+
+    .profile-view .profile-basic {
+        margin-left: 0;
+        margin-top: 15px;
+    }
+
+    .profile-view .profile-img-wrap {
+        margin: 0 auto 10px;
+        position: relative;
+        height: 100px;
+        width: 100px;
+    }
+
+    .profile-view .profile-img .avatar {
+        font-size: 24px;
+        height: 100px;
+        line-height: 100px;
+        margin: 0;
+        width: 100px;
+    }
+}
+
+@media only screen and (max-width: 991px) {
+    .profile-info-right {
+        border-left: none;
+        border-top: 2px dashed #ccc;
+        margin-top: 20px;
+        padding: 20px;
+    }
+
+    h3 {
+        font-size: 1.17em;
+    }
+    .modal-content .modal-header h5 {
+        font-weight: 700;
+        font-size: 18px;
+        letter-spacing: 1px;
+    }
+}

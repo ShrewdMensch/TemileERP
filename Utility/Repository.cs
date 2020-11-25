@@ -135,7 +135,7 @@ namespace Utility
         {
             var personnels = await GetAll<Personnel>();
             var personnelsForToday = personnels.Where(c => c.DateJoined.ToFormalDate() == DateTime.Today.ToFormalDate());
-            var dateJoined = personnel.DateJoined;
+            var dateJoined = DateTime.Now;
 
             var personnelId = String.Format("TEM{0}{1:D2}{2:D2}{3:D4}",
             dateJoined.Year, dateJoined.Month, dateJoined.Day, (personnelsForToday.Count() + 1));

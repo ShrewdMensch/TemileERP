@@ -8,7 +8,6 @@ namespace Domain
         public string Bank { get; set; }
         public string AccountName { get; set; }
         public string AccountNumber { get; set; }
-        public string BVN { get; set; }
         public string PayrollId { get; set; }
         public virtual Payroll Payroll { get; set; }
     }

@@ -38,6 +38,26 @@ $(document).ready(function () {
         width: "100%",
     });
 
+    $("#Personnel_Vessel").select2({
+        placeholder: "Select vessel...",
+        dropdownParent: $("#personnelCreateModal"),
+        width: "100%",
+        ajax: {
+            url: "/api/vessels/ForSelect2",
+            data: function (params) {
+                var query = {
+                    search: params.term,
+                };
+                return query;
+            },
+            processResults: function (data) {
+                return {
+                    results: data,
+                };
+            },
+        },
+    });
+
     $("#Edit_Religion").select2({
         minimumResultsForSearch: Infinity,
         width: "100%",
@@ -60,6 +80,26 @@ $(document).ready(function () {
         placeholder: "Select bank...",
         dropdownParent: $("#personnelEditModal"),
         width: "100%",
+    });
+
+
+    $.ajax({
+        url: "/api/vessels/ForSelect2",
+        dataType: "json",
+        type: "GET",
+        success: function (data) {
+            $("#Edit_Vessel").select2({
+                data: data,
+                placeholder: "Select vessel...",
+                dropdownParent: $("#personnelEditModal"),
+                width: "100%",
+                minimumResultsForSearch: Infinity,
+
+            });
+        },
+        error: function () {
+            alert("Error occurred...");
+        },
     });
 
     //Parsely Validator triggers for Select2
@@ -100,6 +140,26 @@ $(document).ready(function () {
                 "parsley-success"
             );
             $("#Personnel_bank_group span.select2-selection__rendered").addClass(
+                "parsley-error"
+            );
+        });
+    $("#Personnel_Vessel")
+        .parsley()
+        .on("field:success", function () {
+            $("#Personnel_vessel_group span.select2-selection__rendered").removeClass(
+                "parsley-error"
+            );
+            $("#Personnel_vessel_group span.select2-selection__rendered").addClass(
+                "parsley-success"
+            );
+        });
+    $("#Personnel_Vessel")
+        .parsley()
+        .on("field:error", function () {
+            $("#Personnel_vessel_group span.select2-selection__rendered").removeClass(
+                "parsley-success"
+            );
+            $("#Personnel_vessel_group span.select2-selection__rendered").addClass(
                 "parsley-error"
             );
         });
@@ -150,6 +210,8 @@ $(document).ready(function () {
         $("#Personnel_Nationality").trigger("change");
         $("#Personnel_Bank").val("");
         $("#Personnel_Bank").trigger("change");
+        $("#Personnel_Vessel").val("");
+        $("#Personnel_Vessel").trigger("change");
         $("#Personnel_Sex").val("");
         $("#Personnel_Sex").trigger("change");
         $("#Personnel_Religion").val("");
@@ -192,36 +254,33 @@ $(document).ready(function () {
             dataType: "json",
             type: "GET",
             success: function (data) {
+                console.log(data);
                 $("#Edit_Surname").val(data.lastName);
                 $("#Edit_FirstName").val(data.firstName);
                 $("#Edit_OtherName").val(data.otherName);
-                $("#Edit_Sex").val(data.sex);
-                $("#Edit_Religion").val(data.religion);
                 $("#Edit_Email").val(data.email);
                 $("#Edit_DailyRate").val(data.dailyRate);
                 $("#Edit_AccountName").val(data.accountName);
                 $("#Edit_AccountNumber").val(data.accountNumber);
-                $("#Edit_BVN").val(data.bvn);
                 $("#Edit_PhoneNo").val(data.phoneNumber);
                 $("#Edit_NextOfKin").val(data.nextOfKin);
                 $("#Edit_NextOfKinPhoneNo").val(data.nextOfKinPhoneNumber);
                 $("#Edit_Address").val(data.address);
 
-                if (data.bank) {
-                    $("#Edit_Bank").val(data.bank);
-                    $("#Edit_Bank").trigger("change");
-                } else {
-                    $("#Edit_Bank").val("");
-                    $("#Edit_Bank").trigger("change");
-                }
+                $("#Edit_Bank").val(data.bank);
+                $("#Edit_Bank").trigger("change");
 
-                if (data.nationality) {
-                    $("#Edit_Nationality").val(data.nationality);
-                    $("#Edit_Nationality").trigger("change");
-                } else {
-                    $("#Edit_Nationality").val("");
-                    $("#Edit_Nationality").trigger("change");
-                }
+                $("#Edit_Religion").val(data.religion);
+                $("#Edit_Religion").trigger("change");
+
+                $("#Edit_Sex").val(data.sex);
+                $("#Edit_Sex").trigger("change");
+
+                $("#Edit_Vessel").val(data.vessel);
+                $("#Edit_Vessel").trigger("change");
+
+                $("#Edit_Nationality").val(data.nationality);
+                $("#Edit_Nationality").trigger("change");
 
                 initialform = $(form).serialize();
                 modal.find(".modal-body .row").attr("hidden", false);
@@ -253,17 +312,19 @@ $(document).ready(function () {
                 $("#name").text(data.name);
                 profile.find("#fullName").text(data.fullName);
                 profile.find("#dateJoined").text(data.dateJoined);
-                profile.find("#dailyRate").text(data.dailyRate);
+                profile.find("#dailyRate").text(data.dailyRateStr);
                 profile.find("#religion").text(data.religion);
                 profile.find("#bank").text(data.bank);
                 profile.find("#accountName").text(data.accountName);
                 profile.find("#accountNumber").text(data.accountNumber);
-                profile.find("#bvn").text(data.bvn);
                 profile.find("#kinNumber").text(data.nextOfKinPhoneNumber);
                 profile.find("#kin").text(data.nextOfKin);
                 profile
                     .find("#occupation")
                     .text(data.designation ? data.designation : "Temile Personnel");
+                profile
+                    .find("#vessel")
+                    .text(data.vessel ? data.vessel : "N/A");
 
                 profile.find("#photo")
                     .attr("src", data.photo ? data.photo : "/assets/img/user.jpg");

@@ -12,7 +12,6 @@ namespace Utility.DTOs
         public string Bank { get; set; }
         public string AccountName { get; set; }
         public string AccountNumber { get; set; }
-        public string BVN { get; set; }
         public string TotalDeductedPercentage { get; set; }
         public string TotalDeductedAmount { get; set; }
         public string DailyRate { get; set; }

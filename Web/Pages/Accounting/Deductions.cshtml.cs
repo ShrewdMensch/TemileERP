@@ -160,7 +160,6 @@ namespace Web.Pages.Accounting
                 }
 
                 currentPayroll.PaymentDetail.Bank = currentPayroll.Personnel.Bank;
-                currentPayroll.PaymentDetail.BVN = currentPayroll.Personnel.BVN;
                 currentPayroll.PaymentDetail.AccountName = currentPayroll.Personnel.AccountName;
                 currentPayroll.PaymentDetail.AccountNumber = currentPayroll.Personnel.AccountNumber;
             }

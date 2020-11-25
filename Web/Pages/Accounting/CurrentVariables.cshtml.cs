@@ -52,6 +52,8 @@ namespace Web.Pages.Accounting
                 return RedirectToPage();
             }
 
+            personnel.Vessel = setPayrollVariablesInput.Vessel;
+
             if (payroll == null) //No current Payroll yet - Create new one
             {
                 var newPayroll = new Payroll
@@ -85,7 +87,6 @@ namespace Web.Pages.Accounting
                 var newPayrollPaymentDetail = new PaymentDetail
                 {
                     Bank = newPayroll.Personnel.Bank,
-                    BVN = newPayroll.Personnel.BVN,
                     AccountName = newPayroll.Personnel.AccountName,
                     AccountNumber = newPayroll.Personnel.AccountNumber,
                     Payroll = newPayroll
@@ -117,7 +118,6 @@ namespace Web.Pages.Accounting
                 }
 
                 payroll.PaymentDetail.Bank = payroll.Personnel.Bank;
-                payroll.PaymentDetail.BVN = payroll.Personnel.BVN;
                 payroll.PaymentDetail.AccountName = payroll.Personnel.AccountName;
                 payroll.PaymentDetail.AccountNumber = payroll.Personnel.AccountNumber;
 

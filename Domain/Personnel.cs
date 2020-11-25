@@ -40,13 +40,13 @@ namespace Domain
         public string Bank { get; set; }
         public string AccountName { get; set; }
         public string AccountNumber { get; set; }
-        public string BVN { get; set; }
         public string PhoneNumber { get; set; }
         public string NextOfKin { get; set; }
         public string NextOfKinPhoneNumber { get; set; }
         public string Designation { get; set; }
         public bool IsActive { get; set; }
         public DateTime DateJoined { get; set; }
+        public string Vessel { get; set; }
         public virtual Photo Photo { get; set; }
         public virtual ICollection<Payroll> Payrolls { get; set; }
 

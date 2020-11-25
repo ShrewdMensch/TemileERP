@@ -21,49 +21,55 @@
                 <div class="modal-body">
                     <div class="row">
                         <div class="form-group col-sm-6">
-                            <label class="control-label" for="Personnel_Surname">Surname <span
-                                    class="text-danger">*</span></label>
+                            <label class="control-label" for="Personnel_Surname">
+                                Surname <span class="text-danger">*</span>
+                            </label>
                             <input class="form-control" type="text" required
-                                data-parsley-required-message="Surname is required." id="Personnel_Surname"
-                                name="Surname" value="">
+                                   data-parsley-required-message="Surname is required." id="Personnel_Surname"
+                                   name="Surname" value="">
                         </div>
                         <div class="form-group col-sm-6">
-                            <label class="control-label" for="Personnel_FirstName">First Name <span
-                                    class="text-danger">*</span></label>
+                            <label class="control-label" for="Personnel_FirstName">
+                                First Name <span class="text-danger">*</span>
+                            </label>
                             <input class="form-control" type="text" required
-                                data-parsley-required-message="First Name is required." id="Personnel_FirstName"
-                                name="FirstName" value="">
+                                   data-parsley-required-message="First Name is required." id="Personnel_FirstName"
+                                   name="FirstName" value="">
                         </div>
                         <div class="form-group col-sm-6 tb-alternating">
-                            <label class="control-label" for="Personnel_OtherName">Other Name <span
-                                    class="text-muted-light">(optional)</span></label>
+                            <label class="control-label" for="Personnel_OtherName">
+                                Other Name <span class="text-muted-light">(optional)</span>
+                            </label>
                             <input class="form-control" type="text" id="Personnel_OtherName" name="OtherName" value="">
                         </div>
                         <div class="form-group col-sm-6 tb-alternating" id="Personnel_sex_group">
-                            <label class="control-label" for="Personnel_Sex">Sex <span
-                                    class="text-danger">*</span></label>
+                            <label class="control-label" for="Personnel_Sex">
+                                Sex <span class="text-danger">*</span>
+                            </label>
                             <select required data-parsley-required-message="Sex is required." id="Personnel_Sex"
-                                data-parsley-errors-container="#personnel_sex-error"
-                                data-parsley-trigger-after-failure="change" name="Sex" class="form-control">
+                                    data-parsley-errors-container="#personnel_sex-error"
+                                    data-parsley-trigger-after-failure="change" name="Sex" class="form-control">
                                 <option value="Male">Male</option>
                                 <option value="Female">Female</option>
                             </select>
                             <span id="personnel_sex-error"></span>
                         </div>
                         <div class="form-group col-sm-6 tb-alternating">
-                            <label class="control-label" for="Personnel_Nationality">Nationality <span
-                                    class="text-danger">*</span></label>
+                            <label class="control-label" for="Personnel_Nationality">
+                                Nationality <span class="text-danger">*</span>
+                            </label>
                             <select required data-parsley-required-message="Nationality is required."
-                                class="form-control" type="text" id="Personnel_Nationality" name="Nationality" value="">
+                                    class="form-control" type="text" id="Personnel_Nationality" name="Nationality" value="">
                             </select>
                         </div>
                         <div class="form-group col-sm-6 tb-alternating" id="Personnel_religion_group">
-                            <label class="control-label" for="Personnel_Religion">Religion <span
-                                    class="text-danger">*</span></label>
+                            <label class="control-label" for="Personnel_Religion">
+                                Religion <span class="text-danger">*</span>
+                            </label>
                             <select required data-parsley-required-message="Religion is required." class="form-control"
-                                data-parsley-errors-container="#personnel_religion-error"
-                                data-parsley-trigger-after-failure="change" type="text" id="Personnel_Religion"
-                                name="Religion" value="">
+                                    data-parsley-errors-container="#personnel_religion-error"
+                                    data-parsley-trigger-after-failure="change" type="text" id="Personnel_Religion"
+                                    name="Religion" value="">
                                 <option value="Islam">Islam</option>
                                 <option value="Christianity">Christianity</option>
                                 <option value="Others">Others</option>
@@ -71,84 +77,95 @@
                             <span id="personnel_religion-error"></span>
                         </div>
                         <div class="form-group col-sm-6 tb-alternating">
-                            <label class="control-label" for="Personnel_Email">Email <span
-                                    class="text-danger">*</span></label>
+                            <label class="control-label" for="Personnel_Email">
+                                Email <span class="text-danger">*</span>
+                            </label>
                             <input class="form-control" type="email" id="Personnel_Email" required name="Email"
-                                data-parsley-required-message="Email is required." value="">
+                                   data-parsley-required-message="Email is required." value="">
                         </div>
                         <div class="form-group col-sm-6 tb-alternating">
-                            <label class="control-label" for="Personnel_DailyRate">Daily Rate <span
-                                    class="text-danger">*</span></label>
+                            <label class="control-label" for="Personnel_DailyRate">
+                                Daily Rate <span class="text-danger">*</span>
+                            </label>
                             <input class="form-control" min="500" type="text" id="Personnel_DailyRate" required
-                                data-parsley-errors-container="#personnel_dailyRate_error"
-                                data-parsley-trigger-after-failure="change"
-                                data-parsley-required-message="Daily rate is required."
-                                data-parsley-min-message="Daily rate should not be less than 500" name="DailyRate"
-                                value="">
+                                   data-parsley-errors-container="#personnel_dailyRate_error"
+                                   data-parsley-trigger-after-failure="change"
+                                   data-parsley-required-message="Daily rate is required."
+                                   data-parsley-min-message="Daily rate should not be less than 500" name="DailyRate"
+                                   value="">
                             <span id="personnel_dailyRate_error"></span>
                         </div>
+                        <div class="form-group col-sm-6 tb-alternating">
+                            <label class="control-label" for="Personnel_PhoneNo">
+                                Phone Number <span class="text-danger">*</span>
+                            </label>
+                            <input type="tel" class="form-control" required
+                                   data-parsley-required-message="Phone is required."
+                                   data-parsley-pattern-message="Specify a valid 11 digits mobile number."
+                                   pattern="/^\d{11}$/" id="Personnel_PhoneNo" name="PhoneNo" value="">
+                        </div>
+                        <div class="form-group col-sm-6 tb-alternating" id="Personnel_vessel_group">
+                            <label class="control-label" for="Personnel_Vessel">
+                                Vessel <span class="text-danger">*</span>
+                            </label>
+                            <select class="form-control" id="Personnel_Vessel" required
+                                    data-parsley-errors-container="#vessel-error" data-parsley-trigger-after-failure="change"
+                                    data-parsley-required-message="Vessel is required." name="Vessel" value="">
+                                <option value="">Select Vessel...</option>
+                            </select>
+                            <span id="vessel-error"></span>
+                        </div>
                         <div class="form-group col-sm-6 tb-alternating" id="Personnel_bank_group">
-                            <label class="control-label" for="Personnel_Bank">Bank <span
-                                    class="text-danger">*</span></label>
+                            <label class="control-label" for="Personnel_Bank">
+                                Bank <span class="text-danger">*</span>
+                            </label>
                             <select class="form-control" id="Personnel_Bank" required
-                                data-parsley-errors-container="#bank-error" data-parsley-trigger-after-failure="change"
-                                data-parsley-required-message="Bank is required." name="Bank" value="">
+                                    data-parsley-errors-container="#bank-error" data-parsley-trigger-after-failure="change"
+                                    data-parsley-required-message="Bank is required." name="Bank" value="">
                                 <option value="">Select Bank...</option>
                             </select>
                             <span id="bank-error"></span>
                         </div>
                         <div class="form-group col-sm-6 tb-alternating">
-                            <label class="control-label" for="Personnel_AccountName">Account Name <span
-                                    class="text-danger">*</span></label>
+                            <label class="control-label" for="Personnel_AccountName">
+                                Account Name <span class="text-danger">*</span>
+                            </label>
                             <input class="form-control" type="text" id="Personnel_AccountName" required
-                                data-parsley-required-message="Account name is required." name="AccountName" value="">
+                                   data-parsley-required-message="Account name is required." name="AccountName" value="">
                         </div>
                         <div class="form-group col-sm-6 tb-alternating">
-                            <label class="control-label" for="Personnel_AccountNumber">Account Number <span
-                                    class="text-danger">*</span></label>
+                            <label class="control-label" for="Personnel_AccountNumber">
+                                Account Number <span class="text-danger">*</span>
+                            </label>
                             <input class="form-control" minlength="10" maxlength="10" data-parsley-type="digits"
-                                data-parsley-length-message="Account number should be 10 digits long"
-                                data-parsley-required-message="Account number is required" type="text"
-                                id="Personnel_AccountNumber" required name="AccountNumber" value="">
+                                   data-parsley-length-message="Account number should be 10 digits long"
+                                   data-parsley-required-message="Account number is required" type="text"
+                                   id="Personnel_AccountNumber" required name="AccountNumber" value="">
                         </div>
                         <div class="form-group col-sm-6 tb-alternating">
-                            <label class="control-label" for="Personnel_BVN">BVN <span
-                                    class="text-danger">*</span></label>
-                            <input class="form-control" minlength="11" maxlength="11" data-parsley-type="digits"
-                                data-parsley-length-message="BVN should be 11 digits long"
-                                data-parsley-required-message="BVN is required"
-                                data-parsley-type-message="BVN should be digits." type="text" id="Personnel_BVN"
-                                required name="BVN" value="">
-                        </div>
-                        <div class="form-group col-sm-6 tb-alternating">
-                            <label class="control-label" for="Personnel_PhoneNo">Phone Number <span
-                                    class="text-danger">*</span></label>
-                            <input type="tel" class="form-control" required
-                                data-parsley-required-message="Phone is required."
-                                data-parsley-pattern-message="Specify a valid 11 digits mobile number." type="tel"
-                                pattern="/^\d{11}$/" id="Personnel_PhoneNo" name="PhoneNo" value="">
-                        </div>
-                        <div class="form-group col-sm-6 tb-alternating">
-                            <label class="control-label" for="Personnel_NextOfKin">Next of kin <span
-                                    class="text-danger">*</span></label>
+                            <label class="control-label" for="Personnel_NextOfKin">
+                                Next of kin <span class="text-danger">*</span>
+                            </label>
                             <input class="form-control" type="text" required
-                                data-parsley-required-message="Next of kin is required." id="Personnel_NextOfKin"
-                                name="NextOfKin" value="">
+                                   data-parsley-required-message="Next of kin is required." id="Personnel_NextOfKin"
+                                   name="NextOfKin" value="">
                         </div>
                         <div class="form-group col-sm-6 tb-alternating">
-                            <label class="control-label" for="Personnel_NextOfKinPhoneNo">Next of Kin phone number <span
-                                    class="text-danger">*</span></label>
+                            <label class="control-label" for="Personnel_NextOfKinPhoneNo">
+                                Next of Kin phone number <span class="text-danger">*</span>
+                            </label>
                             <input class="form-control" type="tel" required
-                                data-parsley-required-message="Next of kin's phone number is required."
-                                data-parsley-pattern-message="Specify a valid 11 digits mobile number."
-                                id="Personnel_NextOfKinPhoneNo" name="NextOfKinPhoneNo" pattern="/^\d{11}$/" value="">
+                                   data-parsley-required-message="Next of kin's phone number is required."
+                                   data-parsley-pattern-message="Specify a valid 11 digits mobile number."
+                                   id="Personnel_NextOfKinPhoneNo" name="NextOfKinPhoneNo" pattern="/^\d{11}$/" value="">
                         </div>
                         <div class="form-group col-sm-6">
-                            <label class="control-label" for="Personnel_Address">Address <span
-                                    class="text-danger">*</span></label>
+                            <label class="control-label" for="Personnel_Address">
+                                Address <span class="text-danger">*</span>
+                            </label>
                             <textarea cols="5" rows="5" class="form-control" required
-                                data-parsley-required-message="Address is required." type="text" id="Personnel_Address"
-                                name="Address" value=""></textarea>
+                                      data-parsley-required-message="Address is required." type="text" id="Personnel_Address"
+                                      name="Address" value=""></textarea>
                         </div>
                     </div>
                 </div>

@@ -28,6 +28,9 @@ namespace Persistence
         public DbSet<Personnel> Personnels { get; set; }
         public DbSet<Payroll> Payrolls { get; set; }
         public DbSet<Deduction> Deductions { get; set; }
+        public DbSet<Vessel> Vessels { get; set; }
+        public DbSet<Allowance> Allowances { get; set; }
+        public DbSet<SpecificDeduction> SpecificDeductions { get; set; }
         public DbSet<DeductionDetail> DeductionDetails { get; set; }
         public DbSet<PaymentDetail> PaymentDetails { get; set; }
     }

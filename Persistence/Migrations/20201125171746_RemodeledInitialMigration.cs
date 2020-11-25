@@ -3,7 +3,7 @@ using Microsoft.EntityFrameworkCore.Migrations;
 
 namespace Persistence.Migrations
 {
-    public partial class InitialMigration : Migration
+    public partial class RemodeledInitialMigration : Migration
     {
         protected override void Up(MigrationBuilder migrationBuilder)
         {
@@ -114,13 +114,13 @@ namespace Persistence.Migrations
                     Bank = table.Column<string>(nullable: true),
                     AccountName = table.Column<string>(nullable: true),
                     AccountNumber = table.Column<string>(nullable: true),
-                    BVN = table.Column<string>(nullable: true),
                     PhoneNumber = table.Column<string>(nullable: true),
                     NextOfKin = table.Column<string>(nullable: true),
                     NextOfKinPhoneNumber = table.Column<string>(nullable: true),
                     Designation = table.Column<string>(nullable: true),
                     IsActive = table.Column<bool>(nullable: false),
                     DateJoined = table.Column<DateTime>(nullable: false),
+                    Vessel = table.Column<string>(nullable: true),
                     PhotoId = table.Column<Guid>(nullable: true)
                 },
                 constraints: table =>
@@ -224,12 +224,12 @@ namespace Persistence.Migrations
                 columns: table => new
                 {
                     Id = table.Column<Guid>(nullable: false),
-                    Name = table.Column<string>(nullable: true),
-                    Percentage = table.Column<float>(nullable: false),
                     DateAdded = table.Column<DateTime>(nullable: false),
                     LastModified = table.Column<DateTime>(nullable: false),
                     AddedById = table.Column<string>(nullable: true),
-                    ModifiedById = table.Column<string>(nullable: true)
+                    ModifiedById = table.Column<string>(nullable: true),
+                    Name = table.Column<string>(nullable: true),
+                    Percentage = table.Column<float>(nullable: false)
                 },
                 constraints: table =>
                 {
@@ -249,6 +249,34 @@ namespace Persistence.Migrations
                 });
 
             migrationBuilder.CreateTable(
+                name: "Vessels",
+                columns: table => new
+                {
+                    Id = table.Column<Guid>(nullable: false),
+                    DateAdded = table.Column<DateTime>(nullable: false),
+                    LastModified = table.Column<DateTime>(nullable: false),
+                    AddedById = table.Column<string>(nullable: true),
+                    ModifiedById = table.Column<string>(nullable: true),
+                    Name = table.Column<string>(nullable: true)
+                },
+                constraints: table =>
+                {
+                    table.PrimaryKey("PK_Vessels", x => x.Id);
+                    table.ForeignKey(
+                        name: "FK_Vessels_AspNetUsers_AddedById",
+                        column: x => x.AddedById,
+                        principalTable: "AspNetUsers",
+                        principalColumn: "Id",
+                        onDelete: ReferentialAction.Restrict);
+                    table.ForeignKey(
+                        name: "FK_Vessels_AspNetUsers_ModifiedById",
+                        column: x => x.ModifiedById,
+                        principalTable: "AspNetUsers",
+                        principalColumn: "Id",
+                        onDelete: ReferentialAction.Restrict);
+                });
+
+            migrationBuilder.CreateTable(
                 name: "Payrolls",
                 columns: table => new
                 {
@@ -256,10 +284,10 @@ namespace Persistence.Migrations
                     DailyRate = table.Column<double>(nullable: false),
                     DaysWorked = table.Column<int>(nullable: false),
                     TotalDeductedPercentage = table.Column<float>(nullable: false),
-                    Vessel = table.Column<string>(nullable: true),
                     Date = table.Column<DateTime>(nullable: false),
                     IsVariablesSet = table.Column<bool>(nullable: false),
-                    PersonnelId = table.Column<string>(nullable: true)
+                    PersonnelId = table.Column<string>(nullable: true),
+                    Vessel = table.Column<string>(nullable: true)
                 },
                 constraints: table =>
                 {
@@ -268,6 +296,26 @@ namespace Persistence.Migrations
                         name: "FK_Payrolls_Personnels_PersonnelId",
                         column: x => x.PersonnelId,
                         principalTable: "Personnels",
+                        principalColumn: "Id",
+                        onDelete: ReferentialAction.Restrict);
+                });
+
+            migrationBuilder.CreateTable(
+                name: "Allowances",
+                columns: table => new
+                {
+                    Id = table.Column<Guid>(nullable: false),
+                    Name = table.Column<string>(nullable: true),
+                    Amount = table.Column<double>(nullable: false),
+                    PayrollId = table.Column<string>(nullable: true)
+                },
+                constraints: table =>
+                {
+                    table.PrimaryKey("PK_Allowances", x => x.Id);
+                    table.ForeignKey(
+                        name: "FK_Allowances_Payrolls_PayrollId",
+                        column: x => x.PayrollId,
+                        principalTable: "Payrolls",
                         principalColumn: "Id",
                         onDelete: ReferentialAction.Restrict);
                 });
@@ -301,7 +349,6 @@ namespace Persistence.Migrations
                     Bank = table.Column<string>(nullable: true),
                     AccountName = table.Column<string>(nullable: true),
                     AccountNumber = table.Column<string>(nullable: true),
-                    BVN = table.Column<string>(nullable: true),
                     PayrollId = table.Column<string>(nullable: true)
                 },
                 constraints: table =>
@@ -314,6 +361,31 @@ namespace Persistence.Migrations
                         principalColumn: "Id",
                         onDelete: ReferentialAction.Restrict);
                 });
+
+            migrationBuilder.CreateTable(
+                name: "SpecificDeductions",
+                columns: table => new
+                {
+                    Id = table.Column<Guid>(nullable: false),
+                    Name = table.Column<string>(nullable: true),
+                    Amount = table.Column<double>(nullable: false),
+                    PayrollId = table.Column<string>(nullable: true)
+                },
+                constraints: table =>
+                {
+                    table.PrimaryKey("PK_SpecificDeductions", x => x.Id);
+                    table.ForeignKey(
+                        name: "FK_SpecificDeductions_Payrolls_PayrollId",
+                        column: x => x.PayrollId,
+                        principalTable: "Payrolls",
+                        principalColumn: "Id",
+                        onDelete: ReferentialAction.Restrict);
+                });
+
+            migrationBuilder.CreateIndex(
+                name: "IX_Allowances_PayrollId",
+                table: "Allowances",
+                column: "PayrollId");
 
             migrationBuilder.CreateIndex(
                 name: "IX_AspNetRoleClaims_RoleId",
@@ -387,10 +459,28 @@ namespace Persistence.Migrations
                 name: "IX_Personnels_PhotoId",
                 table: "Personnels",
                 column: "PhotoId");
+
+            migrationBuilder.CreateIndex(
+                name: "IX_SpecificDeductions_PayrollId",
+                table: "SpecificDeductions",
+                column: "PayrollId");
+
+            migrationBuilder.CreateIndex(
+                name: "IX_Vessels_AddedById",
+                table: "Vessels",
+                column: "AddedById");
+
+            migrationBuilder.CreateIndex(
+                name: "IX_Vessels_ModifiedById",
+                table: "Vessels",
+                column: "ModifiedById");
         }
 
         protected override void Down(MigrationBuilder migrationBuilder)
         {
+            migrationBuilder.DropTable(
+                name: "Allowances");
+
             migrationBuilder.DropTable(
                 name: "AspNetRoleClaims");
 
@@ -416,13 +506,19 @@ namespace Persistence.Migrations
                 name: "PaymentDetails");
 
             migrationBuilder.DropTable(
+                name: "SpecificDeductions");
+
+            migrationBuilder.DropTable(
+                name: "Vessels");
+
+            migrationBuilder.DropTable(
                 name: "AspNetRoles");
 
             migrationBuilder.DropTable(
-                name: "AspNetUsers");
+                name: "Payrolls");
 
             migrationBuilder.DropTable(
-                name: "Payrolls");
+                name: "AspNetUsers");
 
             migrationBuilder.DropTable(
                 name: "Personnels");

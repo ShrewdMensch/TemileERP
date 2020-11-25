@@ -1,5 +1,6 @@
 using System;
 using System.Collections.Generic;
+using System.Linq;
 
 namespace Domain
 {
@@ -12,18 +13,29 @@ namespace Domain
         }
 
         public string Id { get; set; }
-        public Double DailyRate { get; set; }
+        public double DailyRate { get; set; }
         public int DaysWorked { get; set; }
-        public Double GrossPay => DailyRate * DaysWorked;
-        public Double NetPay => GrossPay - TotalDeductedAmount;
+        public double GrossPay => DailyRate * DaysWorked;
+        public double NetPay => GetNetPay();
         public float TotalDeductedPercentage { get; set; }
         public double TotalDeductedAmount => GrossPay * (TotalDeductedPercentage / 100);
-        public string Vessel { get; set; }
         public DateTime Date { get; set; }
         public bool IsVariablesSet { get; set; }
         public string PersonnelId { get; set; }
         public virtual Personnel Personnel { get; set; }
+        public string Vessel { get; set; }
+        public virtual ICollection<Allowance> Allowances { get; set; }
+        public virtual ICollection<SpecificDeduction> SpecificDeductions { get; set; }
         public virtual ICollection<DeductionDetail> DeductionDetails { get; set; }
         public virtual PaymentDetail PaymentDetail { get; set; }
+
+        private double GetNetPay()
+        {
+            var totalSpecificDeductions = SpecificDeductions.Sum(s => s.Amount);
+            var totalAllowances = Allowances.Sum(s => s.Amount);
+            var netPay = (GrossPay + totalAllowances) - (TotalDeductedAmount + totalSpecificDeductions);
+
+            return netPay;
+        }
     }
 }

@@ -16,6 +16,28 @@ namespace Persistence.Migrations
             modelBuilder
                 .HasAnnotation("ProductVersion", "3.1.10");
 
+            modelBuilder.Entity("Domain.Allowance", b =>
+                {
+                    b.Property<Guid>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("TEXT");
+
+                    b.Property<double>("Amount")
+                        .HasColumnType("REAL");
+
+                    b.Property<string>("Name")
+                        .HasColumnType("TEXT");
+
+                    b.Property<string>("PayrollId")
+                        .HasColumnType("TEXT");
+
+                    b.HasKey("Id");
+
+                    b.HasIndex("PayrollId");
+
+                    b.ToTable("Allowances");
+                });
+
             modelBuilder.Entity("Domain.AppUser", b =>
                 {
                     b.Property<string>("Id")
@@ -190,9 +212,6 @@ namespace Persistence.Migrations
                     b.Property<string>("AccountNumber")
                         .HasColumnType("TEXT");
 
-                    b.Property<string>("BVN")
-                        .HasColumnType("TEXT");
-
                     b.Property<string>("Bank")
                         .HasColumnType("TEXT");
 
@@ -254,9 +273,6 @@ namespace Persistence.Migrations
                     b.Property<string>("Address")
                         .HasColumnType("TEXT");
 
-                    b.Property<string>("BVN")
-                        .HasColumnType("TEXT");
-
                     b.Property<string>("Bank")
                         .HasColumnType("TEXT");
 
@@ -307,6 +323,9 @@ namespace Persistence.Migrations
                     b.Property<int>("Sex")
                         .HasColumnType("INTEGER");
 
+                    b.Property<string>("Vessel")
+                        .HasColumnType("TEXT");
+
                     b.HasKey("Id");
 
                     b.HasIndex("PhotoId");
@@ -326,6 +345,58 @@ namespace Persistence.Migrations
                     b.HasKey("Id");
 
                     b.ToTable("Photos");
+                });
+
+            modelBuilder.Entity("Domain.SpecificDeduction", b =>
+                {
+                    b.Property<Guid>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("TEXT");
+
+                    b.Property<double>("Amount")
+                        .HasColumnType("REAL");
+
+                    b.Property<string>("Name")
+                        .HasColumnType("TEXT");
+
+                    b.Property<string>("PayrollId")
+                        .HasColumnType("TEXT");
+
+                    b.HasKey("Id");
+
+                    b.HasIndex("PayrollId");
+
+                    b.ToTable("SpecificDeductions");
+                });
+
+            modelBuilder.Entity("Domain.Vessel", b =>
+                {
+                    b.Property<Guid>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("TEXT");
+
+                    b.Property<string>("AddedById")
+                        .HasColumnType("TEXT");
+
+                    b.Property<DateTime>("DateAdded")
+                        .HasColumnType("TEXT");
+
+                    b.Property<DateTime>("LastModified")
+                        .HasColumnType("TEXT");
+
+                    b.Property<string>("ModifiedById")
+                        .HasColumnType("TEXT");
+
+                    b.Property<string>("Name")
+                        .HasColumnType("TEXT");
+
+                    b.HasKey("Id");
+
+                    b.HasIndex("AddedById");
+
+                    b.HasIndex("ModifiedById");
+
+                    b.ToTable("Vessels");
                 });
 
             modelBuilder.Entity("Microsoft.AspNetCore.Identity.IdentityRole", b =>
@@ -456,6 +527,13 @@ namespace Persistence.Migrations
                     b.ToTable("AspNetUserTokens");
                 });
 
+            modelBuilder.Entity("Domain.Allowance", b =>
+                {
+                    b.HasOne("Domain.Payroll", "Payroll")
+                        .WithMany("Allowances")
+                        .HasForeignKey("PayrollId");
+                });
+
             modelBuilder.Entity("Domain.AppUser", b =>
                 {
                     b.HasOne("Domain.Photo", "Photo")
@@ -500,6 +578,24 @@ namespace Persistence.Migrations
                     b.HasOne("Domain.Photo", "Photo")
                         .WithMany()
                         .HasForeignKey("PhotoId");
+                });
+
+            modelBuilder.Entity("Domain.SpecificDeduction", b =>
+                {
+                    b.HasOne("Domain.Payroll", "Payroll")
+                        .WithMany("SpecificDeductions")
+                        .HasForeignKey("PayrollId");
+                });
+
+            modelBuilder.Entity("Domain.Vessel", b =>
+                {
+                    b.HasOne("Domain.AppUser", "AddedBy")
+                        .WithMany()
+                        .HasForeignKey("AddedById");
+
+                    b.HasOne("Domain.AppUser", "ModifiedBy")
+                        .WithMany()
+                        .HasForeignKey("ModifiedById");
                 });
 
             modelBuilder.Entity("Microsoft.AspNetCore.Identity.IdentityRoleClaim<string>", b =>

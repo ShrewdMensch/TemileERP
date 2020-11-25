@@ -29,7 +29,7 @@ namespace Web
 
                     context.Database.Migrate();
 
-                    Seed.SeedData(userManager, roleManager).Wait();
+                    Seed.SeedData(userManager, roleManager, context).Wait();
                 }
                 catch (Exception ex)
                 {

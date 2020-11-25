@@ -16,9 +16,9 @@ namespace Utility.InputModels
         public string Religion { get; set; }
         public Double DailyRate { get; set; }
         public string Bank { get; set; }
+        public string Vessel { get; set; }
         public string AccountName { get; set; }
         public string AccountNumber { get; set; }
-        public string BVN { get; set; }
         public string PhoneNo { get; set; }
         public string NextOfKin { get; set; }
         public string NextOfKinPhoneNo { get; set; }

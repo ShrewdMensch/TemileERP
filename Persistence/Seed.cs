@@ -11,7 +11,7 @@ namespace Persistence
     public class Seed
     {
         public static async Task SeedData(
-            UserManager<AppUser> userManager, RoleManager<IdentityRole> roleManager)
+            UserManager<AppUser> userManager, RoleManager<IdentityRole> roleManager, ApplicationDbContext context)
         {
             var dateOfRegistration = DateTime.Now;
 
@@ -40,7 +40,7 @@ namespace Persistence
                         UserName = "admin",
                         Designation = UserRoles.SystemAdministrator,
                         StaffId = String.Format("{0}-{1}{2:D2}{3:D2}{4:D4}", "ADM",
-                        dateOfRegistration.Year, dateOfRegistration.Month, dateOfRegistration.Day, 7)
+                        dateOfRegistration.Year, dateOfRegistration.Month, dateOfRegistration.Day, 1)
                     },
                     new AppUser
                     {
@@ -49,7 +49,7 @@ namespace Persistence
                         UserName = "account",
                         Designation = UserRoles.AccountOfficer,
                         StaffId = String.Format("{0}-{1}{2:D2}{3:D2}{4:D4}", "AO",
-                        dateOfRegistration.Year, dateOfRegistration.Month, dateOfRegistration.Day, 7)
+                        dateOfRegistration.Year, dateOfRegistration.Month, dateOfRegistration.Day, 2)
                     }
                 };
 
@@ -58,8 +58,37 @@ namespace Persistence
                     await userManager.CreateAsync(user, user.UserName);
                     await userManager.AddToRoleAsync(user, user.Designation);
                 }
-            }
 
+                List<Vessel> vessels = new List<Vessel>
+                {
+                    new Vessel
+                    {
+                        Name = "Garki",
+                        AddedBy = users[0],
+                        ModifiedBy = users[0]
+
+                    },
+
+                    new Vessel
+                    {
+                        Name = "Zulu",
+                        AddedBy = users[0],
+                        ModifiedBy = users[0]
+
+                    },
+                    
+                    new Vessel
+                    {
+                        Name = "Yankari",
+                        AddedBy = users[0],
+                        ModifiedBy = users[0]
+
+                    }
+                };
+
+                await context.AddRangeAsync(vessels);
+                await context.SaveChangesAsync();
+            }
         }
     }
 }

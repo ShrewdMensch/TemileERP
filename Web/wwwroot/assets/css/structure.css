@@ -1198,9 +1198,9 @@ code {
   fill: rgba(0, 23, 55, 0.08);
 }
 
-#sidebar ul.menu-categories li.menu.active>.dropdown-toggle svg {
-  color: #060818;
-  fill: #acb0c3;
+#sidebar ul.menu-categories li.menu.active > .dropdown-toggle svg {
+    color: #1b55e2;
+    fill: #acb0c3;
 }
 
 #sidebar ul.menu-categories li.menu.active>.dropdown-toggle svg.feather-chevron-right {
@@ -1212,8 +1212,8 @@ code {
   color: #060818;
 }
 
-#sidebar ul.menu-categories li.menu.active>.dropdown-toggle span {
-  color: #060818;
+#sidebar ul.menu-categories li.menu.active > .dropdown-toggle span {
+    color: #1b55e2;
 }
 
 /* #sidebar ul.menu-categories li.menu>.dropdown-toggle[aria-expanded="true"] svg {

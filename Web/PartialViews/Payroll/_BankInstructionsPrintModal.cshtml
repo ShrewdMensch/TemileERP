@@ -1,0 +1,92 @@
+<!-- Modal -->
+<div class="modal fade animated fadeInDown custo-fadeInDown show payrollPrintModal" id="bankInstructionsPrintModal"
+     data-backdrop="static" data-keyboard="false" tabindex="-1" aria-labelledby="staticBackdropLabel" aria-hidden="true">
+    <div class="modal-dialog modal-xl  modal-dialog-centered modal-dialog-scrollable">
+        <div class="modal-content">
+            <div class="modal-header">
+                <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none"
+                     stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"
+                     class="feather feather-file">
+                    <path d="M13 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V9z"></path>
+                    <polyline points="13 2 13 9 20 9"></polyline>
+                </svg>
+                <h5 class="modal-title" id="exampleModalLabel">Bank Instructions</h5>
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                </button>
+            </div>
+            <div class="modal-body">
+                <div class="row">
+                    <div class="col-sm-5 col-4">
+                        <h4 class="page-title">Bank Instructions</h4>
+                    </div>
+                    <div class="col-sm-7 col-8 text-right m-b-30">
+                        <button class="btn btn-white btn-lg mr-2" id="printBtn">
+                            <i class="fa fa-print fa-lg mr-4"></i>
+                            Print
+                        </button>
+                        <button class="btn btn-white btn-lg" id="sendMailBtn">
+                            <i class="fa fa-envelope fa-lg mr-2"></i>
+                            Send Via Mail
+                        </button>
+                    </div>
+                </div>
+                <div class="row" id="bankInstructionContainer">
+                    <div class="col-md-12">
+                        <div class="card-box">
+                            <h4 class="payslip-title">Bank Instructions for <span id="vessel"></span> Vessel (<span id="dateTitle"></span>)</h4>
+                            <div class="row m-b-20">
+                                <div class="col-sm-6 m-b-20">
+                                    <img src="/assets/img/logo-dark.png" class="inv-logo" alt="">
+                                    <ul class="list-unstyled m-b-0">
+                                        <li>E.A Temile and Sons Dev. Co. Nig Limited</li>
+                                        <li>Queens Drive, Ekurede,</li>
+                                        <li>Urhobo, Warri</li>
+                                        <li>Delta State, Nigeria</li>
+                                    </ul>
+                                </div>
+                                @*<div class="col-sm-6 m-b-20">
+                                        <div class="invoice-details">
+                                            <h3 class="text-uppercase">
+                                                Payslip #<span class="text-uppercase"
+                                                               id="paySlipNumber"></span>
+                                            </h3>
+                                            <ul class="list-unstyled">
+                                                <li>Salary Month: <span id="date"></span></li>
+                                            </ul>
+                                        </div>
+                                    </div>*@
+                            </div>
+                            <div class="row">
+                                <div class="col-12">
+                                    <div class="table-responsive">
+                                        <table class="table table-bordered">
+                                            <thead class="">
+                                                <tr>
+                                                    <th scope="col">PayrollID</th>
+                                                    <th scope="col">PersonnelName</th>
+                                                    <th scope="col">PersonnelID</th>
+                                                    <th scope="col">Bank</th>
+                                                    <th scope="col">AccountName</th>
+                                                    <th scope="col">AccountNumber</th>
+                                                    <th scope="col">NetPay</th>
+                                                </tr>
+                                            </thead>
+                                            <tbody id="instructionDetails">
+                                            </tbody>
+                                        </table>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="d-flex justify-content-center" id="loader">
+                <div class="spinner-border" role="status">
+                    <span class="sr-only">Loading...</span>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

@@ -115,6 +115,13 @@ namespace Utility
 
             return payrolls;
         }
+        
+        public async Task<IEnumerable<Payroll>> GetCurrentPayrollsByVessel(string vessel)
+        {
+            var payrolls = (await GetCurrentPayrolls()).Where(p => p.Vessel.ToLower() == vessel.ToLower());
+
+            return payrolls;
+        }
 
         public async Task<string> GenerateNewPayrollId()
         {

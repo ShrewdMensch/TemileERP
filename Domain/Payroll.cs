@@ -18,7 +18,7 @@ namespace Domain
         public double GrossPay => DailyRate * DaysWorked;
         public double NetPay => GetNetPay();
         public float TotalDeductedPercentage { get; set; }
-        public double TotalDeductedAmount => GrossPay * (TotalDeductedPercentage / 100);
+        public double TotalDeductedAmount => GetTotalDeductedAmount();
         public DateTime Date { get; set; }
         public bool IsVariablesSet { get; set; }
         public string PersonnelId { get; set; }
@@ -31,11 +31,17 @@ namespace Domain
 
         private double GetNetPay()
         {
-            var totalSpecificDeductions = SpecificDeductions.Sum(s => s.Amount);
             var totalAllowances = Allowances.Sum(s => s.Amount);
-            var netPay = (GrossPay + totalAllowances) - (TotalDeductedAmount + totalSpecificDeductions);
+            var netPay = (GrossPay + totalAllowances) - (TotalDeductedAmount);
 
             return netPay;
+        }
+        private double GetTotalDeductedAmount()
+        {
+            var totalSpecificDeductions = SpecificDeductions.Sum(s => s.Amount);
+            var totalDeductions = (GrossPay * (TotalDeductedPercentage / 100))  + totalSpecificDeductions;
+
+            return totalDeductions;
         }
     }
 }

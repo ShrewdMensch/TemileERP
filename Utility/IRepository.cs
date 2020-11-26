@@ -42,6 +42,7 @@ namespace Utility
         //Payroll Entity Related
         Task<int> GetNumberOfCurrentPayrolls();
         Task<IEnumerable<Payroll>> GetCurrentPayrolls();
+        Task<IEnumerable<Payroll>> GetCurrentPayrollsByVessel(string vessel);
         Task<int> GetNumberOfAllPayrolls();
         Task<string> GenerateNewPayrollId();
 

@@ -4,6 +4,8 @@ using System.Globalization;
 using System.Linq;
 using Microsoft.AspNetCore.Html;
 using Domain;
+using Utility.DTOs;
+using Utility.Comparer;
 
 namespace Utility
 {
@@ -232,5 +234,9 @@ namespace Utility
             return payrolls.FirstOrDefault(p => p.Date.ToFormalMonthAndYear() == today);
         }
 
+        public static IEnumerable<InstructionToBankListDto> DistinctByVessel(this IEnumerable<InstructionToBankListDto> instructionToBankDtos)
+        {
+            return instructionToBankDtos.Distinct(new InstructionToBankListDtoComparer());
+        }
     }
 }

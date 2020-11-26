@@ -141,7 +141,7 @@ $(document).ready(function () {
             deferred: $.Deferred(),
             doctype: "<!doctype html>",
             prepend:
-                '<br><p class="text-primary font-weight-bold">Temile and Sons Limited ©' +
+                '<br><p class="text-primary font-weight-bold">Temile and Sons Limited &copy;' +
                 year +
                 "</p>",
         });

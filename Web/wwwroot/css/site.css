@@ -224,6 +224,7 @@ table.display tbody tr {
 
 table.display tbody tr:nth-child(odd) {
   background-color: #f1f2f3 !important;
+  border-color: #f1f2f3 !important;
 }
 
 table.display tbody tr td.sorting_1 {

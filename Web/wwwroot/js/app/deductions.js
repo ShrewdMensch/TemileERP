@@ -12,8 +12,8 @@ $(document).ready(function () {
     );
   }
 
-  //Personnel Edit Information Logic
-  //Personnel Edit Form and API pull logic
+  //Deduction Edit Information Logic
+  //Deduction Edit Form and API pull logic
   var form = $("#deductionEditForm");
   var initialform;
 

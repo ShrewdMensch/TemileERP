@@ -9,8 +9,16 @@ namespace Web.API
 {
     public class VesselsController : BaseController
     {
+        [HttpGet("{id}")]
+        public async Task<ActionResult<VesselDto>> Get(Guid id)
+        {
+            var vessel = await Repository.Get<Vessel>(id);
+
+            return Ok(Mapper.Map<Vessel,VesselDto>(vessel));
+        }
+        
         [HttpGet("All")]
-        public async Task<ActionResult<PaymentSlipDto>> GetAll()
+        public async Task<ActionResult<VesselDto>> GetAll()
         {
             var vessels = await Repository.GetAll<Vessel>();
 
@@ -18,7 +26,7 @@ namespace Web.API
         }
 
         [HttpGet("ForSelect2")]
-        public async Task<ActionResult<PaymentSlipDto>> GetAllForDropDown()
+        public async Task<ActionResult<IEnumerable<Select2InputDto>>> GetAllForDropDown()
         {
             var vessels = await Repository.GetAll<Vessel>();
 

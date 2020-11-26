@@ -17,7 +17,7 @@ namespace Web.API
         }
 
         [HttpGet("All")]
-        public async Task<ActionResult<PaymentSlipDto>> GetAll()
+        public async Task<ActionResult<IEnumerable<PaymentSlipDto>>> GetAll()
         {
             var payments = await Repository.GetAll<Payroll>();
 

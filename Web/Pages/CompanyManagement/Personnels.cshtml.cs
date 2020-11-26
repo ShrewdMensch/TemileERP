@@ -13,7 +13,7 @@ using Utility.InputModels;
 using Microsoft.EntityFrameworkCore;
 using static Utility.UtilityClasses;
 
-namespace Web.Pages.Accounting
+namespace Web.Pages.CompanyManagement
 {
     public class PersonnelsModel : BasePageModel
     {

@@ -19,7 +19,7 @@ namespace Web.API
         }
 
         [HttpGet("All")]
-        public async Task<ActionResult<PersonnelDto>> GetAll()
+        public async Task<ActionResult<IEnumerable<PersonnelDto>>> GetAll()
         {
             var personnels = await Repository.GetAll<Personnel>();
 
@@ -27,7 +27,7 @@ namespace Web.API
         }
 
         [HttpGet("AllPlusPayroll")]
-        public async Task<ActionResult<PersonnelDto>> GetAllPlusPayrollDetails()
+        public async Task<ActionResult<IEnumerable<PersonnelPayrollDto>>> GetAllPlusPayrollDetails()
         {
             var personnels = await Repository.GetAll<Personnel>();
 
@@ -35,7 +35,7 @@ namespace Web.API
         }
 
         [HttpGet("HasCurrentPayroll")]
-        public async Task<ActionResult<PersonnelPayrollDto>> GetPersonnelsWithCurrentPayroll()
+        public async Task<ActionResult<IEnumerable<PersonnelPayrollDto>>> GetPersonnelsWithCurrentPayroll()
         {
             var personnels = await Repository.GetPersonnelsWithCurrentPayroll();
 
@@ -43,7 +43,7 @@ namespace Web.API
         }
 
         [HttpGet("HasNoCurrentPayroll")]
-        public async Task<ActionResult<PersonnelPayrollDto>> GetPersonnelsWithoutCurrentPayroll()
+        public async Task<ActionResult<IEnumerable<PersonnelPayrollDto>>> GetPersonnelsWithoutCurrentPayroll()
         {
             var personnelsWithCurrentPayroll = await Repository.GetPersonnelsWithCurrentPayroll();
 

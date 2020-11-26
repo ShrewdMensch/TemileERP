@@ -42,6 +42,7 @@ $(document).ready(function () {
         placeholder: "Select vessel...",
         dropdownParent: $("#personnelCreateModal"),
         width: "100%",
+        minimumResultsForSearch: 20,
         ajax: {
             url: "/api/vessels/ForSelect2",
             data: function (params) {
@@ -93,7 +94,7 @@ $(document).ready(function () {
                 placeholder: "Select vessel...",
                 dropdownParent: $("#personnelEditModal"),
                 width: "100%",
-                minimumResultsForSearch: Infinity,
+                minimumResultsForSearch: 20,
 
             });
         },

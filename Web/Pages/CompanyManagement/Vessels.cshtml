@@ -1,19 +1,15 @@
 ﻿@page "{handler?}"
-@model DeductionsModel
+@model VesselsModel
 @using static Utility.UtilityFunctions
 @using Utility
 @{
-    ViewData["Title"] = "Deductions";
-    ViewData["Name"] = "Deductions";
-}
-
-@section StyleSheets{
-    <link rel="stylesheet" href="~/plugins/bootstrap-touchspin/jquery.bootstrap-touchspin.min.css">
+    ViewData["Title"] = "Vessels";
+    ViewData["Name"] = "Vessels";
 }
 
 <div class="page-header">
     <div class="page-title">
-        <h3>Deductions</h3>
+        <h3>Vessels</h3>
     </div>
 </div>
 
@@ -27,8 +23,7 @@
             <table id="table" class="display text-left" style="width:100%">
                 <thead>
                     <tr>
-                        <th>Name</th>
-                        <th>Percentage</th>
+                        <th>Vessel Name</th>
                         <th>DateAdded</th>
                         <th>ModifiedBy</th>
                         <th>LastModified</th>
@@ -36,23 +31,22 @@
                     </tr>
                 </thead>
                 <tbody>
-                    @foreach (var deduction in Model.Deductions)
+                    @foreach (var vessel in Model.Vessels)
                     {
                         <tr>
-                            <td>@deduction.Name</td>
-                            <td>@deduction.Percentage%</td>
-                            <td>@deduction.DateAdded</td>
-                            <td>@deduction.ModifiedBy</td>
-                            <td>@deduction.LastModified</td>
+                            <td>@vessel.Name</td>
+                            <td>@vessel.DateAdded</td>
+                            <td>@vessel.ModifiedBy</td>
+                            <td>@vessel.LastModified</td>
                             <td class="float-right">
-                                <a class="btn btn-primary" data-toggle="modal" data-target="#deductionEditModal" data-id="@deduction.Id">
+                                <a class="btn btn-primary" data-toggle="modal" data-target="#vesselEditModal" data-id="@vessel.Id">
                                     <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-edit">
                                         <path d="M11 4H4a2 2 0 0 0-2 2v14a2 2 0 0 0 2 2h14a2 2 0 0 0 2-2v-7"></path>
                                         <path d="M18.5 2.5a2.121 2.121 0 0 1 3 3L12 15l-4 1 1-4 9.5-9.5z"></path>
                                     </svg>
                                 </a>
-                                <a class="btn btn-danger" data-toggle="modal" data-target="#deductionDeleteModal"
-                                   data-name="@deduction.Name" data-id="@deduction.Id">
+                                <a class="btn btn-danger" data-toggle="modal" data-target="#vesselDeleteModal"
+                                   data-name="@vessel.Name" data-id="@vessel.Id">
                                     <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-trash-2"><polyline points="3 6 5 6 21 6"></polyline><path d="M19 6v14a2 2 0 0 1-2 2H7a2 2 0 0 1-2-2V6m3 0V4a2 2 0 0 1 2-2h4a2 2 0 0 1 2 2v2"></path><line x1="10" y1="11" x2="10" y2="17"></line><line x1="14" y1="11" x2="14" y2="17"></line></svg>
                                 </a>
                             </td>
@@ -61,8 +55,7 @@
                 </tbody>
                 <tfoot>
                     <tr>
-                        <th>Name</th>
-                        <th>Percentage</th>
+                        <th>Vessel Name</th>
                         <th>DateAdded</th>
                         <th>ModifiedBy</th>
                         <th>LastModified</th>
@@ -74,9 +67,9 @@
     </div>
 </div>
 
-<partial name="/PartialViews/Payroll/_DeductionCreationPartial.cshtml" />
-<partial name="/PartialViews/Payroll/_DeductionEditPartial.cshtml" />
-<partial name="/PartialViews/Payroll/_DeductionDeletePartial.cshtml" />
+<partial name="/PartialViews/Vessel/_VesselCreationPartial.cshtml" />
+<partial name="/PartialViews/Vessel/_VesselEditPartial.cshtml" />
+<partial name="/PartialViews/Vessel/_VesselDeletePartial.cshtml" />
 
 @section Scripts{
     @{
@@ -91,9 +84,6 @@
         await Html.RenderPartialAsync("/PartialViews/_SweetAlertPartial.cshtml");
     }
 
-    @{
-        await Html.RenderPartialAsync("/PartialViews/_BootstrapTouchspinScripts.cshtml");
-    }
-    <script src="~/js/app/deductions.js"></script>
+    <script src="~/js/app/vessels.js"></script>
 
 }

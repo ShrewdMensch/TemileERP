@@ -65,7 +65,7 @@ namespace Utility
         }
         public static string ToFormalShortDateWithTime(this DateTime theDateTime)
         {
-            return theDateTime.ToString("MMMM, dd, yyyy @ hh:mm tt");
+            return theDateTime.ToString("MMMM, dd, yyyy 'at' hh:mmtt");
         }
 
         public static string ToFormalMonthAndYear(this DateTime theDateTime)

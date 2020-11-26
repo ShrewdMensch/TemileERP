@@ -17,7 +17,7 @@ namespace Web.API
         }
 
         [HttpGet("All")]
-        public async Task<ActionResult<DeductionDto>> GetAll()
+        public async Task<ActionResult<IEnumerable<DeductionDto>>> GetAll()
         {
             var deductions = await Repository.GetAll<Deduction>();
 

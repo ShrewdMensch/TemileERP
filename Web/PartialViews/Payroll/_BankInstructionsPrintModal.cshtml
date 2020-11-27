@@ -21,11 +21,11 @@
                         <h4 class="page-title">Bank Instructions</h4>
                     </div>
                     <div class="col-sm-7 col-8 text-right m-b-30">
-                        <button class="btn btn-white btn-lg mr-2" id="printBtn">
-                            <i class="fa fa-print fa-lg mr-4"></i>
+                        <button class="btn btn-white mr-2" id="printBtn">
+                            <i class="fa fa-print fa-lg mr-2"></i>
                             Print
                         </button>
-                        <button class="btn btn-white btn-lg" id="sendMailBtn">
+                        <button class="btn btn-white mr-2" id="sendMailBtn">
                             <i class="fa fa-envelope fa-lg mr-2"></i>
                             Send Via Mail
                         </button>
@@ -57,15 +57,26 @@
                                         </div>
                                     </div>*@
                             </div>
-                            <div class="row">
+                            <div class="row" id="forPDF">
+                                <div style="display:none;">
+                                    <div>E.A Temile and Sons Dev. Co. Nig Limited,</div>
+                                    <div>Queens Drive, Ekurede,</div>
+                                    <div>Urhobo, Warri</div>
+                                    <div>Delta State, Nigeria</div>
+                                    <br />
+                                    <div class="date-left" id="todayDate"></div>
+                                    <br />
+                                    <h5 class="payslip-title">
+                                        Bank Instructions for <span id="vessel2"></span> Vessel (<span id="dateTitle2"></span>)
+                                    </h5>
+                                    <br />
+                                </div>
                                 <div class="col-12">
                                     <div class="table-responsive">
                                         <table class="table table-bordered">
-                                            <thead class="">
+                                            <thead>
                                                 <tr>
-                                                    <th scope="col">PayrollID</th>
-                                                    <th scope="col">PersonnelName</th>
-                                                    <th scope="col">PersonnelID</th>
+                                                    <th scope="col">Name</th>
                                                     <th scope="col">Bank</th>
                                                     <th scope="col">AccountName</th>
                                                     <th scope="col">AccountNumber</th>

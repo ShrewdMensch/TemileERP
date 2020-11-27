@@ -24,19 +24,19 @@ $(document).ready(function () {
 
                 $("#vessel").text(data.vessel);
                 $("#dateTitle").text(data.date);
+                $("#vessel2").text(data.vessel);
+                $("#dateTitle2").text(data.date);
 
                 modal.find("#instructionDetails").html("");
 
                 $.each(data.details, function (index, value) {
                     var valueHtml =
                         "<tr>" +
-                        "<td>"+value.payrollId+"</td>" +
-                        "<td>"+value.personnelName+"</td>" +
-                        "<td>"+value.personnelId+"</td>" +
-                        "<td>"+value.bank+"</td>" +
+                        "<td>" + value.personnelName + "</td>" +
+                        "<td>" + value.bank + "</td>" +
                         "<td>" + value.accountName + "</td>" +
                         "<td>" + value.accountNumber + "</td>" +
-                        "<td>"+value.netPay+"</td>" +
+                        "<td class='netPay'>" + value.netPay + "</td>" +
                         "</tr>";
                     modal.find("#instructionDetails").append(valueHtml);
                 });
@@ -66,6 +66,37 @@ $(document).ready(function () {
                 year +
                 "</p>",
         });
+    });
+
+    $("#sendMailBtn").click(function () {
+        var todayDate = new Date().toDateString();
+        $('#todayDate').text(todayDate);
+        var val = htmlToPdfmake($('#forPDF').html(), {
+            tableAutoSize: true
+        });
+
+        console.log(val);
+        var dd = {
+            content: val, pageSize: 'A4', pageOrientation: 'portrait',
+            styles: {
+                'payslip-title': {
+                    alignment: 'center',
+                    decoration: 'underline',
+                    color:'#555'
+                },
+                'date-left': {
+                    alignment: 'right',
+                    bold: true,
+                    color:'#555'
+                },
+                'netPay': {
+                    bold: true
+                }
+            }
+        };
+
+        console.log(dd);
+        pdfMake.createPdf(dd).download(todayDate.replace(/ /g, '_') + '_instructionsToBank');
     });
 
 });

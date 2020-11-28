@@ -1,6 +1,7 @@
 using System;
 using System.Collections.Generic;
 using System.Linq;
+using Domain.Utility;
 
 namespace Domain
 {
@@ -14,7 +15,7 @@ namespace Domain
 
         public string Id { get; set; }
         public double DailyRate { get; set; }
-        public int DaysWorked { get; set; }
+        public int DaysWorked => GetDaysWorked();
         public double GrossPay => DailyRate * DaysWorked;
         public double NetPay => GetNetPay();
         public float TotalDeductedPercentage { get; set; }
@@ -24,6 +25,9 @@ namespace Domain
         public string PersonnelId { get; set; }
         public virtual Personnel Personnel { get; set; }
         public string Vessel { get; set; }
+        public DateTime StartDate { get; set; }
+        public DateTime EndDate { get; set; }
+        public bool WorkedWeekend { get; set; }
         public virtual ICollection<Allowance> Allowances { get; set; }
         public virtual ICollection<SpecificDeduction> SpecificDeductions { get; set; }
         public virtual ICollection<DeductionDetail> DeductionDetails { get; set; }
@@ -42,6 +46,14 @@ namespace Domain
             var totalDeductions = (GrossPay * (TotalDeductedPercentage / 100))  + totalSpecificDeductions;
 
             return totalDeductions;
+        }
+
+        private int GetDaysWorked()
+        {
+            if (WorkedWeekend)
+                return StartDate.AllDaysUntil(EndDate);
+
+            return StartDate.BusinessDaysUntil(EndDate);
         }
     }
 }

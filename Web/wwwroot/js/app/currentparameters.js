@@ -97,7 +97,25 @@ $(document).ready(function () {
                 $("#Edit_Vessel").val(data.vessel);
                 $("#Edit_Vessel").trigger("change");
 
-                $("#Edit_DaysWorked").val(data.daysWorked);
+            /* $("#Edit_DaysWorked").val(data.daysWorked);*/
+                $("#Edit_WorkedWeekend").prop("checked", data.workedWeekend);
+
+                flatpickr("#Edit_DaysWorked", {
+                    mode: "range",
+                    minDate: getFirstDayOfLastMonth(),
+                    maxDate: getLastDayOfCurrentMonth(),
+                    mode: "range",
+                    dateFormat: "Y-m-d",
+                    defaultDate: [data.startDate, data.endDate],
+                    onClose: function (selectedDates) {
+                        $('#Edit_StartDate').val(getStandardShortDate(new Date(selectedDates[0])));
+                        $('#Edit_EndDate').val(getStandardShortDate(new Date(selectedDates[1])));
+                    },
+                    onReady: function (selectedDates) {
+                        $('#Edit_StartDate').val(getStandardShortDate(new Date(selectedDates[0])));
+                        $('#Edit_EndDate').val(getStandardShortDate(new Date(selectedDates[1])));
+                    },
+                });
 
                 initialform = $(form).serialize();
                 modal.find(".modal-body .row").attr("hidden", false);
@@ -128,16 +146,6 @@ $(document).ready(function () {
         boostat: 5,
         initval: 0,
         prefix: "₦",
-        buttondown_class: "btn btn-classic btn-danger",
-        buttonup_class: "btn btn-classic btn-primary",
-    });
-    $("input[name='DaysWorked']").TouchSpin({
-        min: 1,
-        max: 30,
-        step: 1,
-        decimals: 0,
-        boostat: 5,
-        postfix: "days",
         buttondown_class: "btn btn-classic btn-danger",
         buttonup_class: "btn btn-classic btn-primary",
     });

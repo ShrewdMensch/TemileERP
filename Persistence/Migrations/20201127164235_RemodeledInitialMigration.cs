@@ -282,12 +282,14 @@ namespace Persistence.Migrations
                 {
                     Id = table.Column<string>(nullable: false),
                     DailyRate = table.Column<double>(nullable: false),
-                    DaysWorked = table.Column<int>(nullable: false),
                     TotalDeductedPercentage = table.Column<float>(nullable: false),
                     Date = table.Column<DateTime>(nullable: false),
                     IsVariablesSet = table.Column<bool>(nullable: false),
                     PersonnelId = table.Column<string>(nullable: true),
-                    Vessel = table.Column<string>(nullable: true)
+                    Vessel = table.Column<string>(nullable: true),
+                    StartDate = table.Column<DateTime>(nullable: false),
+                    EndDate = table.Column<DateTime>(nullable: false),
+                    WorkedWeekend = table.Column<bool>(nullable: false)
                 },
                 constraints: table =>
                 {

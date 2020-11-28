@@ -237,8 +237,8 @@ namespace Persistence.Migrations
                     b.Property<DateTime>("Date")
                         .HasColumnType("TEXT");
 
-                    b.Property<int>("DaysWorked")
-                        .HasColumnType("INTEGER");
+                    b.Property<DateTime>("EndDate")
+                        .HasColumnType("TEXT");
 
                     b.Property<bool>("IsVariablesSet")
                         .HasColumnType("INTEGER");
@@ -246,11 +246,17 @@ namespace Persistence.Migrations
                     b.Property<string>("PersonnelId")
                         .HasColumnType("TEXT");
 
+                    b.Property<DateTime>("StartDate")
+                        .HasColumnType("TEXT");
+
                     b.Property<float>("TotalDeductedPercentage")
                         .HasColumnType("REAL");
 
                     b.Property<string>("Vessel")
                         .HasColumnType("TEXT");
+
+                    b.Property<bool>("WorkedWeekend")
+                        .HasColumnType("INTEGER");
 
                     b.HasKey("Id");
 

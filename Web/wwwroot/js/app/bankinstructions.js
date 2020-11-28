@@ -75,7 +75,6 @@ $(document).ready(function () {
             tableAutoSize: true
         });
 
-        console.log(val);
         var dd = {
             content: val, pageSize: 'A4', pageOrientation: 'portrait',
             styles: {
@@ -95,7 +94,6 @@ $(document).ready(function () {
             }
         };
 
-        console.log(dd);
         pdfMake.createPdf(dd).download(todayDate.replace(/ /g, '_') + '_instructionsToBank');
     });
 

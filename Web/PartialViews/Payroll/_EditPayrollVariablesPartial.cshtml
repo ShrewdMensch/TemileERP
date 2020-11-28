@@ -1,9 +1,9 @@
 ﻿<form id="currentPayrollVariablesForm" method="post" data-parsley-validate>
     <!-- Modal -->
     <div class="modal fade animated fadeInRight custo-fadeInRight show" id="currentPayrollVariablesModal"
-        data-backdrop="static" data-keyboard="false" tabindex="-1" aria-labelledby="staticBackdropLabel"
-        aria-hidden="true">
-        <div class="modal-dialog modal-sm  modal-dialog-centered modal-dialog-scrollable" role="document">
+         data-backdrop="static" data-keyboard="false" tabindex="-1" aria-labelledby="staticBackdropLabel"
+         aria-hidden="true">
+        <div class="modal-dialog modal-lg  modal-dialog-centered modal-dialog-scrollable" role="document">
             <div class="modal-content">
                 <div class="modal-header">
                     <h5 class="modal-title" id="exampleModalLabel">Set Payroll Variables</h5>
@@ -13,41 +13,52 @@
                 </div>
                 <div class="modal-body">
                     <div class="row">
-                        <div class="form-group col-sm-12">
-                            <label class="control-label" for="Edit_Name">Personnel Name <span
-                                    class="text-danger">*</span></label>
+                        <div class="form-group col-sm-6">
+                            <label class="control-label" for="Edit_Name">
+                                Personnel Name <span class="text-danger">*</span>
+                            </label>
                             <input class="form-control" type="text" id="Edit_Name" readonly value="">
                             <input type="text" name="PayrollId" hidden id="Payroll_Id" value="">
                             <input type="text" name="PersonnelId" hidden id="Personnel_Id" value="">
                         </div>
-                        <div class="form-group col-sm-12 tb-alternating">
-                            <label class="control-label" for="Edit_DaysWorked">Days Worked <span
-                                    class="text-danger">*</span></label>
-                            <input class="form-control" required id="Edit_DaysWorked" min="1" max="30" type="text"
-                                data-parsley-errors-container="#daysWorked_error"
-                                data-parsley-trigger-after-failure="change"
-                                data-parsley-required-message="Days worked is required"
-                                data-parsley-min-message="Days worked should be not < a day"
-                                data-parsley-max-message="Days worked should not be > 30 days" name="DaysWorked" />
+                        <div class="form-group col-sm-6 tb-alternating">
+                            <label class="control-label" for="Edit_DaysWorked">
+                                Days Worked <span class="text-danger">*</span>
+                            </label>
+                            <input class="form-control" required id="Edit_DaysWorked" type="text"
+                                   data-parsley-errors-container="#daysWorked_error"
+                                   data-parsley-trigger-after-failure="change"
+                                   data-parsley-required-message="Days worked is required" />
                             <span id="daysWorked_error"></span>
+                            <input type="text" name="StartDate" hidden id="Edit_StartDate" value="">
+                            <input type="text" name="EndDate" hidden id="Edit_EndDate" value="">
                         </div>
-                        <div class="form-group col-sm-12 tb-alternating">
-                            <label class="control-label" for="Edit_DailyRate">Daily Rate <span
-                                    class="text-danger">*</span></label>
+                        <div class="form-group col-sm-6 tb-alternating">
+                            <label class="control-label" for="Edit_DailyRate">
+                                Daily Rate <span class="text-danger">*</span>
+                            </label>
                             <input class="form-control" min="500" type="text" id="Edit_DailyRate" required
-                                data-parsley-errors-container="#dailyRate_error"
-                                data-parsley-trigger-after-failure="change"
-                                data-parsley-required-message="Daily rate is required."
-                                data-parsley-min-message="Daily rate should not be less than 500" name="DailyRate"
-                                value="">
+                                   data-parsley-errors-container="#dailyRate_error"
+                                   data-parsley-trigger-after-failure="change"
+                                   data-parsley-required-message="Daily rate is required."
+                                   data-parsley-min-message="Daily rate should not be less than 500" name="DailyRate"
+                                   value="">
                             <span id="dailyRate_error"></span>
                         </div>
-                        <div class="form-group col-sm-12 tb-alternating">
-                            <label class="control-label" for="Edit_Vessel">Vessel <span
-                                    class="text-danger">*</span></label>
+                        <div class="form-group col-sm-6 tb-alternating">
+                            <label class="control-label" for="Edit_Vessel">
+                                Vessel <span class="text-danger">*</span>
+                            </label>
                             <select class="form-control" type="text" id="Edit_Vessel" required
-                                data-parsley-required-message="Vessel is required." name="Vessel" value="">
-                                </select>
+                                    data-parsley-required-message="Vessel is required." name="Vessel" value="">
+                            </select>
+                        </div>
+                        <div class="form-group col-sm-6 tb-alternating d-flex justify-content-start">
+                            <label class="switch s-info  mb-4 mr-2">
+                                <input name="WorkedWeekend" id="Edit_WorkedWeekend" type="checkbox" value="true">
+                                <span class="slider round"></span>
+                            </label>
+                            <label for="Edit_WorkedWeekend">Worked on Weekends</label>
                         </div>
                     </div>
                     <div class="d-flex justify-content-center" id="loader">
@@ -57,10 +68,14 @@
                     </div>
                 </div>
                 <div class="modal-footer">
-                    <button type="reset" class="btn" data-dismiss="modal"><i class="flaticon-cancel-12"></i>
-                        Discard</button>
+                    <button type="reset" class="btn" data-dismiss="modal">
+                        <i class="flaticon-cancel-12"></i>
+                        Discard
+                    </button>
                     <button id="editBtn" asp-page-handler="SetCurrentPayrollVariables"
-                        class="btn btn-primary">Save</button>
+                            class="btn btn-primary">
+                        Save
+                    </button>
                 </div>
             </div>
         </div>

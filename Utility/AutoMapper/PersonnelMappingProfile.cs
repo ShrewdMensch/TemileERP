@@ -64,7 +64,17 @@ namespace Utility.AutoMapper
                 option => option.MapFrom(source => source.Vessel))
 
                 .ForMember(destination => destination.Period, 
-                option => option.MapFrom(source => source.Payrolls.GetCurrentPayroll().Date.ToFormalMonthAndYear()))
+                option => option.MapFrom(source => source.Payrolls.GetCurrentPayroll().StartDate.ToFormalShortDate()
+                .CombineAsRange(source.Payrolls.GetCurrentPayroll().EndDate.ToFormalShortDate())))
+
+                .ForMember(destination => destination.StartDate, 
+                option => option.MapFrom(source => source.Payrolls.GetCurrentPayroll().StartDate.ToShortDate()))
+                
+                .ForMember(destination => destination.EndDate, 
+                option => option.MapFrom(source => source.Payrolls.GetCurrentPayroll().EndDate.ToShortDate()))
+                
+                .ForMember(destination => destination.WorkedWeekend, 
+                option => option.MapFrom(source => source.Payrolls.GetCurrentPayroll().WorkedWeekend))
 
                 .ForMember(destination => destination.IsPayrollVariablesSet,
                 option => option.MapFrom(source => source.Payrolls.GetCurrentPayroll().IsVariablesSet));

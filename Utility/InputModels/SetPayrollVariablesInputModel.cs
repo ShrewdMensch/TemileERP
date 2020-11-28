@@ -8,7 +8,9 @@ namespace Utility.InputModels
         public string PayrollId { get; set; }
         public string PersonnelName { get; set; }
         public double DailyRate { get; set; }
-        public int DaysWorked { get; set; }
+        public DateTime StartDate { get; set; }
+        public DateTime EndDate { get; set; }
+        public bool WorkedWeekend { get; set; }
         public string Vessel { get; set; }
     }
 }

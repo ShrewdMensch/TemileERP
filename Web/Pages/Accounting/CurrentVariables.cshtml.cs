@@ -58,7 +58,9 @@ namespace Web.Pages.Accounting
             {
                 var newPayroll = new Payroll
                 {
-                    DaysWorked = setPayrollVariablesInput.DaysWorked,
+                    StartDate = setPayrollVariablesInput.StartDate,
+                    EndDate = setPayrollVariablesInput.EndDate,
+                    WorkedWeekend = setPayrollVariablesInput.WorkedWeekend,
                     DailyRate = setPayrollVariablesInput.DailyRate,
                     Vessel = setPayrollVariablesInput.Vessel,
                     PersonnelId = setPayrollVariablesInput.PersonnelId,
@@ -97,7 +99,9 @@ namespace Web.Pages.Accounting
 
             else
             {
-                payroll.DaysWorked = setPayrollVariablesInput.DaysWorked;
+                payroll.StartDate = setPayrollVariablesInput.StartDate;
+                payroll.EndDate = setPayrollVariablesInput.EndDate;
+                payroll.WorkedWeekend = setPayrollVariablesInput.WorkedWeekend;
                 payroll.DailyRate = setPayrollVariablesInput.DailyRate;
                 payroll.Vessel = setPayrollVariablesInput.Vessel;
                 payroll.TotalDeductedPercentage = await _repository.TotalDeduction();

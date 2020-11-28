@@ -21,6 +21,10 @@ namespace Utility.DTOs
         public int NetPayRaw { get; set; }
         public string Vessel { get; set; }
         public string Date { get; set; }
+        public string Period { get; set; }
+        public bool WorkedWeekend { get; set; }
+        public string StartDate { get; set; }
+        public string EndDate { get; set; }
         public IEnumerable<DeductionDetailDto> Deductions { get; set; }
     }
 }

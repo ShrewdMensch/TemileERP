@@ -46,6 +46,11 @@ namespace Utility
             return age > 65;
         }
 
+        public static string ToShortDate(this DateTime theDateTime)
+        {
+            return theDateTime.ToString("yyyy-MM-dd");
+        }
+
         public static string ToISO8601(this DateTime theDateTime)
         {
             return theDateTime.ToUniversalTime().ToString("yyyy'-'MM'-'dd'T'HH':'mm':'ss'Z'", DateTimeFormatInfo.InvariantInfo);
@@ -63,11 +68,12 @@ namespace Utility
 
         public static string ToFormalShortDate(this DateTime theDateTime)
         {
-            return theDateTime.ToString("MMMM, dd, yyyy");
+            return theDateTime.ToString("MMMM dd, yyyy");
         }
+     
         public static string ToFormalShortDateWithTime(this DateTime theDateTime)
         {
-            return theDateTime.ToString("MMMM, dd, yyyy 'at' hh:mmtt");
+            return theDateTime.ToString("MMMM dd, yyyy 'at' hh:mmtt");
         }
 
         public static string ToFormalMonthAndYear(this DateTime theDateTime)
@@ -108,7 +114,7 @@ namespace Utility
 
         public static DateTime ToDateOnly(this DateTime theDateTime)
         {
-            return new DateTime(theDateTime.Year, theDateTime.Month, theDateTime.Day);
+            return theDateTime.Date;
         }
         public static DateTime GetFirstDayOfYear(this DateTime theDateTime)
         {
@@ -188,6 +194,12 @@ namespace Utility
             var htmlString = new HtmlString(theString);
 
             return htmlString;
+
+        }
+
+        public static string CombineAsRange(this string theString, string secondString)
+        {
+            return theString + " to " + secondString;
 
         }
 

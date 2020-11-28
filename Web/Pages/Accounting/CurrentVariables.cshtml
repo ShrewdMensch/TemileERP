@@ -24,6 +24,8 @@
 </div>
 @section StyleSheets{
     <link rel="stylesheet" href="~/plugins/bootstrap-touchspin/jquery.bootstrap-touchspin.min.css">
+    <link rel="stylesheet" type="text/css" href="~/plugins/flatpickr/flatpickr.css">
+    <link href="~/assets/css/forms/switches.css" rel="stylesheet" type="text/css" />
 }
 
 <input type="text" hidden id="message-body" value="@Model.MessageBody.GetHtmlString()">
@@ -152,7 +154,7 @@
                     <tr>
                         <th>Name</th>
                         <th>DailyRate</th>
-                        <th>DaysWorked</th>
+                        <th></th>
                         <th>Vessel</th>
                         <th>GrossPay</th>
                         <th>Deductions(%)</th>
@@ -186,6 +188,8 @@
         await Html.RenderPartialAsync("/PartialViews/_BootstrapTouchspinScripts.cshtml");
     }
 
+    <script src="~/plugins/flatpickr/flatpickr.js"></script>
+    <script src="~/js/utility.js"></script>
     <script src="~/js/app/currentparameters.js"></script>
 
 }

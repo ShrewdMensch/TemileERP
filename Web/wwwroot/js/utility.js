@@ -16,8 +16,6 @@ function getFirstDayOfLastMonth() {
     var year = date.getFullYear();
     var month = date.getMonth();
 
-    console.log(month);
-
     month === 0 ? year-- : year;
     month === 0 ? month= 12 : month;
 

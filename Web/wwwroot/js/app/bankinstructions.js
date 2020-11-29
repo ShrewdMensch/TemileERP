@@ -1,7 +1,7 @@
 $(document).ready(function () {
     if ($("#table").length > 0) {
         $("#table").dataTable({
-            columnDefs: [{ orderable: false, targets: 4 }],
+            columnDefs: [{ orderable: false, targets: -1 }],
         });
     }
 

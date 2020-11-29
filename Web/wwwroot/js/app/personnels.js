@@ -3,7 +3,7 @@ $(document).ready(function () {
         $("#table")
             .addClass("nowrap")
             .dataTable({
-                columnDefs: [{ orderable: false, targets: 9 }],
+                columnDefs: [{ orderable: false, targets: -1 }],
             });
 
         $(".right-buttons").append(
@@ -104,106 +104,7 @@ $(document).ready(function () {
     });
 
     //Parsely Validator triggers for Select2
-    $("#Edit_Bank")
-        .parsley()
-        .on("field:success", function () {
-            $("#bank_group span.select2-selection__rendered").removeClass(
-                "parsley-error"
-            );
-            $("#bank_group span.select2-selection__rendered").addClass(
-                "parsley-success"
-            );
-        });
-    $("#Edit_Bank")
-        .parsley()
-        .on("field:error", function () {
-            $("#bank_group span.select2-selection__rendered").removeClass(
-                "parsley-success"
-            );
-            $("#bank_group span.select2-selection__rendered").addClass(
-                "parsley-error"
-            );
-        });
-    $("#Personnel_Bank")
-        .parsley()
-        .on("field:success", function () {
-            $("#Personnel_bank_group span.select2-selection__rendered").removeClass(
-                "parsley-error"
-            );
-            $("#Personnel_bank_group span.select2-selection__rendered").addClass(
-                "parsley-success"
-            );
-        });
-    $("#Personnel_Bank")
-        .parsley()
-        .on("field:error", function () {
-            $("#Personnel_bank_group span.select2-selection__rendered").removeClass(
-                "parsley-success"
-            );
-            $("#Personnel_bank_group span.select2-selection__rendered").addClass(
-                "parsley-error"
-            );
-        });
-    $("#Personnel_Vessel")
-        .parsley()
-        .on("field:success", function () {
-            $("#Personnel_vessel_group span.select2-selection__rendered").removeClass(
-                "parsley-error"
-            );
-            $("#Personnel_vessel_group span.select2-selection__rendered").addClass(
-                "parsley-success"
-            );
-        });
-    $("#Personnel_Vessel")
-        .parsley()
-        .on("field:error", function () {
-            $("#Personnel_vessel_group span.select2-selection__rendered").removeClass(
-                "parsley-success"
-            );
-            $("#Personnel_vessel_group span.select2-selection__rendered").addClass(
-                "parsley-error"
-            );
-        });
-    $("#Personnel_Sex")
-        .parsley()
-        .on("field:success", function () {
-            $("#Personnel_sex_group span.select2-selection__rendered").removeClass(
-                "parsley-error"
-            );
-            $("#Personnel_sex_group span.select2-selection__rendered").addClass(
-                "parsley-success"
-            );
-        });
-    $("#Personnel_Sex")
-        .parsley()
-        .on("field:error", function () {
-            $("#Personnel_sex_group span.select2-selection__rendered").removeClass(
-                "parsley-success"
-            );
-            $("#Personnel_sex_group span.select2-selection__rendered").addClass(
-                "parsley-error"
-            );
-        });
-    $("#Personnel_Religion")
-        .parsley()
-        .on("field:success", function () {
-            $(
-                "#Personnel_religion_group span.select2-selection__rendered"
-            ).removeClass("parsley-error");
-            $("#Personnel_religion_group span.select2-selection__rendered").addClass(
-                "parsley-success"
-            );
-        });
-    $("#Personnel_Religion")
-        .parsley()
-        .on("field:error", function () {
-            $(
-                "#Personnel_religion_group span.select2-selection__rendered"
-            ).removeClass("parsley-success");
-            $("#Personnel_religion_group span.select2-selection__rendered").addClass(
-                "parsley-error"
-            );
-        });
+    Select2ParselyValidatorTriggers();
 
     //Personnel Create Logic
     $("#personnelCreateModal").on("shown.bs.modal", function (event) {
@@ -389,3 +290,106 @@ $(document).ready(function () {
         buttonup_class: "btn btn-classic btn-primary",
     });
 });
+
+function Select2ParselyValidatorTriggers() {
+    $("#Edit_Bank")
+        .parsley()
+        .on("field:success", function() {
+            $("#bank_group span.select2-selection__rendered").removeClass(
+                "parsley-error"
+            );
+            $("#bank_group span.select2-selection__rendered").addClass(
+                "parsley-success"
+            );
+        });
+    $("#Edit_Bank")
+        .parsley()
+        .on("field:error", function() {
+            $("#bank_group span.select2-selection__rendered").removeClass(
+                "parsley-success"
+            );
+            $("#bank_group span.select2-selection__rendered").addClass(
+                "parsley-error"
+            );
+        });
+    $("#Personnel_Bank")
+        .parsley()
+        .on("field:success", function() {
+            $("#Personnel_bank_group span.select2-selection__rendered").removeClass(
+                "parsley-error"
+            );
+            $("#Personnel_bank_group span.select2-selection__rendered").addClass(
+                "parsley-success"
+            );
+        });
+    $("#Personnel_Bank")
+        .parsley()
+        .on("field:error", function() {
+            $("#Personnel_bank_group span.select2-selection__rendered").removeClass(
+                "parsley-success"
+            );
+            $("#Personnel_bank_group span.select2-selection__rendered").addClass(
+                "parsley-error"
+            );
+        });
+    $("#Personnel_Vessel")
+        .parsley()
+        .on("field:success", function() {
+            $("#Personnel_vessel_group span.select2-selection__rendered").removeClass(
+                "parsley-error"
+            );
+            $("#Personnel_vessel_group span.select2-selection__rendered").addClass(
+                "parsley-success"
+            );
+        });
+    $("#Personnel_Vessel")
+        .parsley()
+        .on("field:error", function() {
+            $("#Personnel_vessel_group span.select2-selection__rendered").removeClass(
+                "parsley-success"
+            );
+            $("#Personnel_vessel_group span.select2-selection__rendered").addClass(
+                "parsley-error"
+            );
+        });
+    $("#Personnel_Sex")
+        .parsley()
+        .on("field:success", function() {
+            $("#Personnel_sex_group span.select2-selection__rendered").removeClass(
+                "parsley-error"
+            );
+            $("#Personnel_sex_group span.select2-selection__rendered").addClass(
+                "parsley-success"
+            );
+        });
+    $("#Personnel_Sex")
+        .parsley()
+        .on("field:error", function() {
+            $("#Personnel_sex_group span.select2-selection__rendered").removeClass(
+                "parsley-success"
+            );
+            $("#Personnel_sex_group span.select2-selection__rendered").addClass(
+                "parsley-error"
+            );
+        });
+    $("#Personnel_Religion")
+        .parsley()
+        .on("field:success", function() {
+            $(
+                "#Personnel_religion_group span.select2-selection__rendered"
+            ).removeClass("parsley-error");
+            $("#Personnel_religion_group span.select2-selection__rendered").addClass(
+                "parsley-success"
+            );
+        });
+    $("#Personnel_Religion")
+        .parsley()
+        .on("field:error", function() {
+            $(
+                "#Personnel_religion_group span.select2-selection__rendered"
+            ).removeClass("parsley-success");
+            $("#Personnel_religion_group span.select2-selection__rendered").addClass(
+                "parsley-error"
+            );
+        });
+}

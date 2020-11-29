@@ -33,6 +33,9 @@ namespace Utility.AutoMapper
 
                 .ForMember(destination => destination.DailyRate,
                 option => option.MapFrom(source => source.DailyRate.ToCurrency()))
+                
+                .ForMember(destination => destination.DaysWorked,
+                option => option.MapFrom(source => source.DaysWorked.ToDays()))
 
                 .ForMember(destination => destination.GrossPay,
                 option => option.MapFrom(source => source.GrossPay.ToCurrency()))
@@ -46,11 +49,23 @@ namespace Utility.AutoMapper
                 .ForMember(destination => destination.Date,
                 option => option.MapFrom(source => source.Date.ToFormalMonthAndYear()))
 
+                .ForMember(destination => destination.StartDate,
+                option => option.MapFrom(source => source.StartDate.ToFormalShortDate()))
+                
+                .ForMember(destination => destination.EndDate,
+                option => option.MapFrom(source => source.EndDate.ToFormalShortDate()))
+
                 .ForMember(destination => destination.Deductions,
                 option => option.MapFrom(source => source.DeductionDetails))
 
+                 .ForMember(destination => destination.Allowances,
+                option => option.MapFrom(source => source.Allowances))
+
                 .ForMember(destination => destination.TotalDeductedAmount,
                 option => option.MapFrom(source => source.TotalDeductedAmount.ToCurrency()))
+                
+                .ForMember(destination => destination.TotalEarnings,
+                option => option.MapFrom(source => source.TotalEarnings.ToCurrency()))
 
                 .ForMember(destination => destination.TotalDeductedPercentage,
                 option => option.MapFrom(source => source.TotalDeductedPercentage.ToPercentageStr()))

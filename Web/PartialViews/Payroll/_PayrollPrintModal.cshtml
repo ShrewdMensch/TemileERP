@@ -44,7 +44,12 @@
                                         <h3 class="text-uppercase">Payslip #<span class="text-uppercase"
                                                 id="paySlipNumber"></span></h3>
                                         <ul class="list-unstyled">
-                                            <li>Salary Month: <span id="date"></span></li>
+                                            <li><span class="font-weight-bold">Salary Period:</span> <span id="date"></span></li>
+                                            <li><span class="font-weight-bold">No. of days worked:</span> 
+                                            <span id="daysWorked"></span> (<span id="workedWeekend"></span>)</li>
+                                            <li><span class="font-weight-bold">Vessel worked on:</span> 
+                                            <span id="vessel"></span> Vessel
+                                            </li>
                                         </ul>
                                     </div>
                                 </div>
@@ -82,7 +87,7 @@
                                                             class="float-right"></span></td>
                                                 </tr>
                                                 <tr>
-                                                    <td><strong>Days Worked</strong> <span id="daysWorked"
+                                                    <td><strong>Days Worked</strong> <span id="daysWorked2"
                                                             class="float-right"></span></td>
                                                 </tr>
                                                 <tr>
@@ -90,13 +95,18 @@
                                                             class="float-right"></span></td>
                                                 </tr>
                                                 <tr>
-                                                    <td><strong>Vessel Worked On</strong> <span id="vessel"
-                                                            class="float-right"></span></td>
+                                                    <td>
+                                                        <p class="m-b-10"><strong>Allowances</strong></p>
+                                                        <table class="table table-bordered">
+                                                            <tbody id="allowances">
+                                                            </tbody>
+                                                        </table>
+                                                    </td>
                                                 </tr>
                                                 <tr class="summation">
-                                                    <td><strong>Gross Pay</strong> <span
+                                                    <td><strong>Total Earnings</strong> <span
                                                             class="float-right"><strong><span
-                                                                    id="grossPay2"></span></strong></span></td>
+                                                                    id="totalEarnings"></span></strong></span></td>
                                                 </tr>
                                             </tbody>
                                         </table>
@@ -104,7 +114,7 @@
                                 </div>
                                 <div class="col-sm-6">
                                     <div>
-                                        <h6 class="m-b-10"><strong>Deductions</strong></h6>
+                                        <h6 class="m-b-10" hidden id="deductionsTitle"><strong>Deductions</strong></h6>
                                         <table class="table table-bordered">
                                             <tbody id="deductions">
                                             </tbody>

@@ -14,8 +14,9 @@ namespace Utility.DTOs
         public string AccountNumber { get; set; }
         public string TotalDeductedPercentage { get; set; }
         public string TotalDeductedAmount { get; set; }
+        public string TotalEarnings { get; set; }
         public string DailyRate { get; set; }
-        public int DaysWorked { get; set; }
+        public string DaysWorked { get; set; }
         public string GrossPay { get; set; }
         public string NetPay { get; set; }
         public int NetPayRaw { get; set; }
@@ -26,5 +27,7 @@ namespace Utility.DTOs
         public string StartDate { get; set; }
         public string EndDate { get; set; }
         public IEnumerable<DeductionDetailDto> Deductions { get; set; }
+        public IEnumerable<AllowanceDto> Allowances { get; set; }
+        public IEnumerable<SpecificDeductionDto> SpecificDeductions { get; set; }
     }
 }

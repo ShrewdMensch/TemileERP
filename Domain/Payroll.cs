@@ -20,6 +20,7 @@ namespace Domain
         public double NetPay => GetNetPay();
         public float TotalDeductedPercentage { get; set; }
         public double TotalDeductedAmount => GetTotalDeductedAmount();
+        public double TotalEarnings => GetTotalEarnings();
         public DateTime Date { get; set; }
         public bool IsVariablesSet { get; set; }
         public string PersonnelId { get; set; }
@@ -39,6 +40,13 @@ namespace Domain
             var netPay = (GrossPay + totalAllowances) - (TotalDeductedAmount);
 
             return netPay;
+        }
+        
+        private double GetTotalEarnings()
+        {
+            var totalAllowances = Allowances.Sum(s => s.Amount);
+
+            return GrossPay + totalAllowances;
         }
         private double GetTotalDeductedAmount()
         {

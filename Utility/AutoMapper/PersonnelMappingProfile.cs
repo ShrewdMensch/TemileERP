@@ -43,7 +43,7 @@ namespace Utility.AutoMapper
                 option => option.MapFrom(source => source.DailyRate))
 
                 .ForMember(destination => destination.DaysWorked, 
-                option => option.MapFrom(source => source.Payrolls.GetCurrentPayroll().DaysWorked))
+                option => option.MapFrom(source => source.Payrolls.GetCurrentPayroll().DaysWorked.ToDays()))
 
                 .ForMember(destination => destination.GrossPay, 
                 option => option.MapFrom(source => source.Payrolls.GetCurrentPayroll().GrossPay))
@@ -59,6 +59,12 @@ namespace Utility.AutoMapper
 
                 .ForMember(destination => destination.NetPay, 
                 option => option.MapFrom(source => source.Payrolls.GetCurrentPayroll().NetPay))
+                
+                .ForMember(destination => destination.Allowances, 
+                option => option.MapFrom(source => source.Payrolls.GetCurrentPayroll().Allowances))
+                
+                .ForMember(destination => destination.SpecificDeductions, 
+                option => option.MapFrom(source => source.Payrolls.GetCurrentPayroll().SpecificDeductions))
 
                 .ForMember(destination => destination.Vessel, 
                 option => option.MapFrom(source => source.Vessel))

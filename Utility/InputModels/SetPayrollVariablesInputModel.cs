@@ -1,9 +1,17 @@
 using System;
+using System.Collections.Generic;
+using Utility.DTOs;
 
 namespace Utility.InputModels
 {
     public class SetPayrollVariablesInputModel
     {
+        /*public SetPayrollVariablesInputModel()
+        {
+            AllowanceAmounts = new List<double>();
+            SpecificDeductionAmounts = new List<double>();
+        }*/
+
         public string PersonnelId { get; set; }
         public string PayrollId { get; set; }
         public string PersonnelName { get; set; }
@@ -12,5 +20,10 @@ namespace Utility.InputModels
         public DateTime EndDate { get; set; }
         public bool WorkedWeekend { get; set; }
         public string Vessel { get; set; }
+
+        public List<double> AllowanceAmounts { get; set; }
+        public List<string> AllowanceNames { get; set; }
+        public List<double> SpecificDeductionAmounts { get; set; }
+        public List<string> SpecificDeductionNames { get; set; }
     }
 }

@@ -68,7 +68,7 @@ namespace Utility
 
         public static string ToFormalShortDate(this DateTime theDateTime)
         {
-            return theDateTime.ToString("MMMM dd, yyyy");
+            return theDateTime.ToString("MMM. dd, yyyy");
         }
      
         public static string ToFormalShortDateWithTime(this DateTime theDateTime)
@@ -221,6 +221,11 @@ namespace Utility
                 default: numberString += "th"; break;
             }
             return numberString;
+        }
+
+        public static string ToDays(this int number)
+        {
+            return string.Format("{0} {1}", number.ToString(), (number<2)?"day":"days");
         }
 
         /***********************************************************************************************************

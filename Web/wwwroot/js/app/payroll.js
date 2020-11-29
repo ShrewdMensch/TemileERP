@@ -3,16 +3,9 @@ $(document).ready(function () {
         $("#table")
             .addClass("nowrap")
             .dataTable({
-                columnDefs: [{ orderable: false, targets: 8 }],
+                columnDefs: [{ orderable: false, targets: -1 }],
             });
 
-        // $(".right-buttons").append(
-        //   '<div class="float-right mr-2 mt-2"> <a data-toggle="modal" data-target="#userCreateFormModal" class="btn btn-purple btn-primary btn-rounded float-right"><i class="fa fa-pencil m-r-5"></i> Edit Timesheet</a></div>'
-        // );
-
-        // $(".dt-buttons").prepend(
-        //   '<div class="btn-group mb-2"> <button type="button" class="btn btn-purple btn-primary dropdown-toggle drop-left mr-2" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false"> View </button><div class="dropdown-menu"> <a id="completedBtn" class="dropdown-item">Completed</a> <a id="oldBtn" class="dropdown-item">Old</a> <a id="upcomingBtn" class="dropdown-item">Upcoming</a> <a id="todayBtn" class="dropdown-item">Today</a><div class="dropdown-divider"></div> <a id="allBtn" class="dropdown-item">All</a></div></div>'
-        // );
         $(".custom-filter1").prepend(
             '<select id="period-select" class="mx-2 mb-2" title="Select vessel"><option>Period 1</option><option>Period 2</option><option>Period 3</option></select>'
         );
@@ -71,65 +64,7 @@ $(document).ready(function () {
         modal.find("#loader").attr("hidden", false);
         $(".spinner-border").attr("hidden", false);
 
-        $.ajax({
-            url: "/api/payments/" + payrollId,
-            dataType: "json",
-            type: "GET",
-            success: function (data) {
-                $("#paySlipNumber").text(data.paymentSlipNumber);
-                $("#personnelName").text(data.personnelName);
-                $("#personnelId").text(data.personnelId);
-                $("#personnelDesignation").text(
-                    data.personnelDesignation ? data.personnelDesignation : ""
-                );
-                $("#personnelDateJoined").text(data.personnelDateJoined);
-                $("#bank").text(data.bank);
-                $("#accountName").text(data.accountName);
-                $("#accountNumber").text(data.accountNumber);
-                $("#dailyRate").text(data.dailyRate);
-                $("#daysWorked").text(data.daysWorked);
-                $("#grossPay").text(data.grossPay);
-                $("#grossPay2").text(data.grossPay);
-                $("#netPay").text(data.netPay);
-                $("#netPayInWords").text(
-                    toWords(parseInt(data.netPayRaw).toString()) + " naira"
-                );
-                $("#vessel").text(data.vessel);
-                $("#date").text(data.date);
-                $("#dateTitle").text(data.date);
-
-                modal.find("#deductions").html("");
-
-                $.each(data.deductions, function (index, value) {
-                    var valueHtml =
-                        "<tr><td><strong>" +
-                        value.deductionName +
-                        '</strong><span class="float-right">' +
-                        value.deductedAmount +
-                        " (" +
-                        value.deductedPercentage +
-                        ")" +
-                        "</span></td></tr>";
-                    modal.find("#deductions").append(valueHtml);
-                });
-
-                var totalHtml =
-                    '<tr class="summation"><td><strong>Total Deductions</strong> <span class="float-right"><strong>' +
-                    data.totalDeductedAmount +
-                    " (" +
-                    data.totalDeductedPercentage +
-                    ")</strong></span></tr>";
-
-                modal.find("#deductions").append(totalHtml);
-
-                modal.find(".modal-body .row").attr("hidden", false);
-                $("#loader").attr("hidden", true);
-                $(".spinner-border").attr("hidden", true);
-            },
-            error: function () {
-                alert("Error occurred...");
-            },
-        });
+        LoadValuesFromAPI(payrollId, modal);
     });
 
     $("#printBtn").click(function () {
@@ -147,3 +82,101 @@ $(document).ready(function () {
         });
     });
 });
+
+function LoadValuesFromAPI(payrollId, modal) {
+    $.ajax({
+        url: "/api/payments/" + payrollId,
+        dataType: "json",
+        type: "GET",
+        success: function (data) {
+
+            UpdateValues(data);
+
+            AddAllowances(modal, data);
+
+            AddDeductions(modal, data);
+
+            modal.find(".modal-body .row").attr("hidden", false);
+            $("#loader").attr("hidden", true);
+            $(".spinner-border").attr("hidden", true);
+        },
+        error: function () {
+            alert("Error occurred...");
+        },
+    });
+}
+
+function AddDeductions(modal, data) {
+    modal.find("#deductions").html("");
+
+    $.each(data.deductions, function (index, value) {
+        var valueHtml = "<tr><td><strong>" +
+            value.deductionName +
+            '</strong><span class="float-right">' +
+            value.deductedAmount +
+            " (" +
+            value.deductedPercentage +
+            ")" +
+            "</span></td></tr>";
+        modal.find("#deductions").append(valueHtml);
+    });
+
+    $.each(data.specificDeductions, function (index, value) {
+        var valueHtml = "<tr><td><strong>" +
+            value.name +
+            '</strong><span class="float-right">' +
+            value.amountInCurrency +
+            "</span></td></tr>";
+        modal.find("#deductions").append(valueHtml);
+    });
+
+    if ($('#deductions tr').length > 0) {
+
+        $('#deductionsTitle').attr("hidden", false);
+
+        var totalHtml = '<tr class="summation"><td><strong>Total Deductions</strong> <span class="float-right"><strong>' +
+            data.totalDeductedAmount +
+            "</strong></span></tr>";
+
+        modal.find("#deductions").append(totalHtml);
+    }
+
+}
+
+function AddAllowances(modal, data) {
+    modal.find("#allowances").html("");
+    $.each(data.allowances, function (index, value) {
+        var valueHtml = "<tr><td><strong>" +
+            value.name +
+            '</strong><span class="float-right">' +
+            value.amountInCurrency +
+            "</span></td></tr>";
+        modal.find("#allowances").append(valueHtml);
+    });
+}
+
+function UpdateValues(data) {
+    $("#paySlipNumber").text(data.paymentSlipNumber);
+    $("#personnelName").text(data.personnelName);
+    $("#personnelId").text(data.personnelId);
+    $("#personnelDesignation").text(
+        data.personnelDesignation ? data.personnelDesignation : ""
+    );
+    $("#personnelDateJoined").text(data.personnelDateJoined);
+    $("#bank").text(data.bank);
+    $("#accountName").text(data.accountName);
+    $("#accountNumber").text(data.accountNumber);
+    $("#dailyRate").text(data.dailyRate);
+    $("#grossPay").text(data.grossPay);
+    $("#netPay").text(data.netPay);
+    $("#totalEarnings").text(data.totalEarnings);
+    $("#netPayInWords").text(
+        toWords(parseInt(data.netPayRaw).toString()) + " naira"
+    );
+    $("#vessel").text(data.vessel);
+    $("#date").text(data.period);
+    $("#daysWorked").text(data.daysWorked);
+    $("#daysWorked2").text(data.daysWorked);
+    $("#workedWeekend").text(data.workedWeekend ? "including weekends" : "excluding weekends");
+    $("#dateTitle").text(data.period);
+}

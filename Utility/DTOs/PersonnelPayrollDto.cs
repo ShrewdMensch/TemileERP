@@ -1,4 +1,5 @@
 using System;
+using System.Collections.Generic;
 
 namespace Utility.DTOs
 {
@@ -8,7 +9,7 @@ namespace Utility.DTOs
         public string PayrollId { get; set; }
         public string PersonnelName { get; set; }
         public double DailyRate { get; set; }
-        public int DaysWorked { get; set; }
+        public string DaysWorked { get; set; }
         public string StartDate { get; set; }
         public string EndDate { get; set; }
         public bool WorkedWeekend { get; set; }
@@ -21,5 +22,7 @@ namespace Utility.DTOs
         public string PhoneNumber { get; set; }
         public string PersonnelPhoto { get; set; }
         public string Period { get; set; }
+        public IEnumerable<AllowanceDto> Allowances { get; set; }
+        public IEnumerable<SpecificDeductionDto> SpecificDeductions { get; set; }
     }
 }

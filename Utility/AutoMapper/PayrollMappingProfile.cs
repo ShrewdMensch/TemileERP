@@ -28,12 +28,15 @@ namespace Utility.AutoMapper
                 .ForMember(destination => destination.IsPayrollVariablesSet,
                 option => option.MapFrom(source => source.IsVariablesSet))
 
+                .ForMember(destination => destination.DaysWorked,
+                option => option.MapFrom(source => source.DaysWorked.ToDays()))
+
                .ForMember(destination => destination.Period,
                 option => option.MapFrom(source => source.StartDate.ToFormalShortDate().CombineAsRange(source.EndDate.ToFormalShortDate())))
 
                 .ForMember(destination => destination.StartDate,
                 option => option.MapFrom(source => source.StartDate.ToShortDate()))
-
+                
                 .ForMember(destination => destination.EndDate,
                 option => option.MapFrom(source => source.EndDate.ToShortDate()));
         }

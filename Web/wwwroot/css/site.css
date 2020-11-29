@@ -441,3 +441,14 @@ li.select2-results__option:hover {
 #personnelPayrollTableModal table thead tr th {
   color: #fff!important;
 }
+
+/*input Box in Table*/
+table .input-group.bootstrap-touchspin.bootstrap-touchspin-injected {
+    min-width: 250px;
+}
+table input.form-control {
+    min-width: 200px;
+}
+table i.fa {
+    font-size: 20px;
+}

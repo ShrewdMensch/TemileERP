@@ -26,6 +26,8 @@
     <link rel="stylesheet" href="~/plugins/bootstrap-touchspin/jquery.bootstrap-touchspin.min.css">
     <link rel="stylesheet" type="text/css" href="~/plugins/flatpickr/flatpickr.css">
     <link href="~/assets/css/forms/switches.css" rel="stylesheet" type="text/css" />
+    <link href="~/assets/css/components/tabs-accordion/custom-accordions.css" rel="stylesheet" type="text/css" />
+    <link href="~/assets/css/components/calendarAndTimeIcon.css" rel="stylesheet" type="text/css" />
 }
 
 <input type="text" hidden id="message-body" value="@Model.MessageBody.GetHtmlString()">
@@ -103,7 +105,6 @@
                         <th>DaysWorked</th>
                         <th>Vessel</th>
                         <th>GrossPay</th>
-                        <th>Deductions(%)</th>
                         <th>NetPay</th>
                         <th>VariablesSet</th>
                         <th></th>
@@ -125,7 +126,6 @@
                             <td class="text-left">@payroll.DaysWorked</td>
                             <td class="text-left">@payroll.Vessel</td>
                             <td class="text-left">@payroll.GrossPay.ToCurrency()</td>
-                            <td class="text-left">@payroll.TotalDeductedAmount.ToCurrency() (@payroll.TotalDeductedPercentage%)</td>
                             <td class="text-left">@payroll.NetPay.ToCurrency()</td>
                             <td class="text-left">
                                 @if (payroll.IsPayrollVariablesSet)
@@ -157,7 +157,6 @@
                         <th></th>
                         <th>Vessel</th>
                         <th>GrossPay</th>
-                        <th>Deductions(%)</th>
                         <th>NetPay</th>
                         <th>VariablesSet</th>
                         <th></th>

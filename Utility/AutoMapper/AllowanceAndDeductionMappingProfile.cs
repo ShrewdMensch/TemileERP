@@ -4,9 +4,9 @@ using Utility.DTOs;
 
 namespace Utility.AutoMapper
 {
-    public class DeductionMappingProfile : Profile
+    public class AllowanceAndDeductionMappingProfile : Profile
     {
-        public DeductionMappingProfile()
+        public AllowanceAndDeductionMappingProfile()
         {
             CreateMap<Deduction, DeductionDto>()
                 .ForMember(destination => destination.DateAdded,
@@ -30,6 +30,14 @@ namespace Utility.AutoMapper
                 .ForMember(destination => destination.DeductedAmount,
                 option => option.MapFrom(source => source.DeductedAmount.ToCurrency()));
 
+
+            CreateMap<SpecificDeduction, SpecificDeductionDto>()
+                .ForMember(destination=>destination.AmountInCurrency, 
+                option=>option.MapFrom(source=>source.Amount.ToCurrency()));
+
+            CreateMap<Allowance, AllowanceDto>()
+                .ForMember(destination => destination.AmountInCurrency,
+                option => option.MapFrom(source => source.Amount.ToCurrency()));
         }
     }
 }

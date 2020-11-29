@@ -7,7 +7,6 @@ $.extend($.fn.dataTable.defaults, {
     [5, 10, 15, 20, 25, 30, -1],
     [5, 10, 15, 20, 25, 30, "All"],
   ],
-  columnDefs: [{ targets: [-1, -3], className: "dt-body-right" }],
   language: {
     emptyTable:
       '<p class="text-center"><strong>No record found...</strong></p>',

@@ -13,7 +13,7 @@
                 </div>
                 <div class="modal-body">
                     <div class="row">
-                        <div class="form-group col-sm-6">
+                        <div class="form-group col-md-12 col-lg-6">
                             <label class="control-label" for="Edit_Name">
                                 Personnel Name <span class="text-danger">*</span>
                             </label>
@@ -21,19 +21,21 @@
                             <input type="text" name="PayrollId" hidden id="Payroll_Id" value="">
                             <input type="text" name="PersonnelId" hidden id="Personnel_Id" value="">
                         </div>
-                        <div class="form-group col-sm-6 tb-alternating">
+                        <div class="form-group col-md-12 col-lg-6 tb-alternating">
                             <label class="control-label" for="Edit_DaysWorked">
                                 Days Worked <span class="text-danger">*</span>
                             </label>
-                            <input class="form-control" required id="Edit_DaysWorked" type="text"
-                                   data-parsley-errors-container="#daysWorked_error"
-                                   data-parsley-trigger-after-failure="change"
-                                   data-parsley-required-message="Days worked is required" />
+                            <div class="cal-icon">
+                                <input class="form-control" required id="Edit_DaysWorked" type="text"
+                                       data-parsley-errors-container="#daysWorked_error"
+                                       data-parsley-trigger-after-failure="change"
+                                       data-parsley-required-message="Days worked is required" />
+                            </div>
                             <span id="daysWorked_error"></span>
                             <input type="text" name="StartDate" hidden id="Edit_StartDate" value="">
                             <input type="text" name="EndDate" hidden id="Edit_EndDate" value="">
                         </div>
-                        <div class="form-group col-sm-6 tb-alternating">
+                        <div class="form-group col-md-12 col-lg-6 tb-alternating">
                             <label class="control-label" for="Edit_DailyRate">
                                 Daily Rate <span class="text-danger">*</span>
                             </label>
@@ -45,7 +47,7 @@
                                    value="">
                             <span id="dailyRate_error"></span>
                         </div>
-                        <div class="form-group col-sm-6 tb-alternating">
+                        <div class="form-group col-md-12 col-lg-6 tb-alternating">
                             <label class="control-label" for="Edit_Vessel">
                                 Vessel <span class="text-danger">*</span>
                             </label>
@@ -53,13 +55,14 @@
                                     data-parsley-required-message="Vessel is required." name="Vessel" value="">
                             </select>
                         </div>
-                        <div class="form-group col-sm-6 tb-alternating d-flex justify-content-start">
+                        <div class="form-group col-md-12 col-lg-6 tb-alternating d-flex justify-content-start">
                             <label class="switch s-info  mb-4 mr-2">
                                 <input name="WorkedWeekend" id="Edit_WorkedWeekend" type="checkbox" value="true">
                                 <span class="slider round"></span>
                             </label>
                             <label for="Edit_WorkedWeekend">Worked on Weekends</label>
                         </div>
+                        <partial name="/PartialViews/Payroll/_AllowancesAndDeductionsPartial.cshtml" />
                     </div>
                     <div class="d-flex justify-content-center" id="loader">
                         <div class="spinner-border" role="status">

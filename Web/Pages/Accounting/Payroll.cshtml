@@ -88,7 +88,6 @@
                         <th>DaysWorked</th>
                         <th>Vessel</th>
                         <th>GrossPay</th>
-                        <th>Deductions(%)</th>
                         <th>NetPay</th>
                         <th>Period</th>
                         <th></th>
@@ -110,7 +109,6 @@
                             <td>@payroll.DaysWorked</td>
                             <td>@payroll.Vessel</td>
                             <td>@payroll.GrossPay.ToCurrency()</td>
-                            <td>@payroll.TotalDeductedAmount.ToCurrency() (@payroll.TotalDeductedPercentage%)</td>
                             <td>@payroll.NetPay.ToCurrency()</td>
                             <td>
                                 @payroll.Period
@@ -132,7 +130,6 @@
                         <th>DaysWorked</th>
                         <th>Vessel</th>
                         <th>GrossPay</th>
-                        <th>Deductions(%)</th>
                         <th>NetPay</th>
                         <th>Period</th>
                         <th></th>

@@ -20,8 +20,9 @@ $.extend($.fn.dataTable.defaults, {
   },
   dom:
     '<"row d-flex mb-4"<"col-12"<"message-area float-right">>> <"row d-flex mb-4"<"col-sm-12"B<"right-buttons align-content-end">>>' +
-    '<"row d-flex" <"col-sm-3"l><"col-sm-2"<"custom-filter1 mb-2">> <"col-sm-2"<"custom-filter2 mb-2">> <"col-sm-2"<"custom-filter3 mb-2">> >' +
-    '<"row"<"col-sm-12 float-right"f>>rtip',
+      '<"row mb-3  d-flex justify-content-between" <"col-sm-12"l> >' +
+      '<"row mb-3" <"col-sm-12 col-md-8"<"custom-filter1">> <"col-sm-12 col-md-4"f> >'+
+    '<"row">rtip',
   buttons: [
     {
       extend: "print",

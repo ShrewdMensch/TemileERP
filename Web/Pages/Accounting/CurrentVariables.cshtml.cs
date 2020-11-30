@@ -215,7 +215,7 @@ namespace Web.Pages.Accounting
             }
         }
 
-        private static void AddSpecificDeductions(SetPayrollVariablesInputModel setPayrollVariablesInput, Payroll newPayroll)
+        private void AddSpecificDeductions(SetPayrollVariablesInputModel setPayrollVariablesInput, Payroll newPayroll)
         {
             if (setPayrollVariablesInput.SpecificDeductionAmounts == null) return;
 
@@ -224,14 +224,15 @@ namespace Web.Pages.Accounting
                 var newSpecificDeduction = new SpecificDeduction
                 {
                     Name = setPayrollVariablesInput.SpecificDeductionNames[count].ToTitleCase(),
-                    Amount = setPayrollVariablesInput.SpecificDeductionAmounts[count]
+                    Amount = setPayrollVariablesInput.SpecificDeductionAmounts[count],
+                    Payroll = newPayroll
                 };
 
-                newPayroll.SpecificDeductions.Add(newSpecificDeduction);
+                _repository.Add(newSpecificDeduction);
             }
         }
 
-        private static void AddAllowances(SetPayrollVariablesInputModel setPayrollVariablesInput, Payroll newPayroll)
+        private void AddAllowances(SetPayrollVariablesInputModel setPayrollVariablesInput, Payroll newPayroll)
         {
             if (setPayrollVariablesInput.AllowanceAmounts == null) return;
 
@@ -240,10 +241,11 @@ namespace Web.Pages.Accounting
                 var newAllowance = new Allowance
                 {
                     Name = setPayrollVariablesInput.AllowanceNames[count].ToTitleCase(),
-                    Amount = setPayrollVariablesInput.AllowanceAmounts[count]
+                    Amount = setPayrollVariablesInput.AllowanceAmounts[count],
+                    Payroll = newPayroll
                 };
 
-                newPayroll.Allowances.Add(newAllowance);
+                _repository.Add(newAllowance);
             }
         }
     }

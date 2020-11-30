@@ -1,0 +1,11 @@
+﻿@media (min-width: 992px) {
+    input#salary-range, span#select2-vessel-select-container {
+        min-width: 300px;
+    }
+}
+
+@media (max-width: 576px) {
+    .cal-icon:after {
+        display: none !important;
+    }
+}

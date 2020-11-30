@@ -36,7 +36,7 @@ h1, h2, h3, h4, h5, h6 {
       color: #888ea8; }
     .card-header section > div:not(.collapsed) {
       color: #1b55e2;
-      border-bottom: 2px solid #e0e6ed;
+      /*border-bottom: 2px solid #e0e6ed;*/
       font-weight: 600; }
     .card-header section > div .icons {
       position: absolute;

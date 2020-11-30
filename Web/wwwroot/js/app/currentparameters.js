@@ -1,3 +1,5 @@
+var calendar, table;
+
 $(document).ready(function () {
     if ($("#table").length > 0) {
         $("#table")
@@ -52,6 +54,13 @@ $(document).ready(function () {
         AddDeductionItem('', '', $('.deduction').length + 1);
     })
 
+    calendar = flatpickr("#Edit_DaysWorked", {
+        mode: "range",
+        minDate: getFirstDayOfLastMonth(),
+        maxDate: getLastDayOfCurrentMonth(),
+        mode: "range",
+        position: "auto center"
+    });
 
     AddDeleteHandler();
 
@@ -153,7 +162,8 @@ function AddAllowanceItem(name = '', amount = 10, count = '') {
         '</td><td> <input required data-parsley-type="number" data-parsley-min="10"' +
         ' class="form-control table-input amount" type="text" data-parsley-errors-container="#allowance_error' + count + '"' +
         ' name="AllowanceAmounts" data-parsley-required-message="Amount is required" value="' + amount
-        + '" data-parsley-trigger-after-failure="input change"> <span id="allowance_error' + count + '"></span>' +
+        + '" data-parsley-trigger-after-failure="input change" data-parsley-min-message="Amount cannot be less than 10">' +
+        ' <span id="allowance_error' + count + '"></span>' +
         '</td><td><a href="javascript:void(0)" title="Remove item" class="js-delete">' +
         '<i class="text-danger fa fa-trash"></i></a></td></tr>';
 
@@ -173,7 +183,8 @@ function AddDeductionItem(name = '', amount = 10, count = '') {
         '</td><td> <input required data-parsley-type="number" data-parsley-min="10"' +
         ' class="form-control table-input amount" type="text" data-parsley-errors-container="#deduction_error' + count + '"' +
         ' name="SpecificDeductionAmounts" data-parsley-required-message="Amount is required" value="' + amount
-        + '" data-parsley-trigger-after-failure="input change"> <span id="deduction_error' + count + '"></span>' +
+        + '" data-parsley-trigger-after-failure="input change" data-parsley-min-message="Amount cannot be less than 10">' +
+        ' <span id="deduction_error' + count + '"></span>' +
         '</td><td><a href="javascript:void(0)" title="Remove item" class="js-delete">' +
         '<i class="text-danger fa fa-trash"></i></a></td></tr>';
 
@@ -223,12 +234,12 @@ function AddDeleteHandler() {
 }
 
 function ShowOrHideAllowancesAccordion(show) {
-    $("#allowancesAccordion").attr('class', show ? "collapsed show" : "collapse");
+    $("#allowancesAccordion").attr('class', show ? "collapse show" : "collapse");
     $("#allowancesAccordion").attr('aria-expanded', show);
 }
 
 function ShowOrHideDeductionsAccordion(show) {
-    $("#deductionsAccordion").attr('class', show ? "collapsed show" : "collapse");
+    $("#deductionsAccordion").attr('class', show ? "collapse show" : "collapse");
     $("#deductionsAccordion").attr('aria-expanded', show);
 }
 
@@ -286,21 +297,14 @@ function UpdateFields(data) {
 }
 
 function AddDaysWorkedRange(data) {
-    flatpickr("#Edit_DaysWorked", {
-        mode: "range",
-        minDate: getFirstDayOfLastMonth(),
-        maxDate: getLastDayOfCurrentMonth(),
-        mode: "range",
-        dateFormat: "Y-m-d",
-        defaultDate: [data.startDate, data.endDate],
-        onClose: function (selectedDates) {
-            $('#Edit_StartDate').val(getStandardShortDate(new Date(selectedDates[0])));
-            $('#Edit_EndDate').val(getStandardShortDate(new Date(selectedDates[1])));
-        },
-        onReady: function (selectedDates) {
-            $('#Edit_StartDate').val(getStandardShortDate(new Date(selectedDates[0])));
-            $('#Edit_EndDate').val(getStandardShortDate(new Date(selectedDates[1])));
-        },
+    calendar.setDate([data.startDate, data.endDate], true);
+    calendar.set('onClose', function (selectedDates) {
+        $('#Edit_StartDate').val(getStandardShortDate(new Date(selectedDates[0])));
+        $('#Edit_EndDate').val(getStandardShortDate(new Date(selectedDates[1])));
+    });
+    calendar.set('onReady', function (selectedDates) {
+        $('#Edit_StartDate').val(getStandardShortDate(new Date(selectedDates[0])));
+        $('#Edit_EndDate').val(getStandardShortDate(new Date(selectedDates[1])));
     });
 }
 

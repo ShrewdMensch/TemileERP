@@ -4,6 +4,12 @@
     return yourDate.toISOString().split('T')[0]
 }
 
+function getStandardShortDateObject(yourDate) {
+    const offset = yourDate.getTimezoneOffset()
+    yourDate = new Date(yourDate.getTime() - (offset * 60 * 1000))
+    return new Date(yourDate.toISOString().split('T')[0]);
+}
+
 function getFirstDayOfCurrentMonth() {
     var date = new Date();
     var firstDay = new Date(date.getFullYear(), date.getMonth(), 1);

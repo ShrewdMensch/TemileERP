@@ -1,30 +1,83 @@
+var tableFilterParams = {
+    startDate: '',
+    endDate: '',
+    vessel: ''
+};
+
+var flatp, table;
+
 $(document).ready(function () {
     if ($("#table").length > 0) {
-        $("#table")
+       table=  $("#table")
             .addClass("nowrap")
             .dataTable({
                 columnDefs: [{ orderable: false, targets: -1 }],
+                ajax: {
+                    url: "/api/payrolls/AllWithPersonnel",
+                    dataSrc: "",
+                },
+                columns: [
+                    {
+                        data: "personnelName",
+                        render: function (data, type, personnelPayroll) {
+                            var photo = personnelPayroll.personnelPhoto ? personnelPayroll.personnelPhoto : '/assets/img/user.jpg';
+
+                            return ('<div class="d-flex"><div class="usr-img-frame mr-2 rounded-circle"> ' +
+                                '<img alt="avatar" class="img-fluid rounded-circle" src="' + photo +
+                                '"></div>' +
+                                '<p class="align-self-center mb-0 admin-name">' + personnelPayroll.personnelName + '</p></div>');
+                        }
+                    },
+                    {
+                        data: "dailyRateInCurrency",
+                    },
+                    {
+                        data: "daysWorked",
+                    },
+                    {
+                        data: "vessel",
+                    },
+                    {
+                        data: "grossPayInCurrency",
+                    },
+                    {
+                        data: "netPayInCurrency",
+                    },
+                    {
+                        data: "period",
+                    },
+                    {
+                        data: "personnelName",
+                        render: function (data, type, personnelPayroll) {
+                            return (
+                                '<a class="btn btn-primary" data-toggle="modal" data-target="#payrollPrintModal"' +
+                                ' data-personnel-id="' + data.personnelId + '" ' +
+                                'data-payroll-id="' + personnelPayroll.payrollId + '"> <svg xmlns="http://www.w3.org/2000/svg" ' +
+                                'width="24" height="24" viewBox="0 0 24 24" fill="none"' +
+                                ' stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" ' +
+                                'class="feather feather-file-text"><path d="M14' +
+                                ' 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z">' +
+                                '</path><polyline points="14 2 14 8 20 8"></polyline><line x1="16" y1="13" x2="8" y2="13">' +
+                                '</line><line x1="16" y1="17" x2="8" y2="17"></line><polyline points="10 9 9 9 8 9"></polyline></svg> </a>'
+                            );
+                        },
+                    }]
             });
 
         $(".custom-filter1").prepend(
-            '<select id="period-select" class="mx-2 mb-2" title="Select vessel"><option>Period 1</option><option>Period 2</option><option>Period 3</option></select>'
+            '<form class="form-inline"><div class="input-group mb-2 mr-sm-2"> <label class="sr-only" for="salary-range">Salary Period</label><div class="cal-icon"> <input type="text" class="form-control" id="salary-range" placeholder="Select salary period..."></div></div><div class="input-group mb-2 mr-sm-2"> <label class="sr-only" for="vessel-select">Vessel</label> <select id="vessel-select" class="form-control" title="Select vessel"></select></div> <button id="viewAll" type="button" class="btn btn-primary mb-2">View All</button></form>'
         );
         $(".custom-filter2").prepend(
             '<select id="vessel-select" class="mx-2 mb-2" title="Select vessel"></select>'
         );
         $(".custom-filter3").append(
-            '<button class="btn btn-primary mx-2 mb-2">View All</button>'
+            '<button class="btn btn-primary btn-sm btn-block mx-2 mb-2">View All</button>'
         );
         $(".message-area").prepend(
             '<p class="font-weight-bold">Showing: <span class="text-primary" id="appointmentsType">Current</span> <span class="text-primary">Payroll</span></p>'
         );
     }
 
-    $("#period-select").select2({
-        placeholder: "Select period...",
-        minimumResultsForSearch: Infinity,
-        width: "100%",
-    });
 
 
     $("#vessel-select").select2({
@@ -45,6 +98,38 @@ $(document).ready(function () {
                 };
             },
         },
+    });
+
+    $("#vessel-select").on('select2:select', function (e) {
+        var data = e.params.data;
+        console.log(e.params.data);
+
+        SetQueryParams(null, null, data.text);
+
+        FilterTable();
+    });
+
+    flatp = flatpickr("#salary-range", {
+        mode: "range",
+        dateFormat: "M. d, Y",
+        maxDate: 'today',
+        onClose: function (selectedDates) {
+            var startDate = getStandardShortDate(new Date(selectedDates[0]));
+            var endDate = getStandardShortDate(new Date(selectedDates[1]));
+
+            SetQueryParams(startDate, endDate, null);
+            FilterTable();
+        },
+    });
+
+    $('#viewAll').on('click', function () {
+        $("#vessel-select").val("");
+        $("#vessel-select").trigger("change");
+
+        flatp.clear();
+
+        ResetQueryParams();
+        FilterTable();
     });
 
     $("#personnelCreateModal").on("shown.bs.modal", function (event) {
@@ -179,4 +264,27 @@ function UpdateValues(data) {
     $("#daysWorked2").text(data.daysWorked);
     $("#workedWeekend").text(data.workedWeekend ? "including weekends" : "excluding weekends");
     $("#dateTitle").text(data.period);
+}
+
+function SetQueryParams(startDate, endDate, vessel) {
+    tableFilterParams.startDate = startDate ? startDate : tableFilterParams.startDate;
+    tableFilterParams.endDate = endDate ? endDate : tableFilterParams.endDate;
+    tableFilterParams.vessel = vessel ? vessel : tableFilterParams.vessel;
+}
+
+function ResetQueryParams() {
+    tableFilterParams.startDate = '';
+    tableFilterParams.endDate = '';
+    tableFilterParams.vessel = '';
+}
+
+function GetQueryParams() {
+    var param = "?startDate=" + tableFilterParams.startDate +
+        "&endDate=" + tableFilterParams.endDate + "&vessel=" + tableFilterParams.vessel;
+    return param;
+}
+
+function FilterTable() {
+    var table = $("#table").DataTable();
+    table.ajax.url("/api/payrolls/AllWithPersonnel" + GetQueryParams()).load(null, false);
 }

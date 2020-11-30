@@ -18,6 +18,11 @@
         <h3>Payroll Processing</h3>
     </div>
 </div>
+@section StyleSheets{
+    <link rel="stylesheet" type="text/css" href="~/plugins/flatpickr/flatpickr.css">
+    <link href="~/assets/css/components/calendarAndTimeIcon.css" rel="stylesheet" type="text/css" />
+    <link href="~/assets/css/pages/payroll/payroll.css" rel="stylesheet" type="text/css" />
+}
 
 <input type="text" hidden id="message-body" value="@Model.MessageBody.GetHtmlString()">
 <input type="text" hidden id="message-title" value="@Model.MessageTitle">
@@ -94,34 +99,6 @@
                     </tr>
                 </thead>
                 <tbody>
-                    @foreach (var payroll in Model.Payrolls)
-                    {
-                        <tr>
-                            <td>
-                                <div class="d-flex">
-                                    <div class="usr-img-frame mr-2 rounded-circle">
-                                        <img alt="avatar" class="img-fluid rounded-circle" src="@GetUserImagePath(payroll.PersonnelPhoto)">
-                                    </div>
-                                    <p class="align-self-center mb-0 admin-name">@payroll.PersonnelName </p>
-                                </div>
-                            </td>
-                            <td>@payroll.DailyRate.ToCurrency()</td>
-                            <td>@payroll.DaysWorked</td>
-                            <td>@payroll.Vessel</td>
-                            <td>@payroll.GrossPay.ToCurrency()</td>
-                            <td>@payroll.NetPay.ToCurrency()</td>
-                            <td>
-                                @payroll.Period
-                            </td>
-                            <td class="text-right">
-                                <a class="btn btn-primary" data-toggle="modal" data-target="#payrollPrintModal"
-                                   data-personnel-id="@payroll.PersonnelId"
-                                   data-payroll-id="@payroll.PayrollId">
-                                    <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-file-text"><path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"></path><polyline points="14 2 14 8 20 8"></polyline><line x1="16" y1="13" x2="8" y2="13"></line><line x1="16" y1="17" x2="8" y2="17"></line><polyline points="10 9 9 9 8 9"></polyline></svg>
-                                </a>
-                            </td>
-                        </tr>
-                    }
                 </tbody>
                 <tfoot>
                     <tr>
@@ -155,7 +132,9 @@
         await Html.RenderPartialAsync("/PartialViews/_SweetAlertPartial.cshtml");
     }
     <script src="~/plugins/jQueryPrint/jQuery.print.js"></script>
-    <script src="~/js/app/payroll.js"></script>
+    <script src="~/plugins/flatpickr/flatpickr.js"></script>
     <script src="~/js/towords.js"></script>
+    <script src="~/js/utility.js"></script>
+    <script src="~/js/app/payroll.js"></script>
 
 }

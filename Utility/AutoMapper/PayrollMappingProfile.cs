@@ -30,6 +30,15 @@ namespace Utility.AutoMapper
 
                 .ForMember(destination => destination.DaysWorked,
                 option => option.MapFrom(source => source.DaysWorked.ToDays()))
+                
+                .ForMember(destination => destination.DailyRateInCurrency,
+                option => option.MapFrom(source => source.DailyRate.ToCurrency()))
+                
+                .ForMember(destination => destination.GrossPayInCurrency,
+                option => option.MapFrom(source => source.GrossPay.ToCurrency()))
+                
+                .ForMember(destination => destination.NetPayInCurrency,
+                option => option.MapFrom(source => source.NetPay.ToCurrency()))
 
                .ForMember(destination => destination.Period,
                 option => option.MapFrom(source => source.StartDate.ToFormalShortDate().CombineAsRange(source.EndDate.ToFormalShortDate())))

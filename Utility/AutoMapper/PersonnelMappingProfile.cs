@@ -50,15 +50,21 @@ namespace Utility.AutoMapper
 
                 .ForMember(destination => destination.NetPay, 
                 option => option.MapFrom(source => source.Payrolls.GetCurrentPayroll().NetPay))
+                
+                .ForMember(destination => destination.DailyRateInCurrency, 
+                option => option.MapFrom(source => source.Payrolls.GetCurrentPayroll().DailyRate.ToCurrency()))
+                
+                .ForMember(destination => destination.NetPayInCurrency, 
+                option => option.MapFrom(source => source.Payrolls.GetCurrentPayroll().NetPay.ToCurrency()))
+                
+                .ForMember(destination => destination.GrossPayInCurrency, 
+                option => option.MapFrom(source => source.Payrolls.GetCurrentPayroll().GrossPay.ToCurrency()))
 
                 .ForMember(destination => destination.TotalDeductedPercentage, 
                 option => option.MapFrom(source => source.Payrolls.GetCurrentPayroll().TotalDeductedPercentage))
 
                 .ForMember(destination => destination.TotalDeductedAmount, 
                 option => option.MapFrom(source => source.Payrolls.GetCurrentPayroll().TotalDeductedAmount))
-
-                .ForMember(destination => destination.NetPay, 
-                option => option.MapFrom(source => source.Payrolls.GetCurrentPayroll().NetPay))
                 
                 .ForMember(destination => destination.Allowances, 
                 option => option.MapFrom(source => source.Payrolls.GetCurrentPayroll().Allowances))

@@ -212,11 +212,14 @@ input.dt-button {
   color: #fff !important;
 }
 
-.dataTables_wrapper input {
-  border-radius: 10px !important;
-  padding: 5px !important;
+.dataTables_wrapper input{
+    border-radius: 10px !important;
+    padding: 5px !important;
 }
-
+.dataTables_wrapper .flatpickr-input {
+    border-radius: 10px !important;
+    padding: 10px !important;
+}
 table.display tbody tr {
   -webkit-transition: all 0.1s ease-in;
   transition: all 0.1s ease-in;

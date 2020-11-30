@@ -63,8 +63,6 @@
         <!--  END CONTENT AREA  -->
     </div>
     <!-- END MAIN CONTAINER -->
-
-
     <!-- BEGIN GLOBAL MANDATORY SCRIPTS -->
     <script src="~/js/es5-shim.min.js"></script>
     <script src="~/assets/js/libs/jquery-3.1.1.min.js"></script>
@@ -82,20 +80,15 @@
     </script>
     <script src="~/assets/js/custom.js"></script>
     <!-- END GLOBAL MANDATORY SCRIPTS -->
-
     <!-- BEGIN PAGE LEVEL PLUGINS/CUSTOM SCRIPTS -->
     <script src="~/plugins/datatable/jquery.dataTables.min.js"></script>
     <script src="~/plugins/datatable/datatables.responsive.min.js"></script>
     <script src="~/plugins/select2/select2.min.js"></script>
     <script src="~/plugins/sweetalerts/sweetalert.min.js"></script>
+    <script src="~/js/site.js" asp-append-version="true"></script>
 
     <!-- BEGIN PAGE LEVEL PLUGINS/CUSTOM SCRIPTS -->
     @RenderSection("Scripts", required: false)
 </body>
 
 </html>
-
-@* <script src="~/lib/jquery/dist/jquery.min.js"></script>
-    <script src="~/lib/bootstrap/dist/js/bootstrap.bundle.min.js"></script>
-    <script src="~/js/site.js" asp-append-version="true"></script>
-    @RenderSection("Scripts", required: false) *@

@@ -3,7 +3,6 @@ using System.Collections.Generic;
 using System.Threading.Tasks;
 using AutoMapper;
 using Microsoft.AspNetCore.Mvc;
-using Microsoft.Extensions.Logging;
 using Domain;
 using Utility;
 using Utility.DTOs;
@@ -14,14 +13,12 @@ namespace Web.Pages.CompanyManagement
 {
     public class VesselsModel : BasePageModel
     {
-        private readonly ILogger<VesselsModel> _logger;
         private readonly IRepository _repository;
         private readonly IMapper _mapper;
         private readonly IUserAccessor _userAccessor;
 
-        public VesselsModel(ILogger<VesselsModel> logger, IRepository repository, IMapper mapper, IUserAccessor userAccessor)
+        public VesselsModel(IRepository repository, IMapper mapper, IUserAccessor userAccessor)
         {
-            _logger = logger;
             _repository = repository;
             _mapper = mapper;
             _userAccessor = userAccessor;
@@ -29,6 +26,7 @@ namespace Web.Pages.CompanyManagement
 
         [BindProperty]
         public IEnumerable<VesselDto> Vessels { get; set; }
+
         public async Task<IActionResult> OnGet()
         {
             var vessels = await _repository.GetAll<Vessel>();
@@ -53,14 +51,12 @@ namespace Web.Pages.CompanyManagement
 
             if (await _repository.SaveAll())
             {
-                MessageIcon = MessageType.Success;
-                MessageBody = "Vessel has been added successfully";
+                SetNotificationMessageAndIcon("Vessel has been added successfully", MessageType.Success);
             }
 
             else
             {
-                MessageIcon = MessageType.Error;
-                MessageBody = "Vessel could not be added!";
+                SetNotificationMessageAndIcon("Vessel could not be added!", MessageType.Error);
             }
 
             return RedirectToPage();
@@ -73,8 +69,7 @@ namespace Web.Pages.CompanyManagement
 
             if (vessel == null)
             {
-                MessageIcon = MessageType.Error;
-                MessageBody = "Vessel could not be updated!";
+                SetNotificationMessageAndIcon("Vessel could not be updated!", MessageType.Error);
 
                 return RedirectToPage();
             }
@@ -86,14 +81,12 @@ namespace Web.Pages.CompanyManagement
 
             if (await _repository.SaveAll())
             {
-                MessageIcon = MessageType.Success;
-                MessageBody = "Vessel has been updated successfully";
+                SetNotificationMessageAndIcon("Vessel has been updated successfully", MessageType.Success);
             }
 
             else
             {
-                MessageIcon = MessageType.Error;
-                MessageBody = "Vessel could not be updated!";
+                SetNotificationMessageAndIcon("Vessel could not be updated!", MessageType.Error);
             }
 
             return RedirectToPage();
@@ -105,8 +98,7 @@ namespace Web.Pages.CompanyManagement
 
             if (vessel == null)
             {
-                MessageIcon = MessageType.Error;
-                MessageBody = "Vessel could not be deleted!";
+                SetNotificationMessageAndIcon("Vessel could not be deleted!", MessageType.Error);
 
                 return RedirectToPage();
             }
@@ -115,14 +107,12 @@ namespace Web.Pages.CompanyManagement
 
             if (await _repository.SaveAll())
             {
-                MessageIcon = MessageType.Success;
-                MessageBody = "Vessel has been deleted successfully";
+                SetNotificationMessageAndIcon("Vessel has been deleted successfully", MessageType.Success);
             }
 
             else
             {
-                MessageIcon = MessageType.Error;
-                MessageBody = "Vessel could not be deleted!";
+                SetNotificationMessageAndIcon("Vessel could not be deleted!", MessageType.Error);
             }
 
             return RedirectToPage();

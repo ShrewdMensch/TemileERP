@@ -2,8 +2,6 @@
 using System.Threading.Tasks;
 using AutoMapper;
 using Microsoft.AspNetCore.Mvc;
-using Microsoft.AspNetCore.Mvc.RazorPages;
-using Microsoft.Extensions.Logging;
 using Domain;
 using Utility;
 using Utility.DTOs;
@@ -12,13 +10,11 @@ namespace Web.Pages.Accounting
 {
     public class PayrollModel : BasePageModel
     {
-        private readonly ILogger<PayrollModel> _logger;
         private readonly IRepository _repository;
         private readonly IMapper _mapper;
 
-        public PayrollModel(ILogger<PayrollModel> logger, IRepository repository, IMapper mapper)
+        public PayrollModel(IRepository repository, IMapper mapper)
         {
-            _logger = logger;
             _repository = repository;
             _mapper = mapper;
         }

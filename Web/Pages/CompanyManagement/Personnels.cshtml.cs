@@ -1,11 +1,7 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Globalization;
+﻿using System.Collections.Generic;
 using System.Threading.Tasks;
 using AutoMapper;
 using Microsoft.AspNetCore.Mvc;
-using Microsoft.Extensions.Logging;
-using Web.Pages;
 using Domain;
 using Utility;
 using Utility.DTOs;
@@ -17,18 +13,14 @@ namespace Web.Pages.CompanyManagement
 {
     public class PersonnelsModel : BasePageModel
     {
-        private readonly ILogger<PersonnelsModel> _logger;
         private readonly IRepository _repository;
         private readonly IMapper _mapper;
 
-        public PersonnelsModel(ILogger<PersonnelsModel> logger, IRepository repository, IMapper mapper)
+        public PersonnelsModel(IRepository repository, IMapper mapper)
         {
-            _logger = logger;
             _repository = repository;
             _mapper = mapper;
         }
-
-
 
         [BindProperty]
         public IEnumerable<PersonnelDto> Personnels { get; set; }
@@ -41,7 +33,7 @@ namespace Web.Pages.CompanyManagement
         }
         public async Task<IActionResult> OnPostCreatePersonnelAsync(PersonnelInputModel personnelInputModel)
         {
-            var otherNameIsEmptyOrNull = String.IsNullOrWhiteSpace(personnelInputModel.OtherName);
+            var otherNameIsEmptyOrNull = string.IsNullOrWhiteSpace(personnelInputModel.OtherName);
             MessageTitle = "Personnel Creation";
 
             var personnel = new Personnel
@@ -70,19 +62,19 @@ namespace Web.Pages.CompanyManagement
 
             if (await _repository.SaveAll())
             {
-                MessageIcon = MessageType.Success;
-                MessageBody = "Personnel has been added successfully";
+                SetNotificationMessageAndIcon("Personnel has been added successfully", MessageType.Success);
             }
             else
             {
-                MessageIcon = MessageType.Error;
-                MessageBody = "Personnel could not be added";
+                SetNotificationMessageAndIcon("Personnel could not be added", MessageType.Error);
             }
             return RedirectToPage();
         }
         public async Task<IActionResult> OnPostEditPersonnelAsync(PersonnelInputModel personnelInputModel)
         {
-            var otherNameIsEmptyOrNull = String.IsNullOrWhiteSpace(personnelInputModel.OtherName);
+            var otherNameIsEmptyOrNull = string.IsNullOrWhiteSpace(personnelInputModel.OtherName);
+
+            MessageTitle = "Personnel Information Update";
 
             var personnel = new Personnel
             {
@@ -105,7 +97,7 @@ namespace Web.Pages.CompanyManagement
                 Address = personnelInputModel.Address
             };
 
-            _repository.Attach<Personnel>(personnel).State = EntityState.Modified;
+            _repository.Attach(personnel).State = EntityState.Modified;
 
             try
             {
@@ -123,9 +115,7 @@ namespace Web.Pages.CompanyManagement
                 }
             }
 
-            MessageTitle = "Personnel Information Update";
-            MessageIcon = MessageType.Success;
-            MessageBody = "Personnel has been updated successfully";
+            SetNotificationMessageAndIcon("Personnel has been updated successfully", MessageType.Success);
 
             return RedirectToPage();
         }
@@ -134,19 +124,21 @@ namespace Web.Pages.CompanyManagement
         {
             var personnel = await _repository.Get<Personnel>(id);
 
+            MessageTitle = "Personnel Status Update";
+
             personnel.IsActive = !personnel.IsActive;
 
             var clause = (personnel.IsActive) ? "active" : "inactive";
 
             if (await _repository.SaveAll())
             {
-                MessageIcon = MessageType.Success;
-                MessageBody = String.Format("Personnel, {1} has been successfully set {0}", clause, personnel.Name);
+                SetNotificationMessageAndIcon(string.Format("Personnel, {1} has been successfully set {0}",
+                    clause, personnel.Name), MessageType.Success);
             }
             else
             {
-                MessageIcon = MessageType.Error;
-                MessageBody = String.Format("Personnel {1} could not be set {0}", clause, personnel.Name);
+                SetNotificationMessageAndIcon(string.Format("Personnel {1} could not be set {0}",
+                    clause, personnel.Name), MessageType.Error);
             }
             return RedirectToPage();
         }

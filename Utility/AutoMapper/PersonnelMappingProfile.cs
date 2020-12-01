@@ -42,6 +42,9 @@ namespace Utility.AutoMapper
                 .ForMember(destination => destination.DailyRate, 
                 option => option.MapFrom(source => source.DailyRate))
 
+                .ForMember(destination => destination.DailyRateInCurrency,
+                option => option.MapFrom(source => source.DailyRate.ToCurrency()))
+
                 .ForMember(destination => destination.DaysWorked, 
                 option => option.MapFrom(source => source.Payrolls.GetCurrentPayroll().DaysWorked.ToDays()))
 
@@ -50,9 +53,6 @@ namespace Utility.AutoMapper
 
                 .ForMember(destination => destination.NetPay, 
                 option => option.MapFrom(source => source.Payrolls.GetCurrentPayroll().NetPay))
-                
-                .ForMember(destination => destination.DailyRateInCurrency, 
-                option => option.MapFrom(source => source.Payrolls.GetCurrentPayroll().DailyRate.ToCurrency()))
                 
                 .ForMember(destination => destination.NetPayInCurrency, 
                 option => option.MapFrom(source => source.Payrolls.GetCurrentPayroll().NetPay.ToCurrency()))
@@ -77,7 +77,7 @@ namespace Utility.AutoMapper
 
                 .ForMember(destination => destination.Period, 
                 option => option.MapFrom(source => source.Payrolls.GetCurrentPayroll().StartDate.ToFormalShortDate()
-                .CombineAsRange(source.Payrolls.GetCurrentPayroll().EndDate.ToFormalShortDate())))
+                .CombineAsDateRange(source.Payrolls.GetCurrentPayroll().EndDate.ToFormalShortDate())))
 
                 .ForMember(destination => destination.StartDate, 
                 option => option.MapFrom(source => source.Payrolls.GetCurrentPayroll().StartDate.ToShortDate()))

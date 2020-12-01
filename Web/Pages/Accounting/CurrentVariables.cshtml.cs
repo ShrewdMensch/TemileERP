@@ -44,12 +44,11 @@ namespace Web.Pages.Accounting
             var payroll = await _repository.Get<Payroll>(setPayrollVariablesInput.PayrollId);
             var deductions = await _repository.GetAll<Deduction>();
 
+            MessageTitle = "Payroll Variables Update";
+
             if (personnel == null)
             {
-                MessageTitle = "Payroll Variables Update";
-                MessageIcon = MessageType.Error;
-                MessageBody = "Personnel's payroll variables could not be updated";
-
+                SetNotificationMessageAndIcon("Personnel's payroll variables could not be updated", MessageType.Error);
                 return RedirectToPage();
             }
 
@@ -69,16 +68,12 @@ namespace Web.Pages.Accounting
 
             if (await _repository.SaveAll())
             {
-                MessageTitle = "Payroll Variables Update";
-                MessageIcon = MessageType.Success;
-                MessageBody = "Personnel's payroll variables has been updated successfully";
+                SetNotificationMessageAndIcon("Personnel's payroll variables has been updated successfully", MessageType.Success);
             }
 
             else
             {
-                MessageTitle = "Payroll Variables Update";
-                MessageIcon = MessageType.Error;
-                MessageBody = "Personnel's payroll variables could not be updated";
+                SetNotificationMessageAndIcon("Personnel's payroll variables could not be updated", MessageType.Error);
             }
 
 

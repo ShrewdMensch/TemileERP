@@ -74,7 +74,7 @@ namespace Utility.AutoMapper
                 option => option.MapFrom(source => source.Id))
 
                 .ForMember(destination => destination.Period,
-                option => option.MapFrom(source => source.StartDate.ToFormalShortDate().CombineAsRange(source.EndDate.ToFormalShortDate())));
+                option => option.MapFrom(source => source.StartDate.ToFormalShortDate().CombineAsDateRange(source.EndDate.ToFormalShortDate())));
         }
     }
 }

@@ -197,9 +197,11 @@ namespace Utility
 
         }
 
-        public static string CombineAsRange(this string theString, string secondString)
+        public static string CombineAsDateRange(this string firstDateStr, string secondDateStr)
         {
-            return theString + " to " + secondString;
+            if (DateTime.Parse(firstDateStr).Date == DateTime.Parse(secondDateStr).Date) return firstDateStr;
+
+            return firstDateStr + " to " + secondDateStr;
 
         }
 

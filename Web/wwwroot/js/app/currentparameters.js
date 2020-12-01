@@ -1,6 +1,104 @@
-var calendar, table;
+var calendar;
 
 $(document).ready(function () {
+
+    InitializeDataTables();
+
+    InitializeVesselsSelect2();
+
+    AddButtonClickListerners();
+
+    InitializeCalendar();
+
+    AddDeleteHandler();
+
+    AddUpdateCurrentPayrollVariablesLogic();
+
+    AddPersonnelPayrollTableModalOnShowEvent();
+});
+
+function AddPersonnelPayrollTableModalOnShowEvent() {
+    $("#personnelPayrollTableModal").on("shown.bs.modal", function(event) {
+        var button = $(event.relatedTarget);
+        var modal = $(this);
+        var query = button.data("query");
+        var tableTitle = button.data("title");
+        var table = $("#table2").DataTable();
+        modal.find("#tableTitle").text(tableTitle);
+        table.ajax.url("/api/personnels/" + query).load(null, false);
+    });
+}
+
+function AddUpdateCurrentPayrollVariablesLogic() {
+    var form = $("#currentPayrollVariablesForm");
+    var initialform;
+
+    $(
+        "#currentPayrollVariablesForm :input, #currentPayrollVariablesForm textarea, #currentPayrollVariablesForm select"
+    ).on("change", function () {
+        $("#editBtn").attr("disabled", initialform === $(form).serialize());
+    });
+
+    $("#currentPayrollVariablesModal").on("shown.bs.modal", function (event) {
+        var button = $(event.relatedTarget);
+        var personnelId = button.data("personnel-id");
+        var payrollId = button.data("payroll-id");
+        var modal = $(this);
+        $("#Personnel_Id").val(personnelId);
+        $("#Payroll_Id").val(payrollId);
+
+        AddSpinToDailyRate();
+        AddSpinForAllowanceAmounts();
+        AddSpinForSpecificDeductionAmounts();
+
+        ShowSpinner(modal);
+
+        initialform = LoadValuesFromAPI(personnelId, initialform, form, modal);
+        ShowAccordionOnValidationFailure();
+    });
+
+    $("#currentPayrollVariablesModal").on("hidden.bs.modal", function (event) {
+        $("#currentPayrollVariablesForm").parsley().reset();
+        $("#currentPayrollVariablesForm")[0].reset();
+    });
+
+}
+
+function AddSpinToDailyRate() {
+    $("input[name='DailyRate']").TouchSpin({
+        min: 500,
+        max: 10000000,
+        step: 10,
+        decimals: 2,
+        boostat: 5,
+        initval: 0,
+        prefix: "₦",
+        buttondown_class: "btn btn-classic btn-danger",
+        buttonup_class: "btn btn-classic btn-primary",
+    });
+}
+
+function AddButtonClickListerners() {
+    $('#addAllowance').on('click', function () {
+        AddAllowanceItem('', '', $('.allowance').length + 1);
+    });
+
+    $('#addDeduction').on('click', function () {
+        AddDeductionItem('', '', $('.deduction').length + 1);
+    });
+}
+
+function InitializeCalendar() {
+    calendar = flatpickr("#Edit_DaysWorked", {
+        mode: "range",
+        minDate: getFirstDayOfLastMonth(),
+        maxDate: 'today',
+        mode: "range",
+        position: "auto center"
+    });
+}
+
+function InitializeDataTables() {
     if ($("#table").length > 0) {
         $("#table")
             .addClass("nowrap")
@@ -9,7 +107,8 @@ $(document).ready(function () {
             });
 
         $(".right-buttons").append(
-            '<div class="float-right mt-2"> <a href="/Accounting/Deductions/ApplyDeduction" class="btn btn-purple btn-primary btn-rounded float-right"><i class="fas fa-sync m-r-5"></i> Reapply Deductions</a></div>'
+            '<div class="float-right mt-2"> <a href="/Accounting/Deductions/ApplyDeduction" class="btn btn-purple btn-primary' +
+            ' btn-rounded float-right"><i class="fas fa-sync m-r-5"></i> Reapply Deductions</a></div>'
         );
     }
 
@@ -29,7 +128,7 @@ $(document).ready(function () {
                         data: "personnelName",
                     },
                     {
-                        data: "dailyRate",
+                        data: "dailyRateInCurrency",
                     },
                     {
                         data: "daysWorked",
@@ -38,83 +137,12 @@ $(document).ready(function () {
                         data: "vessel",
                     },
                     {
-                        data: "grossPay",
+                        data: "grossPayInCurrency",
                     },
                 ],
             });
     }
-
-    InitializeVesselsSelect2();
-
-    $('#addAllowance').on('click', function () {
-        AddAllowanceItem('', '', $('.allowance').length + 1);
-    })
-
-    $('#addDeduction').on('click', function () {
-        AddDeductionItem('', '', $('.deduction').length + 1);
-    })
-
-    calendar = flatpickr("#Edit_DaysWorked", {
-        mode: "range",
-        minDate: getFirstDayOfLastMonth(),
-        maxDate: getLastDayOfCurrentMonth(),
-        mode: "range",
-        position: "auto center"
-    });
-
-    AddDeleteHandler();
-
-    //Personnel Edit Information Logic
-    //Personnel Edit Form and API pull logic
-    var form = $("#currentPayrollVariablesForm");
-    var initialform;
-
-    $(
-        "#currentPayrollVariablesForm :input, #currentPayrollVariablesForm textarea"
-    ).on("change", function () {
-        $("#editBtn").attr("disabled", initialform === $(form).serialize());
-    });
-
-    $("#currentPayrollVariablesModal").on("shown.bs.modal", function (event) {
-        var button = $(event.relatedTarget);
-        var personnelId = button.data("personnel-id");
-        var payrollId = button.data("payroll-id");
-        var modal = $(this);
-        $("#Personnel_Id").val(personnelId);
-        $("#Payroll_Id").val(payrollId);
-
-
-        AddSpinForAllowanceAmounts();
-        AddSpinForSpecificDeductionAmounts();
-
-        ShowSpinner(modal);
-
-        initialform = LoadValuesFromAPI(personnelId, initialform, form, modal);
-        ShowAccordionOnValidationFailure();
-    });
-
-    $("#personnelPayrollTableModal").on("shown.bs.modal", function (event) {
-        var button = $(event.relatedTarget);
-        var modal = $(this);
-        var query = button.data("query");
-        var tableTitle = button.data("title");
-        var table = $("#table2").DataTable();
-        modal.find("#tableTitle").text(tableTitle);
-        table.ajax.url("/api/personnels/" + query).load(null, false);
-    });
-
-    $("input[name='DailyRate']").TouchSpin({
-        min: 500,
-        max: 10000000,
-        step: 10,
-        decimals: 2,
-        boostat: 5,
-        initval: 0,
-        prefix: "₦",
-        buttondown_class: "btn btn-classic btn-danger",
-        buttonup_class: "btn btn-classic btn-primary",
-    });
-});
+}
 
 function LoadValuesFromAPI(personnelId, initialform, form, modal) {
     $.ajax({
@@ -153,8 +181,7 @@ function ShowSpinner(modal) {
     $("#editBtn").attr("disabled", true);
 }
 
-function AddAllowanceItem(name = '', amount = 10, count = '') {
-    (count == null || count == '') ? count = 1 : count = count;
+function AddAllowanceItem(name, amount, count) {
     var allowanceHtml = '<tr class="allowance"><td class="serial-no"></td><td>' +
         '<input required class="form-control table-input description" type="text"' +
         'data-parsley-required-message="Description is required"' +
@@ -174,8 +201,7 @@ function AddAllowanceItem(name = '', amount = 10, count = '') {
     HideAppropriateTable();
 }
 
-function AddDeductionItem(name = '', amount = 10, count = '') {
-    (count == null || count == '') ? count = 1 : count = count;
+function AddDeductionItem(name, amount, count ) {
     var deductionHtml = '<tr class="deduction"><td class="serial-no"></td><td>' +
         '<input required class="form-control table-input description" type="text"' +
         'data-parsley-required-message="Description is required"' +
@@ -201,6 +227,8 @@ function ReorderAllowances() {
         allowance.children('.serial-no').text(index + 1);
     });
 }
+
+
 function ReorderDeductions() {
     $('.deduction').each(function (index) {
         var deduction = $(this);
@@ -297,11 +325,13 @@ function UpdateFields(data) {
 }
 
 function AddDaysWorkedRange(data) {
-    calendar.setDate([data.startDate, data.endDate], true);
+    calendar.setDate([data.startDate, data.endDate], true, null);
+
     calendar.set('onClose', function (selectedDates) {
         $('#Edit_StartDate').val(getStandardShortDate(new Date(selectedDates[0])));
         $('#Edit_EndDate').val(getStandardShortDate(new Date(selectedDates[1])));
     });
+
     calendar.set('onReady', function (selectedDates) {
         $('#Edit_StartDate').val(getStandardShortDate(new Date(selectedDates[0])));
         $('#Edit_EndDate').val(getStandardShortDate(new Date(selectedDates[1])));

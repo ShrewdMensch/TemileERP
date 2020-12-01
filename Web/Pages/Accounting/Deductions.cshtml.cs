@@ -1,36 +1,28 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.Globalization;
 using System.Threading.Tasks;
 using AutoMapper;
 using Microsoft.AspNetCore.Mvc;
-using Microsoft.Extensions.Logging;
-using Web.Pages;
 using Domain;
 using Utility;
 using Utility.DTOs;
 using Utility.InputModels;
-using Microsoft.EntityFrameworkCore;
 using static Utility.UtilityClasses;
 
 namespace Web.Pages.Accounting
 {
     public class DeductionsModel : BasePageModel
     {
-        private readonly ILogger<DeductionsModel> _logger;
         private readonly IRepository _repository;
         private readonly IMapper _mapper;
         private readonly IUserAccessor _userAccessor;
 
-        public DeductionsModel(ILogger<DeductionsModel> logger, IRepository repository, IMapper mapper, IUserAccessor userAccessor)
+        public DeductionsModel(IRepository repository, IMapper mapper, IUserAccessor userAccessor)
         {
-            _logger = logger;
             _repository = repository;
             _mapper = mapper;
             _userAccessor = userAccessor;
         }
-
-
 
         [BindProperty]
         public IEnumerable<DeductionDto> Deductions { get; set; }
@@ -59,14 +51,12 @@ namespace Web.Pages.Accounting
 
             if (await _repository.SaveAll())
             {
-                MessageIcon = MessageType.Success;
-                MessageBody = "Deduction has been added successfully";
+                SetNotificationMessageAndIcon("Deduction has been added successfully", MessageType.Success);
             }
 
             else
             {
-                MessageIcon = MessageType.Error;
-                MessageBody = "Deduction could not be added!";
+                SetNotificationMessageAndIcon("Deduction could not be added!", MessageType.Error);
             }
 
             return RedirectToPage();
@@ -79,8 +69,7 @@ namespace Web.Pages.Accounting
 
             if (deduction == null)
             {
-                MessageIcon = MessageType.Error;
-                MessageBody = "Deduction could not be updated!";
+                SetNotificationMessageAndIcon("Deduction could not be updated!", MessageType.Error);
 
                 return RedirectToPage();
             }
@@ -93,14 +82,12 @@ namespace Web.Pages.Accounting
 
             if (await _repository.SaveAll())
             {
-                MessageIcon = MessageType.Success;
-                MessageBody = "Deduction has been updated successfully";
+                SetNotificationMessageAndIcon("Deduction has been updated successfully", MessageType.Success);
             }
 
             else
             {
-                MessageIcon = MessageType.Error;
-                MessageBody = "Deduction could not be updated!";
+                SetNotificationMessageAndIcon("Deduction could not be updated!", MessageType.Error);
             }
 
             return RedirectToPage();
@@ -108,29 +95,25 @@ namespace Web.Pages.Accounting
         public async Task<IActionResult> OnPostDeleteDeductionAsync(DeductionInputModel deductionInput)
         {
             MessageTitle = "Deduction Deletion";
-            var currentUser = _userAccessor.GetCurrentUser();
             var deduction = await _repository.Get<Deduction>(deductionInput.Id);
 
             if (deduction == null)
             {
-                MessageIcon = MessageType.Error;
-                MessageBody = "Deduction could not be deleted!";
+                SetNotificationMessageAndIcon("Deduction could not be deleted!", MessageType.Error);
 
                 return RedirectToPage();
             }
 
-            _repository.Remove<Deduction>(deduction);
+            _repository.Remove(deduction);
 
             if (await _repository.SaveAll())
             {
-                MessageIcon = MessageType.Success;
-                MessageBody = "Deduction has been deleted successfully";
+                SetNotificationMessageAndIcon("Deduction has been deleted successfully", MessageType.Success);
             }
 
             else
             {
-                MessageIcon = MessageType.Error;
-                MessageBody = "Deduction could not be deleted!";
+                SetNotificationMessageAndIcon("Deduction could not be deleted!", MessageType.Error);
             }
 
             return RedirectToPage();
@@ -166,14 +149,12 @@ namespace Web.Pages.Accounting
 
             if (await _repository.SaveAll())
             {
-                MessageIcon = MessageType.Success;
-                MessageBody = "Deduction has been successfully applied to all current payroll";
+                SetNotificationMessageAndIcon("Deduction has been successfully applied to all current payroll", MessageType.Success);
             }
 
             else
             {
-                MessageIcon = MessageType.Error;
-                MessageBody = "Deduction could not be applied to all current payroll!";
+                SetNotificationMessageAndIcon("Deduction could not be applied to all current payroll!", MessageType.Error);
             }
 
             return RedirectToPage("./CurrentVariables");

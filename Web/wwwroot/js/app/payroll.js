@@ -4,11 +4,119 @@ var tableFilterParams = {
     vessel: ''
 };
 
-var flatp, table;
+var calendar, table;
 
 $(document).ready(function () {
+    InitializeDataTable();
+
+    InitializeVesselsSelect2();
+
+    AddSelectEventForVesselSelect2();
+
+    InitializeFlatPickrCalendar();
+
+    AddViewAllButtonClickEvent();
+
+    AddPayrollPrintModalLogic();
+
+    AddPrintButtonClickEvent();
+});
+
+function AddPrintButtonClickEvent() {
+    $("#printBtn").click(function () {
+        var year = new Date().getFullYear();
+        $("#salaryContainer").print({
+            title: "Monthly Payroll",
+            append: "",
+            iframe: false,
+            deferred: $.Deferred(),
+            doctype: "<!doctype html>",
+            prepend: '<br><p class="text-primary font-weight-bold">Temile and Sons Limited &copy;' +
+                year +
+                "</p>",
+        });
+    });
+}
+
+function AddPayrollPrintModalLogic() {
+    $("#payrollPrintModal").on("shown.bs.modal", function (event) {
+        var button = $(event.relatedTarget);
+        var payrollId = button.data("payroll-id");
+        var modal = $(this);
+        $("#Payroll_Id").val(payrollId);
+
+        modal.find(".modal-body .row").attr("hidden", true);
+        modal.find("#loader").attr("hidden", false);
+        $(".spinner-border").attr("hidden", false);
+
+        LoadValuesFromAPI(payrollId, modal);
+    });
+}
+
+function AddViewAllButtonClickEvent() {
+    $('#viewAll').on('click', function () {
+        $("#filterType").text("All");
+        $("#vessel-select").val("");
+        $("#vessel-select").trigger("change");
+
+        calendar.clear();
+
+        ResetQueryParams();
+        FilterTable();
+    });
+}
+
+function InitializeFlatPickrCalendar() {
+    calendar = flatpickr("#salary-range", {
+        mode: "range",
+        dateFormat: "M. d, Y",
+        maxDate: 'today',
+        onClose: function (selectedDates) {
+            var startDate = getStandardShortDate(new Date(selectedDates[0]));
+            var endDate = getStandardShortDate(new Date(selectedDates[1]));
+
+            SetQueryParams(startDate, endDate, null);
+            FilterTable();
+        },
+    });
+}
+
+function AddSelectEventForVesselSelect2() {
+    $("#vessel-select").on('select2:select', function (e) {
+        var data = e.params.data;
+        console.log(e.params.data);
+
+        SetQueryParams(null, null, data.text);
+
+        FilterTable();
+    });
+}
+
+function InitializeVesselsSelect2() {
+    $("#vessel-select").select2({
+        placeholder: "Select vessel...",
+        width: "100%",
+        minimumResultsForSearch: Infinity,
+        ajax: {
+            url: "/api/vessels/ForSelect2",
+            data: function (params) {
+                var query = {
+                    search: params.term,
+                };
+                return query;
+            },
+            processResults: function (data) {
+                return {
+                    results: data,
+                };
+            },
+        },
+    });
+}
+
+function InitializeDataTable() {
     if ($("#table").length > 0) {
-       table=  $("#table")
+        table = $("#table")
             .addClass("nowrap")
             .dataTable({
                 columnDefs: [{ orderable: false, targets: -1 }],
@@ -61,7 +169,8 @@ $(document).ready(function () {
                                 '</line><line x1="16" y1="17" x2="8" y2="17"></line><polyline points="10 9 9 9 8 9"></polyline></svg> </a>'
                             );
                         },
-                    }]
+                    }
+                ]
             });
 
         $(".custom-filter1").prepend(
@@ -74,99 +183,10 @@ $(document).ready(function () {
             '<button class="btn btn-primary btn-sm btn-block mx-2 mb-2">View All</button>'
         );
         $(".message-area").prepend(
-            '<p class="font-weight-bold">Showing: <span class="text-primary" id="appointmentsType">Current</span> <span class="text-primary">Payroll</span></p>'
+            '<p class="font-weight-bold">Showing: <span class="text-primary" id="filterType">All Payroll(s)</span> <span class="text-primary"></span></p>'
         );
     }
-
-
-
-    $("#vessel-select").select2({
-        placeholder: "Select vessel...",
-        width: "100%",
-        minimumResultsForSearch: Infinity,
-        ajax: {
-            url: "/api/vessels/ForSelect2",
-            data: function (params) {
-                var query = {
-                    search: params.term,
-                };
-                return query;
-            },
-            processResults: function (data) {
-                return {
-                    results: data,
-                };
-            },
-        },
-    });
-
-    $("#vessel-select").on('select2:select', function (e) {
-        var data = e.params.data;
-        console.log(e.params.data);
-
-        SetQueryParams(null, null, data.text);
-
-        FilterTable();
-    });
-
-    flatp = flatpickr("#salary-range", {
-        mode: "range",
-        dateFormat: "M. d, Y",
-        maxDate: 'today',
-        onClose: function (selectedDates) {
-            var startDate = getStandardShortDate(new Date(selectedDates[0]));
-            var endDate = getStandardShortDate(new Date(selectedDates[1]));
-
-            SetQueryParams(startDate, endDate, null);
-            FilterTable();
-        },
-    });
-
-    $('#viewAll').on('click', function () {
-        $("#vessel-select").val("");
-        $("#vessel-select").trigger("change");
-
-        flatp.clear();
-
-        ResetQueryParams();
-        FilterTable();
-    });
-
-    $("#personnelCreateModal").on("shown.bs.modal", function (event) {
-        $("#Personnel_Nationality").val("Nigeria");
-        $("#Personnel_Nationality").trigger("change");
-        $("#Personnel_Bank").val("");
-        $("#Personnel_Bank").trigger("change");
-    });
-
-    $("#payrollPrintModal").on("shown.bs.modal", function (event) {
-        var button = $(event.relatedTarget);
-        var payrollId = button.data("payroll-id");
-        var modal = $(this);
-        $("#Payroll_Id").val(payrollId);
-
-        modal.find(".modal-body .row").attr("hidden", true);
-        modal.find("#loader").attr("hidden", false);
-        $(".spinner-border").attr("hidden", false);
-
-        LoadValuesFromAPI(payrollId, modal);
-    });
-
-    $("#printBtn").click(function () {
-        var year = new Date().getFullYear();
-        $("#salaryContainer").print({
-            title: "Monthly Payroll",
-            append: "",
-            iframe: false,
-            deferred: $.Deferred(),
-            doctype: "<!doctype html>",
-            prepend:
-                '<br><p class="text-primary font-weight-bold">Temile and Sons Limited &copy;' +
-                year +
-                "</p>",
-        });
-    });
-});
+}
 
 function LoadValuesFromAPI(payrollId, modal) {
     $.ajax({
@@ -215,6 +235,8 @@ function AddDeductions(modal, data) {
         modal.find("#deductions").append(valueHtml);
     });
 
+    $('#deductionsTitle').attr("hidden", true);
+
     if ($('#deductions tr').length > 0) {
 
         $('#deductionsTitle').attr("hidden", false);
@@ -230,14 +252,20 @@ function AddDeductions(modal, data) {
 
 function AddAllowances(modal, data) {
     modal.find("#allowances").html("");
-    $.each(data.allowances, function (index, value) {
-        var valueHtml = "<tr><td><strong>" +
-            value.name +
-            '</strong><span class="float-right">' +
-            value.amountInCurrency +
-            "</span></td></tr>";
-        modal.find("#allowances").append(valueHtml);
-    });
+    $('#rowAllowancesTable').attr('hidden', true);
+
+    if (data.allowances.length > 0) {
+        $('#rowAllowancesTable').attr('hidden', false);
+        $.each(data.allowances, function (index, value) {
+            var valueHtml = "<tr><td><strong>" +
+                value.name +
+                '</strong><span class="float-right">' +
+                value.amountInCurrency +
+                "</span></td></tr>";
+            modal.find("#allowances").append(valueHtml);
+        });
+    }
+
 }
 
 function UpdateValues(data) {
@@ -286,5 +314,15 @@ function GetQueryParams() {
 
 function FilterTable() {
     var table = $("#table").DataTable();
+    var startDate = tableFilterParams.startDate,
+        endDate = tableFilterParams.endDate, vessel = tableFilterParams.vessel;
+
+    var filter =
+        ((startDate === '' && endDate === '' && vessel === '') ? "All Payroll(s)" : (startDate === '' && vessel !== '') ?
+            "Payroll(s) filtered by vessel" : (startDate !== '' && vessel === '') ?
+                "Payroll(s) filtered by period" : "Payroll(s) filtered by period and vessel");
+
+
+    $("#filterType").text(filter);
     table.ajax.url("/api/payrolls/AllWithPersonnel" + GetQueryParams()).load(null, false);
 }

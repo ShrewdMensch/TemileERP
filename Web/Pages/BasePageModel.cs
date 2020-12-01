@@ -13,5 +13,11 @@ namespace Web.Pages
         public string MessageTitle { get; set; }
         [TempData]
         public string MessageIcon { get; set; }
+
+        protected void SetNotificationMessageAndIcon(string messageBody, string icon)
+        {
+            MessageIcon = icon;
+            MessageBody = messageBody;
+        }
     }
 }

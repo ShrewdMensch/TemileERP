@@ -69,14 +69,16 @@ function AddViewAllButtonClickEvent() {
 function InitializeFlatPickrCalendar() {
     calendar = flatpickr("#salary-range", {
         mode: "range",
-        dateFormat: "M. d, Y",
+        dateFormat: "d/m/Y",
         maxDate: 'today',
-        onClose: function (selectedDates) {
-            var startDate = getStandardShortDate(new Date(selectedDates[0]));
-            var endDate = getStandardShortDate(new Date(selectedDates[1]));
+        onValueUpdate: function (selectedDates) {
+            if (selectedDates.length > 1) {
+                var startDate = getStandardShortDate(new Date(selectedDates[0]));
+                var endDate = getStandardShortDate(new Date(selectedDates[1]));
 
-            SetQueryParams(startDate, endDate, null);
-            FilterTable();
+                SetQueryParams(startDate, endDate, null);
+                FilterTable();
+            }
         },
     });
 }

@@ -70,7 +70,6 @@ function AddSpinToDailyRate() {
         step: 10,
         decimals: 2,
         boostat: 5,
-        initval: 0,
         prefix: "₦",
         buttondown_class: "btn btn-classic btn-danger",
         buttonup_class: "btn btn-classic btn-primary",

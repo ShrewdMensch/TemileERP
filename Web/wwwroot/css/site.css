@@ -486,3 +486,9 @@ span.flatpickr-day {
         padding-top: 0px !important;
     }
 }
+
+@media (max-width: 320px) {
+    .cal-icon:after {
+        display: none !important;
+    }
+}

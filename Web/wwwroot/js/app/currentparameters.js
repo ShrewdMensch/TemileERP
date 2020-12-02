@@ -18,7 +18,7 @@ $(document).ready(function () {
 });
 
 function AddPersonnelPayrollTableModalOnShowEvent() {
-    $("#personnelPayrollTableModal").on("shown.bs.modal", function(event) {
+    $("#personnelPayrollTableModal").on("shown.bs.modal", function (event) {
         var button = $(event.relatedTarget);
         var modal = $(this);
         var query = button.data("query");
@@ -53,7 +53,7 @@ function AddUpdateCurrentPayrollVariablesLogic() {
 
         ShowSpinner(modal);
 
-        initialform = LoadValuesFromAPI(personnelId, initialform, form, modal);
+        initialform = LoadValuesFromApiToModal(personnelId, initialform, form, modal);
         ShowAccordionOnValidationFailure();
     });
 
@@ -71,7 +71,6 @@ function AddSpinToDailyRate() {
         step: 10,
         decimals: 2,
         boostat: 5,
-        initval: 0,
         prefix: "₦",
         buttondown_class: "btn btn-classic btn-danger",
         buttonup_class: "btn btn-classic btn-primary",
@@ -91,10 +90,18 @@ function AddButtonClickListerners() {
 function InitializeCalendar() {
     calendar = flatpickr("#Edit_DaysWorked", {
         mode: "range",
+        dateFormat: "d/m/Y",
         minDate: getFirstDayOfLastMonth(),
         maxDate: 'today',
         mode: "range",
-        position: "auto center"
+        position: "auto center",
+        onValueUpdate: function (selectedDates) {
+            if (selectedDates.length > 1) {
+                $('#Edit_StartDate').val(getStandardShortDate(new Date(selectedDates[0])));
+                $('#Edit_EndDate').val(getStandardShortDate(new Date(selectedDates[1])));
+
+            }
+        }
     });
 }
 
@@ -144,7 +151,7 @@ function InitializeDataTables() {
     }
 }
 
-function LoadValuesFromAPI(personnelId, initialform, form, modal) {
+function LoadValuesFromApiToModal(personnelId, initialform, form, modal) {
     $.ajax({
         url: "/api/personnels/" + personnelId + "/currentpayroll",
         dataType: "json",
@@ -201,7 +208,7 @@ function AddAllowanceItem(name, amount, count) {
     HideAppropriateTable();
 }
 
-function AddDeductionItem(name, amount, count ) {
+function AddDeductionItem(name, amount, count) {
     var deductionHtml = '<tr class="deduction"><td class="serial-no"></td><td>' +
         '<input required class="form-control table-input description" type="text"' +
         'data-parsley-required-message="Description is required"' +
@@ -275,8 +282,11 @@ function ShowAccordionOnValidationFailure() {
     $("#currentPayrollVariablesForm")
         .parsley()
         .on("form:error", function () {
-            ShowOrHideAllowancesAccordion(true);
-            ShowOrHideDeductionsAccordion(true);
+            var noAllowance = $('.allowance').length < 1;
+            var noDeduction = $('.deduction').length < 1;
+
+            ShowOrHideAllowancesAccordion(!noAllowance);
+            ShowOrHideDeductionsAccordion(!noDeduction);
         });
 }
 
@@ -325,26 +335,20 @@ function UpdateFields(data) {
 }
 
 function AddDaysWorkedRange(data) {
-    calendar.setDate([data.startDate, data.endDate], true, null);
+    if (data.startDate) {
+        calendar.setDate([data.startDate, data.endDate], true, 'Y-m-d');
 
-    calendar.set('onClose', function (selectedDates) {
-        $('#Edit_StartDate').val(getStandardShortDate(new Date(selectedDates[0])));
-        $('#Edit_EndDate').val(getStandardShortDate(new Date(selectedDates[1])));
-    });
+    }
 
-    calendar.set('onReady', function (selectedDates) {
-        $('#Edit_StartDate').val(getStandardShortDate(new Date(selectedDates[0])));
-        $('#Edit_EndDate').val(getStandardShortDate(new Date(selectedDates[1])));
-    });
 }
 
 function AddSpinForAllowanceAmounts() {
     $("input[name='AllowanceAmounts']").TouchSpin({
+        min: 10,
         max: 10000000,
         step: 10,
         decimals: 2,
         boostat: 5,
-        initval: 0,
         prefix: "₦",
         buttondown_class: "btn btn-classic btn-danger",
         buttonup_class: "btn btn-classic btn-primary",
@@ -352,11 +356,11 @@ function AddSpinForAllowanceAmounts() {
 }
 function AddSpinForSpecificDeductionAmounts() {
     $("input[name='SpecificDeductionAmounts']").TouchSpin({
+        min: 10,
         max: 10000000,
         step: 10,
         decimals: 2,
         boostat: 5,
-        initval: 0,
         prefix: "₦",
         buttondown_class: "btn btn-classic btn-danger",
         buttonup_class: "btn btn-classic btn-primary",

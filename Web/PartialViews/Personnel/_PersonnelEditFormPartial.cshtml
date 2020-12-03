@@ -151,6 +151,10 @@
                             </label>
                             <textarea cols="5" rows="5" class="form-control" required
                                       data-parsley-required-message="Address is required." type="text" id="Edit_Address"
+                                      data-parsley-minwords="2"
+                                      data-parsley-minwords-message="Address should be at least 2 words length"
+                                      data-parsley-maxwords="20"
+                                      data-parsley-maxwords-message="Address should be at most 20 words length"
                                       name="Address" value=""></textarea>
                         </div>
                     </div>

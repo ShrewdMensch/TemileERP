@@ -14,14 +14,15 @@
     color: #515365;
     float: left;
     font-weight: 500;
-    margin-right: 30px;
-    width: 25%;
+    margin-right: 10%;
+    width: 30%;
 }
 
 .personal-info li .text {
     color: #888da8;
     display: block;
     overflow: hidden;
+    width: 70%;
 }
 
 .personal-info li {
@@ -94,12 +95,6 @@
 .profile-info-right {
     border-left: 2px dashed #ccc;
     padding-left: 30px;
-}
-
-.personal-info {
-    list-style: none;
-    margin-bottom: 0;
-    padding: 0;
 }
 
 .user-name {
@@ -211,5 +206,15 @@
         font-weight: 700;
         font-size: 18px;
         letter-spacing: 1px;
+    }
+
+    .personal-info {
+        padding: 3% 6%;
+    }
+}
+
+@media only screen and (max-width: 400px) {
+    .personal-info {
+        padding: 1% 1%;
     }
 }

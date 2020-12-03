@@ -250,6 +250,9 @@ function HideAppropriateTable() {
     $("#deductionTable").attr("hidden", noDeduction);
     $("#allowanceTable").attr("hidden", noAllowance);
 
+    $("#deleteAllAllowances").attr("hidden", noAllowance);
+    $("#deleteAllDeductions").attr("hidden", noDeduction);
+
     ShowOrHideAllowancesAccordion(!noAllowance);
     ShowOrHideDeductionsAccordion(!noDeduction);
 }
@@ -265,6 +268,17 @@ function AddDeleteHandler() {
             HideAppropriateTable();
         })
     }
+
+    $('#deleteAllAllowances').on('click', function () {
+        $('#allowanceTable').find('tr').remove();
+            HideAppropriateTable();
+    });
+
+    $('#deleteAllDeductions').on('click', function () {
+        $('#deductionTable').find('tr').remove();
+            HideAppropriateTable();
+    });
+
 
 }
 

@@ -10,10 +10,12 @@
 
         <div id="allowancesAccordion" class="collapse" aria-labelledby="allowances" data-parent="#toggleAccordion">
             <div class="card-body">
-                <div class="form-group col-sm-12">
-                    <span class="ml-4" id="allowances_error"></span>
-                    <a href="javascript:void(0)" class="btn btn-primary btn-sm float-right mb-3" id="addAllowance">
+                <div class="form-group col-sm-12 mb-3">
+                    <a class="btn btn-primary btn-sm float-right" title="Add New Allowance" id="addAllowance">
                         <i class="fa fa-plus mr-2"></i>Add New
+                    </a>
+                    <a class="btn btn-danger btn-sm" title="Remove All Alloances" id="deleteAllAllowances">
+                        <i class="fa fa-trash mr-2"></i>Delete All
                     </a>
                 </div>
                 <div class="form-group col-sm-12">
@@ -24,7 +26,6 @@
                                     <th>#</th>
                                     <th>Description</th>
                                     <th>Amount</th>
-                                    <th></th>
                                     <th></th>
                                 </tr>
                             </thead>
@@ -46,10 +47,12 @@
         </div>
         <div id="deductionsAccordion" class="collapse" aria-labelledby="deductions" data-parent="#toggleAccordion">
             <div class="card-body">
-                <div class="form-group col-sm-12">
-                    <span class="ml-4" id="deductions_error"></span>
-                    <a href="javascript:void(0)" class="btn btn-primary btn-sm float-right mb-3" id="addDeduction">
+                <div class="form-group col-sm-12 mb-3">
+                    <a class="btn btn-primary btn-sm float-right" title="Add New Deduction" id="addDeduction">
                         <i class="fa fa-plus mr-2"></i>Add New
+                    </a>
+                    <a class="btn btn-danger btn-sm" title="Remove All Deductions" id="deleteAllDeductions">
+                        <i class="fa fa-trash mr-2"></i>Delete All
                     </a>
                 </div>
                 <div class="form-group col-sm-12">

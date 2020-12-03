@@ -492,3 +492,6 @@ span.flatpickr-day {
         display: none !important;
     }
 }
+.table-responsive table th {
+    text-align: center;
+}

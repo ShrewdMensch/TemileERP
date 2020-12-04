@@ -33,14 +33,13 @@ namespace Web.Pages.CompanyManagement
         }
         public async Task<IActionResult> OnPostCreatePersonnelAsync(PersonnelInputModel personnelInputModel)
         {
-            var otherNameIsEmptyOrNull = string.IsNullOrWhiteSpace(personnelInputModel.OtherName);
             MessageTitle = "Personnel Creation";
 
             var personnel = new Personnel
             {
                 FirstName = personnelInputModel.FirstName.ToTitleCase(),
                 LastName = personnelInputModel.Surname.ToTitleCase(),
-                OtherName = otherNameIsEmptyOrNull ? null : personnelInputModel.OtherName.ToTitleCase(),
+                OtherName = personnelInputModel.OtherName.ToTitleCase(),
                 Sex = personnelInputModel.Sex,
                 Nationality = personnelInputModel.Nationality,
                 Religion = personnelInputModel.Religion,

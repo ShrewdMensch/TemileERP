@@ -96,6 +96,8 @@ namespace Web.Pages.Accounting
             newPayroll.Id = await _repository.GenerateNewPayrollId();
             _repository.Add(newPayroll);
 
+            newPayroll.Personnel.Vessel = setPayrollVariablesInput.Vessel;
+
             AddDeductionDetails(deductions, newPayroll);
             AddPaymentDetail(newPayroll);
             AddAllowances(setPayrollVariablesInput, newPayroll);
@@ -111,6 +113,8 @@ namespace Web.Pages.Accounting
             payroll.DailyRate = setPayrollVariablesInput.DailyRate;
             payroll.Vessel = setPayrollVariablesInput.Vessel;
             payroll.TotalDeductedPercentage = await _repository.TotalDeduction();
+
+            payroll.Personnel.Vessel = setPayrollVariablesInput.Vessel;
 
             UpdateDeductionDetails(payroll, deductions);
             UpdateAllowances(setPayrollVariablesInput, payroll);
@@ -242,6 +246,23 @@ namespace Web.Pages.Accounting
 
                 _repository.Add(newAllowance);
             }
+        }
+
+        public async Task<IActionResult> OnGetReApplyAsync()
+        {
+            await _repository.ReApplyVariablesToCurrentPayrolls();
+
+            if (await _repository.SaveAll())
+            {
+                SetNotificationMessageAndIcon("Payroll Variables have been successfully applied to all current payroll(s)", MessageType.Success);
+            }
+
+            else
+            {
+                SetNotificationMessageAndIcon("Payroll Variables could not be applied to all current payroll(s)!", MessageType.Error);
+            }
+
+            return RedirectToPage();
         }
     }
 }

@@ -14,19 +14,15 @@ namespace Utility
     public class Repository : IRepository
     {
         private readonly ApplicationDbContext _context;
-        private readonly IUserAccessor _userAccessor;
-        private readonly IMapper _mapper;
 
         private const int count = 10;
 
         /***********************************************************************************************************
            ******* Universal Entity Queries*************************************************************************
            ************************************************************************************************************/
-        public Repository(ApplicationDbContext context, IUserAccessor userAccessor, IMapper mapper)
+        public Repository(ApplicationDbContext context)
         {
             _context = context;
-            _userAccessor = userAccessor;
-            _mapper = mapper;
         }
 
         public void Add<TEntity>(TEntity entity) where TEntity : class
@@ -115,7 +111,7 @@ namespace Utility
 
             return payrolls;
         }
-        
+
         public async Task<IEnumerable<Payroll>> GetCurrentPayrollsByVessel(string vessel)
         {
             var payrolls = (await GetCurrentPayrolls()).Where(p => p.Vessel.ToLower() == vessel.ToLower());
@@ -133,6 +129,36 @@ namespace Utility
             dateAdded.Year, dateAdded.Month, dateAdded.Day, (payrollsForToday.Count() + 1));
 
             return payrollId;
+        }
+
+        public async Task ReApplyVariablesToCurrentPayrolls()
+        {
+            var currentPayrolls = await GetCurrentPayrolls();
+            var deductions = await GetAll<Deduction>();
+            var totalDeductions = await TotalDeduction();
+
+            foreach (var currentPayroll in currentPayrolls)
+            {
+                currentPayroll.TotalDeductedPercentage = totalDeductions;
+                RemoveRange(currentPayroll.DeductionDetails);
+
+                foreach (var deduction in deductions)
+                {
+                    var deductionDetail = new DeductionDetail
+                    {
+                        DeductionName = deduction.Name,
+                        DeductedPercentage = deduction.Percentage,
+                        DeductedAmount = currentPayroll.GrossPay * (deduction.Percentage / 100)
+                    };
+
+                    currentPayroll.DeductionDetails.Add(deductionDetail);
+                }
+
+                currentPayroll.Vessel = currentPayroll.Personnel.Vessel;
+                currentPayroll.PaymentDetail.Bank = currentPayroll.Personnel.Bank;
+                currentPayroll.PaymentDetail.AccountName = currentPayroll.Personnel.AccountName;
+                currentPayroll.PaymentDetail.AccountNumber = currentPayroll.Personnel.AccountNumber;
+            }
         }
 
         /***********************************************************************************************************
@@ -174,6 +200,20 @@ namespace Utility
             var personnels = (await GetAll<Personnel>()).Where(p => p.IsActive);
 
             return personnels;
+        }
+
+        /***********************************************************************************************************
+               ******* AppUsers Related Queries*************************************************************************
+               ************************************************************************************************************/
+        public async Task<string> GenerateNewUserStaffId(AppUser user)
+        {
+            var users = await GetAll<AppUser>();
+            var today = DateTime.Today;
+            var numberOfUsersCreatedToday = users.Where(c => c.DateOfRegistration.ToShortDate() == today.ToShortDate());
+            var staffId = string.Format("TEM-{0}{1:D2}{2:D2}{3:D4}",
+            today.Year, today.Month, today.Day, (numberOfUsersCreatedToday.Count() + 1));
+
+            return staffId;
         }
     }
 }

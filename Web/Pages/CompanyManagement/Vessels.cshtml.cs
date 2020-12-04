@@ -35,14 +35,14 @@ namespace Web.Pages.CompanyManagement
 
             return Page();
         }
-        public async Task<IActionResult> OnPostCreateVesselAsync(DeductionInputModel deductionInput)
+        public async Task<IActionResult> OnPostCreateVesselAsync(VesselInputModel vesselInput)
         {
             MessageTitle = "New Vessel Creation";
             var currentUser = _userAccessor.GetCurrentUser();
 
             var newVessel = new Vessel
             {
-                Name = deductionInput.Name.ToTitleCase(),
+                Name = vesselInput.Name.ToTitleCase(),
                 AddedBy = currentUser,
                 ModifiedBy = currentUser
             };

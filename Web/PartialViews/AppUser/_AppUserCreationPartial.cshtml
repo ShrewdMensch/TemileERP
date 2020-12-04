@@ -1,0 +1,60 @@
+<form id="userCreateForm" method="post" data-parsley-validate asp-page-handler="CreateAppUser">
+    <!-- Modal -->
+    <div class="modal fade animated fadeInUp custo-fadeInUp show" id="userCreateModal" data-backdrop="static"
+         data-keyboard="false" tabindex="-1" aria-labelledby="staticBackdropLabel" aria-hidden="true">
+        <div class="modal-dialog modal-lg  modal-dialog-centered modal-dialog-scrollable" role="document">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none"
+                         stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-user">
+                        <path d="M20 21v-2a4 4 0 0 0-4-4H8a4 4 0 0 0-4 4v2"></path>
+                        <circle cx="12" cy="7" r="4"></circle>
+                    </svg>
+                    <h5 class="modal-title">Add AppUser</h5>
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                        <span aria-hidden="true">&times;</span>
+                    </button>
+                </div>
+                <div class="modal-body">
+                    <div class="row">
+                        <div class="form-group col-sm-6">
+                            <label class="control-label" for="Name">
+                                First Name <span class="text-danger">*</span>
+                            </label>
+                            <input required data-parsley-required-message="First name is required"
+                                   class="form-control" type="text" id="FirstName" value="" name="firstName">
+                        </div>
+                        <div class="form-group col-sm-6">
+                            <label class="control-label" for="Name">
+                                Last Name <span class="text-danger">*</span>
+                            </label>
+                            <input required data-parsley-required-message="Last name is required"
+                                   class="form-control" type="text" id="LastName" value="" name="LastName">
+                        </div>
+                        <div class="form-group col-sm-6">
+                            <label class="control-label" for="Name">Other Name <span class="text-muted-light">(optional)</span></label>
+                            <input class="form-control" type="text" id="OtherName" value="" name="OtherName">
+                        </div>
+                        <div class="form-group col-sm-6">
+                            <label class="control-label" for="Name">
+                                Username <span class="text-danger">*</span>
+                            </label>
+                            <input required data-parsley-required-message="Username is required"
+                                   data-parsley-no-focus
+                                   data-parsley-remote="/api/appusers/checkusername?username={value}"
+                                   data-parsley-remote-message="Username is already taken"
+                                   class="form-control" type="text" id="UserName" value="" name="UserName">
+                        </div>
+                    </div>
+                </div>
+                <div class="modal-footer">
+                    <button type="reset" class="btn" data-dismiss="modal">
+                        <i class="flaticon-cancel-12"></i>
+                        Discard
+                    </button>
+                    <button type="submit" id="createBtn" class="btn btn-primary">Save</button>
+                </div>
+            </div>
+        </div>
+    </div>
+</form>

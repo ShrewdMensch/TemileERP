@@ -5,11 +5,17 @@
         var type = $('#message-icon').val();
 
         if (message) {
-            var span = document.createElement("span");
-            span.innerHTML = message;
+            var div = document.createElement("div");
+            div.innerHTML = message;
+            if (message.includes("New Password is")){
+                var span = document.createElement("span");
+                span.innerHTML = '<br> <a class="mb-2 btn btn-copy btn-primary" href="javascript:;" data-clipboard-action="copy" ' +
+                    'data-clipboard-target=".password"> Copy password to clipboard</a>';
+                div.append(span);
+            }
             swal({
                 title: title,
-                content: span,
+                content: div,
                 closeOnClickOutside: false,
                 icon: type,
                 button: "Ok",

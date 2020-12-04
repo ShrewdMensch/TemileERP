@@ -70,7 +70,7 @@ namespace Utility
         {
             return theDateTime.ToString("MMM. dd, yyyy");
         }
-     
+
         public static string ToFormalShortDateWithTime(this DateTime theDateTime)
         {
             return theDateTime.ToString("MMMM dd, yyyy 'at' hh:mmtt");
@@ -183,6 +183,8 @@ namespace Utility
 
         public static string ToTitleCase(this string theString)
         {
+            if (string.IsNullOrWhiteSpace(theString)) return null;
+
             var myTextInfo = new CultureInfo("en-US", false).TextInfo;
 
             return myTextInfo.ToTitleCase(theString);
@@ -227,7 +229,7 @@ namespace Utility
 
         public static string ToDays(this int number)
         {
-            return string.Format("{0} {1}", number.ToString(), (number<2)?"day":"days");
+            return string.Format("{0} {1}", number.ToString(), (number < 2) ? "day" : "days");
         }
 
         /***********************************************************************************************************

@@ -119,46 +119,21 @@ namespace Web.Pages.Accounting
             return RedirectToPage();
         }
 
-        public async Task<IActionResult> OnGetApplyDeductionAsync()
+        public async Task<IActionResult> OnGetReApplyAsync()
         {
-            var currentPayrolls = await _repository.GetCurrentPayrolls();
-            var deductions = await _repository.GetAll<Deduction>();
-            var totalDeductions = await _repository.TotalDeduction();
-
-            foreach (var currentPayroll in currentPayrolls)
-            {
-                currentPayroll.TotalDeductedPercentage = totalDeductions;
-                _repository.RemoveRange(currentPayroll.DeductionDetails);
-
-                foreach (var deduction in deductions)
-                {
-                    var deductionDetail = new DeductionDetail
-                    {
-                        DeductionName = deduction.Name,
-                        DeductedPercentage = deduction.Percentage,
-                        DeductedAmount = currentPayroll.GrossPay * (deduction.Percentage / 100)
-                    };
-
-                    currentPayroll.DeductionDetails.Add(deductionDetail);
-                }
-
-                currentPayroll.PaymentDetail.Bank = currentPayroll.Personnel.Bank;
-                currentPayroll.PaymentDetail.AccountName = currentPayroll.Personnel.AccountName;
-                currentPayroll.PaymentDetail.AccountNumber = currentPayroll.Personnel.AccountNumber;
-            }
+            await _repository.ReApplyVariablesToCurrentPayrolls();
 
             if (await _repository.SaveAll())
             {
-                SetNotificationMessageAndIcon("Deduction has been successfully applied to all current payroll", MessageType.Success);
+                SetNotificationMessageAndIcon("Deduction(s) have been successfully applied to all current payrolls", MessageType.Success);
             }
 
             else
             {
-                SetNotificationMessageAndIcon("Deduction could not be applied to all current payroll!", MessageType.Error);
+                SetNotificationMessageAndIcon("Deduction(s) could not be applied to all current payrolls!", MessageType.Error);
             }
 
-            return RedirectToPage("./CurrentVariables");
+            return RedirectToPage();
         }
-
     }
 }

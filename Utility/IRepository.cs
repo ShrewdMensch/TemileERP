@@ -38,6 +38,9 @@ namespace Utility
         Task<IEnumerable<Personnel>> GetPersonnelsWithCurrentPayroll();
         Task<IEnumerable<Personnel>> GetActivePersonnels();
 
+        //AppUser Related
+        Task<string> GenerateNewUserStaffId(AppUser user);
+
 
         //Payroll Entity Related
         Task<int> GetNumberOfCurrentPayrolls();
@@ -45,6 +48,7 @@ namespace Utility
         Task<IEnumerable<Payroll>> GetCurrentPayrollsByVessel(string vessel);
         Task<int> GetNumberOfAllPayrolls();
         Task<string> GenerateNewPayrollId();
+        Task ReApplyVariablesToCurrentPayrolls();
 
     }
 }

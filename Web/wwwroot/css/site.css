@@ -450,6 +450,17 @@ li.select2-results__option {
     display: none !important;
 }
 
+.signature {
+    border-top: 2px solid #888;
+    padding-top: 5px;
+    min-width: 300px;
+    text-align: center;
+}
+
+.signature-row {
+    margin-top: 160px;
+}
+
 /* Personnel-Payroll Details  Modal */
 #personnelPayrollTableModal table thead tr th {
     color: #fff !important;
@@ -492,6 +503,7 @@ span.flatpickr-day {
         display: none !important;
     }
 }
+
 .table-responsive table th {
     text-align: center;
 }

@@ -24,13 +24,14 @@
 <div class="row" id="cancel-row">
     <div class="col-xl-12 col-lg-12 col-sm-12  layout-spacing">
         <div class="widget-content widget-content-area br-6">
-            <table id="table" class="display" style="width:100%">
+            <table id="table2" class="display" style="width:100%">
                 <thead>
                     <tr>
                         <th>Title</th>
                         <th>Vessel Name</th>
                         <th>Date</th>
                         <th>Number of Personnels</th>
+                        <th>Grand Total</th>
                         <th></th>
                     </tr>
                 </thead>
@@ -42,6 +43,7 @@
                             <td>@bankInstruction.Vessel</td>
                             <td>@bankInstruction.Date</td>
                             <td>@bankInstruction.PersonnelCount</td>
+                            <td>@bankInstruction.GrandTotal</td>
                             <td class="float-right">
                                 <a class="btn btn-primary" data-toggle="modal" data-target="#bankInstructionsPrintModal" data-vessel="@bankInstruction.Vessel">
                                     <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor"
@@ -63,6 +65,7 @@
                         <th>Vessel Name</th>
                         <th>Date</th>
                         <th>Number of Personnels</th>
+                        <th>Grand Total</th>
                         <th></th>
                     </tr>
                 </tfoot>
@@ -88,6 +91,7 @@
 
     <script src="~/plugins/jQueryPrint/jQuery.print.js"></script>
     <script src="~/plugins/html-to-pdfmake/html2pdfmake.js"></script>
+    <script src="~/plugins/sheetJs/xlsx.full.min.js"></script>
     <script src="~/js/app/bankinstructions.js"></script>
 
 }

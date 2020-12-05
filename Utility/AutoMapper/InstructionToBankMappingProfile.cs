@@ -11,25 +11,28 @@ namespace Utility.AutoMapper
         public InstructionToBankMappingProfile()
         {
             CreateMap<Payroll, InstructionToBankDetailsDto>()
-                .ForMember(destination => destination.PersonnelName, 
+                .ForMember(destination => destination.PersonnelName,
                 option => option.MapFrom(source => source.Personnel.FullName))
 
-                .ForMember(destination => destination.PersonnelId, 
+                .ForMember(destination => destination.PersonnelId,
                 option => option.MapFrom(source => source.Personnel.Id))
 
-                .ForMember(destination => destination.PayrollId, 
+                .ForMember(destination => destination.PayrollId,
                 option => option.MapFrom(source => source.Id))
 
-                .ForMember(destination => destination.Bank, 
+                .ForMember(destination => destination.Bank,
                 option => option.MapFrom(source => source.PaymentDetail.Bank))
 
-                .ForMember(destination => destination.AccountName, 
+                .ForMember(destination => destination.AccountName,
                 option => option.MapFrom(source => source.PaymentDetail.AccountName))
 
-                .ForMember(destination => destination.AccountNumber, 
-                option => option.MapFrom(source => source.PaymentDetail.AccountNumber))
+                .ForMember(destination => destination.AccountNameSplit,
+                option => option.MapFrom(source => source.PaymentDetail.AccountName.SplitBySpace()))
 
-                .ForMember(destination => destination.NetPay, 
+                .ForMember(destination => destination.AccountNumber,
+                option => option.MapFrom(source => "[" + source.PaymentDetail.AccountNumber +"]"))
+
+                .ForMember(destination => destination.NetPay,
                 option => option.MapFrom(source => source.NetPay.ToCurrency()));
         }
     }

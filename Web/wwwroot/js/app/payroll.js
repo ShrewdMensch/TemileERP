@@ -70,7 +70,7 @@ function InitializeFlatPickrCalendar() {
     calendar = flatpickr("#salary-range", {
         mode: "range",
         dateFormat: "d/m/Y",
-        maxDate: 'today',
+        maxDate: getLastDayOfCurrentMonth(),
         onValueUpdate: function (selectedDates) {
             if (selectedDates.length > 1) {
                 var startDate = getStandardShortDate(new Date(selectedDates[0]));

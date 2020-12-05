@@ -1,13 +1,13 @@
 <form id="personnelCreateForm" method="post" data-parsley-validate>
     <!-- Modal -->
     <div class="modal fade animated fadeInDown custo-fadeInDown show" id="personnelCreateModal" data-backdrop="static"
-        data-keyboard="false" tabindex="-1" aria-labelledby="staticBackdropLabel" aria-hidden="true">
+         data-keyboard="false" tabindex="-1" aria-labelledby="staticBackdropLabel" aria-hidden="true">
         <div class="modal-dialog modal-lg  modal-dialog-centered modal-dialog-scrollable">
             <div class="modal-content">
                 <div class="modal-header">
                     <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none"
-                        stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"
-                        class="feather feather-user-plus">
+                         stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"
+                         class="feather feather-user-plus">
                         <path d="M16 21v-2a4 4 0 0 0-4-4H5a4 4 0 0 0-4 4v2"></path>
                         <circle cx="8.5" cy="7" r="4"></circle>
                         <line x1="20" y1="8" x2="20" y2="14"></line>
@@ -131,6 +131,10 @@
                                 Account Name <span class="text-danger">*</span>
                             </label>
                             <input class="form-control" type="text" id="Personnel_AccountName" required
+                                   data-parsley-minwords="2"
+                                   data-parsley-minwords-message="Account name should be at least 2 names"
+                                   data-parsley-maxwords="3"
+                                   data-parsley-maxwords-message="Account name should be at most 3 names"
                                    data-parsley-required-message="Account name is required." name="AccountName" value="">
                         </div>
                         <div class="form-group col-sm-6 tb-alternating">
@@ -174,8 +178,10 @@
                     </div>
                 </div>
                 <div class="modal-footer">
-                    <button type="reset" class="btn" data-dismiss="modal"><i class="flaticon-cancel-12"></i>
-                        Discard</button>
+                    <button type="reset" class="btn" data-dismiss="modal">
+                        <i class="flaticon-cancel-12"></i>
+                        Discard
+                    </button>
                     <button id="saveBtn" asp-page-handler="CreatePersonnel" class="btn btn-primary">Save</button>
                 </div>
             </div>

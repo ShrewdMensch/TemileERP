@@ -44,7 +44,8 @@ namespace Web.Pages.Accounting
                 Title = String.Format("Instructions To Bank For {0} Vessel", vessel),
                 Vessel = vessel,
                 Date = payroll.FirstOrDefault()?.Date.ToFormalMonthAndYear(),
-                PersonnelCount = payroll.Count()
+                PersonnelCount = payroll.Count(),
+                GrandTotal = payroll.Sum(p=>p.NetPay).ToCurrency()
             });
 
             BankInstructions = bankInstructions.DistinctByVessel();

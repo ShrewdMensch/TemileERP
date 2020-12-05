@@ -19,7 +19,8 @@ namespace Web.API
             var instructionToBank = new InstructionToBankDto { 
                 Vessel = payrolls.FirstOrDefault()?.Vessel,
                 Date = payrolls.FirstOrDefault()?.Date.ToFormalMonthAndYear(),
-                Details = Mapper.Map<IEnumerable<Payroll>, List<InstructionToBankDetailsDto>>(payrolls)
+                Details = Mapper.Map<IEnumerable<Payroll>, List<InstructionToBankDetailsDto>>(payrolls),
+                GrandTotal = payrolls.Sum(p=>p.NetPay).ToCurrency()
             };
 
             return Ok(instructionToBank);

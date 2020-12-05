@@ -92,7 +92,7 @@ function InitializeCalendar() {
         mode: "range",
         dateFormat: "d/m/Y",
         minDate: getFirstDayOfLastMonth(),
-        maxDate: 'today',
+        maxDate: getLastDayOfCurrentMonth(),
         mode: "range",
         position: "auto center",
         onValueUpdate: function (selectedDates) {

@@ -1,4 +1,4 @@
-using System.Collections.Generic;
+﻿using System.Collections.Generic;
 using System;
 using System.Globalization;
 using System.Linq;
@@ -204,6 +204,11 @@ namespace Utility
             if (DateTime.Parse(firstDateStr).Date == DateTime.Parse(secondDateStr).Date) return firstDateStr;
 
             return firstDateStr + " to " + secondDateStr;
+
+        }
+        public static string[] SplitBySpace(this string theString)
+        {
+            return theString.Split(' ', 2);
 
         }
 

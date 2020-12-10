@@ -71,50 +71,29 @@ namespace Web.Pages.CompanyManagement
         }
         public async Task<IActionResult> OnPostEditPersonnelAsync(PersonnelInputModel personnelInputModel)
         {
-            var otherNameIsEmptyOrNull = string.IsNullOrWhiteSpace(personnelInputModel.OtherName);
-
             MessageTitle = "Personnel Information Update";
 
-            var personnel = new Personnel
-            {
-                Id = personnelInputModel.Id,
-                FirstName = personnelInputModel.FirstName.ToTitleCase(),
-                LastName = personnelInputModel.Surname.ToTitleCase(),
-                OtherName = otherNameIsEmptyOrNull ? null : personnelInputModel.OtherName.ToTitleCase(),
-                Sex = personnelInputModel.Sex,
-                Nationality = personnelInputModel.Nationality,
-                Religion = personnelInputModel.Religion,
-                Email = personnelInputModel.Email,
-                DailyRate = personnelInputModel.DailyRate,
-                Bank = personnelInputModel.Bank,
-                Vessel = personnelInputModel.Vessel,
-                AccountName = personnelInputModel.AccountName,
-                AccountNumber = personnelInputModel.AccountNumber,
-                PhoneNumber = personnelInputModel.PhoneNo,
-                NextOfKin = personnelInputModel.NextOfKin,
-                NextOfKinPhoneNumber = personnelInputModel.NextOfKinPhoneNo,
-                Address = personnelInputModel.Address
-            };
+            var personnelInDb = await _repository.Get<Personnel>(personnelInputModel.Id);
 
-            _repository.Attach(personnel).State = EntityState.Modified;
-
-            try
+            if (personnelInDb == null)
             {
-                await _repository.SaveAll();
+                SetNotificationMessageAndIcon("Personnel could not be updated", MessageType.Error);
             }
-            catch (DbUpdateConcurrencyException)
+
+            else
             {
-                if (!PersonnelExists(personnel.Id))
+                UpdatePersonnelInDataBase(personnelInputModel, personnelInDb);
+
+                if (await _repository.SaveAll())
                 {
-                    return NotFound();
+                    SetNotificationMessageAndIcon("Personnel has been updated successfully", MessageType.Success);
                 }
                 else
                 {
-                    throw;
+                    SetNotificationMessageAndIcon("Personnel could not be updated", MessageType.Error);
                 }
-            }
 
-            SetNotificationMessageAndIcon("Personnel has been updated successfully", MessageType.Success);
+            }
 
             return RedirectToPage();
         }
@@ -142,9 +121,29 @@ namespace Web.Pages.CompanyManagement
             return RedirectToPage();
         }
 
-        private bool PersonnelExists(string id)
+        private static void UpdatePersonnelInDataBase(PersonnelInputModel personnelInputModel, Personnel personnelInDb)
         {
-            return _repository.Get<Personnel>(id) != null;
+            personnelInDb.Id = personnelInputModel.Id;
+            personnelInDb.FirstName = personnelInputModel.FirstName.ToTitleCase();
+            personnelInDb.LastName = personnelInputModel.Surname.ToTitleCase();
+            personnelInDb.OtherName = personnelInputModel.OtherName.ToTitleCase();
+            personnelInDb.Sex = personnelInputModel.Sex;
+            personnelInDb.Nationality = personnelInputModel.Nationality;
+            personnelInDb.Religion = personnelInputModel.Religion;
+            personnelInDb.Email = personnelInputModel.Email;
+            personnelInDb.DailyRate = personnelInputModel.DailyRate;
+            personnelInDb.Bank = personnelInputModel.Bank;
+            personnelInDb.Vessel = personnelInputModel.Vessel;
+            personnelInDb.AccountName = personnelInputModel.AccountName;
+            personnelInDb.AccountNumber = personnelInputModel.AccountNumber;
+            personnelInDb.PhoneNumber = personnelInputModel.PhoneNo;
+            personnelInDb.NextOfKin = personnelInputModel.NextOfKin;
+            personnelInDb.NextOfKinPhoneNumber = personnelInputModel.NextOfKinPhoneNo;
+            personnelInDb.Address = personnelInputModel.Address;
+
+            var currentPayroll = personnelInDb.Payrolls.GetCurrentPayroll();
+
+            if (currentPayroll != null) currentPayroll.Vessel = personnelInputModel.Vessel;
         }
     }
 }

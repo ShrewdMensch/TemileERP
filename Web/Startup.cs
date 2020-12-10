@@ -13,6 +13,7 @@ using Microsoft.EntityFrameworkCore;
 using Persistence;
 using AutoMapper;
 using Utility;
+using Microsoft.AspNetCore.HttpOverrides;
 
 namespace Web
 {
@@ -36,7 +37,7 @@ namespace Web
                 {
                     options.UseLazyLoadingProxies();
                     options.UseMySql(
-                        Configuration.GetConnectionString("DefaultConnection"));
+                        Configuration.GetConnectionString("MySQLConnection"));
                 });
             }
             else
@@ -56,7 +57,7 @@ namespace Web
 
             services.AddRazorPages(options =>
                 {
-                    options.Conventions.AuthorizeFolder("/");
+                    /*options.Conventions.AuthorizeFolder("/");*/
                     options.Conventions.AddPageRoute("/Account/Login", "");
                 }).AddRazorRuntimeCompilation();
 
@@ -96,6 +97,12 @@ namespace Web
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
         public void Configure(IApplicationBuilder app, IWebHostEnvironment env)
         {
+            app.UseForwardedHeaders(new ForwardedHeadersOptions
+            {
+                ForwardedHeaders = ForwardedHeaders.XForwardedFor | ForwardedHeaders.XForwardedProto
+            });
+
+
             if (env.IsDevelopment())
             {
                 app.UseDeveloperExceptionPage();
@@ -113,8 +120,6 @@ namespace Web
             app.UseRouting();
 
             app.UseAuthentication();
-            app.UseAuthorization();
-
             app.UseAuthorization();
 
             app.UseEndpoints(endpoints =>

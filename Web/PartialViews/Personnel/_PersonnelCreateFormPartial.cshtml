@@ -84,6 +84,25 @@
                                    data-parsley-required-message="Email is required." value="">
                         </div>
                         <div class="form-group col-sm-6 tb-alternating">
+                            <label class="control-label" for="Personnel_PhoneNo">
+                                Phone Number <span class="text-danger">*</span>
+                            </label>
+                            <input type="tel" class="form-control" required
+                                   data-parsley-required-message="Phone is required."
+                                   data-parsley-pattern-message="Specify a valid 11 digits mobile number."
+                                   pattern="/^\d{11}$/" id="Personnel_PhoneNo" name="PhoneNo" value="">
+                        </div>
+                        <div class="form-group col-sm-6 tb-alternating" id="Personnel_position_group">
+                            <label class="control-label" for="Personnel_Position">
+                                Position <span class="text-danger">*</span>
+                            </label>
+                            <select class="form-control" id="Personnel_Position" required
+                                    data-parsley-errors-container="#position-error" data-parsley-trigger-after-failure="change"
+                                    data-parsley-required-message="Position is required." name="Designation" value="">
+                            </select>
+                            <span id="position-error"></span>
+                        </div>
+                        <div class="form-group col-sm-6 tb-alternating">
                             <label class="control-label" for="Personnel_DailyRate">
                                 Daily Rate <span class="text-danger">*</span>
                             </label>
@@ -95,15 +114,6 @@
                                    value="">
                             <span id="personnel_dailyRate_error"></span>
                         </div>
-                        <div class="form-group col-sm-6 tb-alternating">
-                            <label class="control-label" for="Personnel_PhoneNo">
-                                Phone Number <span class="text-danger">*</span>
-                            </label>
-                            <input type="tel" class="form-control" required
-                                   data-parsley-required-message="Phone is required."
-                                   data-parsley-pattern-message="Specify a valid 11 digits mobile number."
-                                   pattern="/^\d{11}$/" id="Personnel_PhoneNo" name="PhoneNo" value="">
-                        </div>
                         <div class="form-group col-sm-6 tb-alternating" id="Personnel_vessel_group">
                             <label class="control-label" for="Personnel_Vessel">
                                 Vessel <span class="text-danger">*</span>
@@ -111,7 +121,6 @@
                             <select class="form-control" id="Personnel_Vessel" required
                                     data-parsley-errors-container="#vessel-error" data-parsley-trigger-after-failure="change"
                                     data-parsley-required-message="Vessel is required." name="Vessel" value="">
-                                <option value="">Select Vessel...</option>
                             </select>
                             <span id="vessel-error"></span>
                         </div>
@@ -163,7 +172,7 @@
                                    data-parsley-pattern-message="Specify a valid 11 digits mobile number."
                                    id="Personnel_NextOfKinPhoneNo" name="NextOfKinPhoneNo" pattern="/^\d{11}$/" value="">
                         </div>
-                        <div class="form-group col-sm-6">
+                        <div class="form-group col-sm-12">
                             <label class="control-label" for="Personnel_Address">
                                 Address <span class="text-danger">*</span>
                             </label>

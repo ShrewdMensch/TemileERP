@@ -21,7 +21,7 @@ $(document).ready(function () {
 });
 
 function AddPersonnelDetailsLogic() {
-    $("#personnelDetailsModal").on("shown.bs.modal", function(event) {
+    $("#personnelDetailsModal").on("shown.bs.modal", function (event) {
         var button = $(event.relatedTarget);
         var id = button.data("id");
         var modal = $(this);
@@ -32,7 +32,7 @@ function AddPersonnelDetailsLogic() {
         LoadValuesFromApiToPersonnelDetailsModal(id, modal);
     });
 
-    $("#personnelDetailsModal").on("hidden.bs.modal", function(event) {
+    $("#personnelDetailsModal").on("hidden.bs.modal", function (event) {
         $("#profile-data").find("#status").html("");
     });
 }
@@ -43,12 +43,12 @@ function AddPersonnelEditLogic() {
 
     $("#personnelEditForm :input, #personnelEditForm textarea, #personnelEditForm select").on(
         "change",
-        function() {
+        function () {
             $("#editBtn").attr("disabled", initialform === $(form).serialize());
         }
     );
 
-    $("#personnelEditModal").on("shown.bs.modal", function(event) {
+    $("#personnelEditModal").on("shown.bs.modal", function (event) {
         var button = $(event.relatedTarget);
         var id = button.data("id");
         var modal = $(this);
@@ -81,7 +81,7 @@ function LoadValuesFromApiToPersonnelDetailsModal(id, modal) {
         url: "/api/personnels/" + id,
         dataType: "json",
         type: "GET",
-        success: function(data) {
+        success: function (data) {
             var profile = $("#profile-data");
             profile.find("#id").text(data.id);
             $("#name").text(data.name);
@@ -139,7 +139,7 @@ function LoadValuesFromApiToPersonnelDetailsModal(id, modal) {
             $("#loader").attr("hidden", true);
             $(".spinner-border").attr("hidden", true);
         },
-        error: function() {
+        error: function () {
             alert("Error occurred...");
         },
     });
@@ -150,7 +150,7 @@ function LoadValuesFromApiToPersonnelEditForm(id, initialform, form, modal) {
         url: "/api/personnels/" + id,
         dataType: "json",
         type: "GET",
-        success: function(data) {
+        success: function (data) {
             console.log(data);
             $("#Edit_Surname").val(data.lastName);
             $("#Edit_FirstName").val(data.firstName);
@@ -179,12 +179,15 @@ function LoadValuesFromApiToPersonnelEditForm(id, initialform, form, modal) {
             $("#Edit_Nationality").val(data.nationality);
             $("#Edit_Nationality").trigger("change");
 
+            $("#Edit_Position").val(data.designation);
+            $("#Edit_Position").trigger("change");
+
             initialform = $(form).serialize();
             modal.find(".modal-body .row").attr("hidden", false);
             $("#loader").attr("hidden", true);
             $(".spinner-border").attr("hidden", true);
         },
-        error: function() {
+        error: function () {
             alert("Error occurred...");
         },
     });
@@ -192,7 +195,7 @@ function LoadValuesFromApiToPersonnelEditForm(id, initialform, form, modal) {
 }
 
 function AddPersonnelCreateLogic() {
-    $("#personnelCreateModal").on("shown.bs.modal", function(event) {
+    $("#personnelCreateModal").on("shown.bs.modal", function (event) {
         $("#Personnel_Nationality").val("Nigeria");
         $("#Personnel_Nationality").trigger("change");
         $("#Personnel_Bank").val("");
@@ -203,13 +206,18 @@ function AddPersonnelCreateLogic() {
         $("#Personnel_Sex").trigger("change");
         $("#Personnel_Religion").val("");
         $("#Personnel_Religion").trigger("change");
+        $("#Personnel_Position").val("");
+        $("#Personnel_Position").trigger("change");
     });
 
-    $("#personnelCreateModal").on("hidden.bs.modal", function(event) {
+    $("#personnelCreateModal").on("hidden.bs.modal", function (event) {
         $("#personnelCreateForm").parsley().reset();
         $("#personnelCreateForm")[0].reset();
-        $("#Personnel_bank_group span.select2-selection__rendered").removeClass(
+        $("#Personnel_bank_group span.select2-selection__rendered, #Personnel_sex_group span.select2-selection__rendered, #Personnel_religion_group span.select2-selection__rendered, #Personnel_position_group span.select2-selection__rendered, #Personnel_vessel_group span.select2-selection__rendered").removeClass(
             "parsley-error"
+        );
+        $("#Personnel_bank_group span.select2-selection__rendered, #Personnel_sex_group span.select2-selection__rendered, #Personnel_religion_group span.select2-selection__rendered, #Personnel_position_group span.select2-selection__rendered, #Personnel_vessel_group span.select2-selection__rendered").removeClass(
+            "parsley-success"
         );
     });
 }
@@ -241,6 +249,13 @@ function InitializeSelect2Components() {
         dropdownParent: $("#personnelCreateModal"),
         width: "100%",
     });
+    $("#Personnel_Position").select2({
+        data: positions,
+        minimumResultsForSearch: Infinity,
+        placeholder: "Select position...",
+        dropdownParent: $("#personnelCreateModal"),
+        width: "100%",
+    });
 
     $("#Personnel_Vessel").select2({
         placeholder: "Select vessel...",
@@ -249,13 +264,13 @@ function InitializeSelect2Components() {
         minimumResultsForSearch: 20,
         ajax: {
             url: "/api/vessels/ForSelect2",
-            data: function(params) {
+            data: function (params) {
                 var query = {
                     search: params.term,
                 };
                 return query;
             },
-            processResults: function(data) {
+            processResults: function (data) {
                 return {
                     results: data,
                 };
@@ -283,6 +298,14 @@ function InitializeSelect2Components() {
     $("#Edit_Bank").select2({
         data: banks,
         placeholder: "Select bank...",
+        dropdownParent: $("#personnelEditModal"),
+        width: "100%",
+    });
+
+    $("#Edit_Position").select2({
+        data: positions,
+        minimumResultsForSearch: Infinity,
+        placeholder: "Select position...",
         dropdownParent: $("#personnelEditModal"),
         width: "100%",
     });
@@ -324,7 +347,7 @@ function InitializeDataTables() {
 function Select2ParselyValidatorTriggers() {
     $("#Edit_Bank")
         .parsley()
-        .on("field:success", function() {
+        .on("field:success", function () {
             $("#bank_group span.select2-selection__rendered").removeClass(
                 "parsley-error"
             );
@@ -334,7 +357,7 @@ function Select2ParselyValidatorTriggers() {
         });
     $("#Edit_Bank")
         .parsley()
-        .on("field:error", function() {
+        .on("field:error", function () {
             $("#bank_group span.select2-selection__rendered").removeClass(
                 "parsley-success"
             );
@@ -344,7 +367,7 @@ function Select2ParselyValidatorTriggers() {
         });
     $("#Personnel_Bank")
         .parsley()
-        .on("field:success", function() {
+        .on("field:success", function () {
             $("#Personnel_bank_group span.select2-selection__rendered").removeClass(
                 "parsley-error"
             );
@@ -354,7 +377,7 @@ function Select2ParselyValidatorTriggers() {
         });
     $("#Personnel_Bank")
         .parsley()
-        .on("field:error", function() {
+        .on("field:error", function () {
             $("#Personnel_bank_group span.select2-selection__rendered").removeClass(
                 "parsley-success"
             );
@@ -364,7 +387,7 @@ function Select2ParselyValidatorTriggers() {
         });
     $("#Personnel_Vessel")
         .parsley()
-        .on("field:success", function() {
+        .on("field:success", function () {
             $("#Personnel_vessel_group span.select2-selection__rendered").removeClass(
                 "parsley-error"
             );
@@ -374,7 +397,7 @@ function Select2ParselyValidatorTriggers() {
         });
     $("#Personnel_Vessel")
         .parsley()
-        .on("field:error", function() {
+        .on("field:error", function () {
             $("#Personnel_vessel_group span.select2-selection__rendered").removeClass(
                 "parsley-success"
             );
@@ -384,7 +407,7 @@ function Select2ParselyValidatorTriggers() {
         });
     $("#Personnel_Sex")
         .parsley()
-        .on("field:success", function() {
+        .on("field:success", function () {
             $("#Personnel_sex_group span.select2-selection__rendered").removeClass(
                 "parsley-error"
             );
@@ -394,7 +417,7 @@ function Select2ParselyValidatorTriggers() {
         });
     $("#Personnel_Sex")
         .parsley()
-        .on("field:error", function() {
+        .on("field:error", function () {
             $("#Personnel_sex_group span.select2-selection__rendered").removeClass(
                 "parsley-success"
             );
@@ -404,7 +427,7 @@ function Select2ParselyValidatorTriggers() {
         });
     $("#Personnel_Religion")
         .parsley()
-        .on("field:success", function() {
+        .on("field:success", function () {
             $(
                 "#Personnel_religion_group span.select2-selection__rendered"
             ).removeClass("parsley-error");
@@ -414,11 +437,32 @@ function Select2ParselyValidatorTriggers() {
         });
     $("#Personnel_Religion")
         .parsley()
-        .on("field:error", function() {
+        .on("field:error", function () {
             $(
                 "#Personnel_religion_group span.select2-selection__rendered"
             ).removeClass("parsley-success");
             $("#Personnel_religion_group span.select2-selection__rendered").addClass(
+                "parsley-error"
+            );
+        });
+
+    $("#Personnel_Position")
+        .parsley()
+        .on("field:success", function () {
+            $(
+                "#Personnel_position_group span.select2-selection__rendered"
+            ).removeClass("parsley-error");
+            $("#Personnel_position_group span.select2-selection__rendered").addClass(
+                "parsley-success"
+            );
+        });
+    $("#Personnel_Position")
+        .parsley()
+        .on("field:error", function () {
+            $(
+                "#Personnel_position_group span.select2-selection__rendered"
+            ).removeClass("parsley-success");
+            $("#Personnel_position_group span.select2-selection__rendered").addClass(
                 "parsley-error"
             );
         });

@@ -94,9 +94,11 @@ namespace Web.Pages.Accounting
             };
 
             newPayroll.Id = await _repository.GenerateNewPayrollId();
+
             _repository.Add(newPayroll);
 
             newPayroll.Personnel.Vessel = setPayrollVariablesInput.Vessel;
+            newPayroll.PersonnelDesignation = newPayroll.Personnel.Designation;
 
             AddDeductionDetails(deductions, newPayroll);
             AddPaymentDetail(newPayroll);

@@ -17,7 +17,7 @@ namespace Utility.AutoMapper
                 option => option.MapFrom(source => source.Personnel.Id))
 
                 .ForMember(destination => destination.PersonnelDesignation,
-                option => option.MapFrom(source => source.Personnel.Designation))
+                option => option.MapFrom(source => source.PersonnelDesignation))
 
                 .ForMember(destination => destination.PersonnelDateJoined,
                 option => option.MapFrom(source => source.Personnel.DateJoined.ToFormalShortDate()))

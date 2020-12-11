@@ -155,10 +155,36 @@ namespace Utility
                 }
 
                 currentPayroll.Vessel = currentPayroll.Personnel.Vessel;
+                currentPayroll.DailyRate = currentPayroll.Personnel.DailyRate;
+                currentPayroll.PersonnelDesignation = currentPayroll.Personnel.Designation;
                 currentPayroll.PaymentDetail.Bank = currentPayroll.Personnel.Bank;
                 currentPayroll.PaymentDetail.AccountName = currentPayroll.Personnel.AccountName;
                 currentPayroll.PaymentDetail.AccountNumber = currentPayroll.Personnel.AccountNumber;
             }
+        }
+        public async Task ReApplyVariablesOnCurrentPayroll(Payroll currentPayroll)
+        {
+            var deductions = await GetAll<Deduction>();
+            var totalDeductions = await TotalDeduction();
+
+                currentPayroll.TotalDeductedPercentage = totalDeductions;
+                RemoveRange(currentPayroll.DeductionDetails);
+
+                foreach (var deduction in deductions)
+                {
+                    var deductionDetail = new DeductionDetail
+                    {
+                        DeductionName = deduction.Name,
+                        DeductedPercentage = deduction.Percentage,
+                        DeductedAmount = currentPayroll.GrossPay * (deduction.Percentage / 100)
+                    };
+
+                    currentPayroll.DeductionDetails.Add(deductionDetail);
+                }
+
+                currentPayroll.PaymentDetail.Bank = currentPayroll.Personnel.Bank;
+                currentPayroll.PaymentDetail.AccountName = currentPayroll.Personnel.AccountName;
+                currentPayroll.PaymentDetail.AccountNumber = currentPayroll.Personnel.AccountNumber;
         }
 
         /***********************************************************************************************************

@@ -49,6 +49,7 @@ namespace Utility
         Task<int> GetNumberOfAllPayrolls();
         Task<string> GenerateNewPayrollId();
         Task ReApplyVariablesToCurrentPayrolls();
+        Task ReApplyVariablesOnCurrentPayroll(Payroll currentPayroll);
 
     }
 }

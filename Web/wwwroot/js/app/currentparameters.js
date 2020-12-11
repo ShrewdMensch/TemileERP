@@ -275,12 +275,12 @@ function AddDeleteHandler() {
     }
 
     $('#deleteAllAllowances').on('click', function () {
-        $('#allowanceTable').find('tr').remove();
+        $('#allowanceTable').find(' tbody tr').remove();
             HideAppropriateTable();
     });
 
     $('#deleteAllDeductions').on('click', function () {
-        $('#deductionTable').find('tr').remove();
+        $('#deductionTable').find('tbody tr').remove();
             HideAppropriateTable();
     });
 

@@ -14,6 +14,7 @@ namespace Utility.InputModels
         public string Email { get; set; }
         public string Nationality { get; set; }
         public string Religion { get; set; }
+        public string Designation { get; set; }
         public Double DailyRate { get; set; }
         public string Bank { get; set; }
         public string Vessel { get; set; }

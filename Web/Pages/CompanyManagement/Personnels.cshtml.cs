@@ -52,7 +52,8 @@ namespace Web.Pages.CompanyManagement
                 PhoneNumber = personnelInputModel.PhoneNo,
                 NextOfKin = personnelInputModel.NextOfKin,
                 NextOfKinPhoneNumber = personnelInputModel.NextOfKinPhoneNo,
-                Address = personnelInputModel.Address
+                Address = personnelInputModel.Address,
+                Designation = personnelInputModel.Designation
             };
 
             personnel.Id = await _repository.GenerateNewPersonnelId(personnel);
@@ -82,7 +83,7 @@ namespace Web.Pages.CompanyManagement
 
             else
             {
-                UpdatePersonnelInDataBase(personnelInputModel, personnelInDb);
+                await UpdatePersonnelInDataBase(personnelInputModel, personnelInDb);
 
                 if (await _repository.SaveAll())
                 {
@@ -121,7 +122,7 @@ namespace Web.Pages.CompanyManagement
             return RedirectToPage();
         }
 
-        private static void UpdatePersonnelInDataBase(PersonnelInputModel personnelInputModel, Personnel personnelInDb)
+        private async Task UpdatePersonnelInDataBase(PersonnelInputModel personnelInputModel, Personnel personnelInDb)
         {
             personnelInDb.Id = personnelInputModel.Id;
             personnelInDb.FirstName = personnelInputModel.FirstName.ToTitleCase();
@@ -140,10 +141,19 @@ namespace Web.Pages.CompanyManagement
             personnelInDb.NextOfKin = personnelInputModel.NextOfKin;
             personnelInDb.NextOfKinPhoneNumber = personnelInputModel.NextOfKinPhoneNo;
             personnelInDb.Address = personnelInputModel.Address;
+            personnelInDb.Designation = personnelInputModel.Designation;
 
             var currentPayroll = personnelInDb.Payrolls.GetCurrentPayroll();
 
-            if (currentPayroll != null) currentPayroll.Vessel = personnelInputModel.Vessel;
+            if (currentPayroll != null)
+            {
+                currentPayroll.Vessel = personnelInputModel.Vessel;
+                currentPayroll.DailyRate = personnelInputModel.DailyRate;
+                currentPayroll.PersonnelDesignation = personnelInputModel.Designation;
+
+                await _repository.ReApplyVariablesOnCurrentPayroll(currentPayroll);
+
+            }
         }
     }
 }

@@ -1,7 +1,7 @@
 <form id="personnelEditForm" method="post" data-parsley-validate>
     <!-- Modal -->
     <div class="modal fade animated fadeInRight custo-fadeInRight show" id="personnelEditModal" data-backdrop="static"
-        data-keyboard="false" tabindex="-1" aria-labelledby="staticBackdropLabel" aria-hidden="true">
+         data-keyboard="false" tabindex="-1" aria-labelledby="staticBackdropLabel" aria-hidden="true">
         <div class="modal-dialog modal-lg  modal-dialog-centered modal-dialog-scrollable" role="document">
             <div class="modal-content">
                 <div class="modal-header">
@@ -75,6 +75,25 @@
                                    data-parsley-required-message="Email is required." value="">
                         </div>
                         <div class="form-group col-sm-6 tb-alternating">
+                            <label class="control-label" for="Edit_PhoneNo">
+                                Phone Number <span class="text-danger">*</span>
+                            </label>
+                            <input type="tel" class="form-control" required
+                                   data-parsley-required-message="Phone is required."
+                                   data-parsley-pattern-message="Specify a valid 11 digits mobile number."
+                                   pattern="/^\d{11}$/" id="Edit_PhoneNo" name="PhoneNo" value="">
+                        </div>
+                        <div class="form-group col-sm-6 tb-alternating" id="position_group">
+                            <label class="control-label" for="Edit_Position">
+                                Position <span class="text-danger">*</span>
+                            </label>
+                            <select class="form-control" id="Edit_Position" required
+                                    data-parsley-errors-container="#position-edit-error" data-parsley-trigger-after-failure="change"
+                                    data-parsley-required-message="Position is required." name="Designation" value="">
+                            </select>
+                            <span id="position-edit-error"></span>
+                        </div>
+                        <div class="form-group col-sm-6 tb-alternating">
                             <label class="control-label" for="Edit_DailyRate">
                                 Daily Rate <span class="text-danger">*</span>
                             </label>
@@ -85,15 +104,6 @@
                                    data-parsley-min-message="Daily rate should not be less than 500" name="DailyRate"
                                    value="">
                             <span id="dailyRate_error"></span>
-                        </div>
-                        <div class="form-group col-sm-6 tb-alternating">
-                            <label class="control-label" for="Edit_PhoneNo">
-                                Phone Number <span class="text-danger">*</span>
-                            </label>
-                            <input type="tel" class="form-control" required
-                                   data-parsley-required-message="Phone is required."
-                                   data-parsley-pattern-message="Specify a valid 11 digits mobile number."
-                                   pattern="/^\d{11}$/" id="Edit_PhoneNo" name="PhoneNo" value="">
                         </div>
                         <div class="form-group col-sm-6 tb-alternating" id="vessel_group">
                             <label class="control-label" for="Edit_Vessel">
@@ -149,7 +159,7 @@
                                    data-parsley-pattern-message="Specify a valid 11 digits mobile number."
                                    id="Edit_NextOfKinPhoneNo" name="NextOfKinPhoneNo" pattern="/^\d{11}$/" value="">
                         </div>
-                        <div class="form-group col-sm-6">
+                        <div class="form-group col-sm-12">
                             <label class="control-label" for="Edit_Address">
                                 Address <span class="text-danger">*</span>
                             </label>
@@ -169,8 +179,10 @@
                     </div>
                 </div>
                 <div class="modal-footer">
-                    <button type="reset" class="btn" data-dismiss="modal"><i class="flaticon-cancel-12"></i>
-                        Discard</button>
+                    <button type="reset" class="btn" data-dismiss="modal">
+                        <i class="flaticon-cancel-12"></i>
+                        Discard
+                    </button>
                     <button id="editBtn" asp-page-handler="EditPersonnel" class="btn btn-primary">Save</button>
                 </div>
             </div>

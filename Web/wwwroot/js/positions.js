@@ -1,0 +1,20 @@
+var positions = [
+  { id: "Captain", text: "Captain"},
+  { id: "Chief Officer", text: "Chief Officer"},
+  { id: "Chief Engineer", text: "Chief Engineer"},
+  { id: "Second Engineer", text: "Second Engineer"},
+  { id: "Second Officer", text: "Second Officer"},
+  { id: "Third Engineer", text: "Third Engineer"},
+  { id: "ETO", text: "ETO"},
+  { id: "Electrician", text: "Electrician"},
+  { id: "ETO Trainee", text: "ETO Trainee"},
+  { id: "Bosun", text: "Bosun"},
+  { id: "Able Seaman", text: "Able Seaman"},
+  { id: "Oiler", text: "Oiler"},
+  { id: "Cook", text: "Cook"},
+  { id: "Steward", text: "Steward"},
+  { id: "Ordinary Seaman", text: "Ordinary Seaman"},
+  { id: "Deck Cadet", text: "Deck Cadet"},
+  { id: "Engine Cadet", text: "Engine Cadet"},
+  
+];

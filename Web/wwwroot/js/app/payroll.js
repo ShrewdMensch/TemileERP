@@ -277,6 +277,7 @@ function UpdateValues(data) {
     $("#personnelDesignation").text(
         data.personnelDesignation ? data.personnelDesignation : ""
     );
+    $('#desginationDetails').attr('hidden', data.personnelDesignation == null);
     $("#personnelDateJoined").text(data.personnelDateJoined);
     $("#bank").text(data.bank);
     $("#accountName").text(data.accountName);

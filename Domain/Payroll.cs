@@ -25,6 +25,7 @@ namespace Domain
         public bool IsVariablesSet { get; set; }
         public string PersonnelId { get; set; }
         public virtual Personnel Personnel { get; set; }
+        public string PersonnelDesignation { get; set; }
         public string Vessel { get; set; }
         public DateTime StartDate { get; set; }
         public DateTime EndDate { get; set; }

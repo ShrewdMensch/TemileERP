@@ -30,7 +30,7 @@ namespace Utility.AutoMapper
                 option => option.MapFrom(source => source.PaymentDetail.AccountName.SplitBySpace()))
 
                 .ForMember(destination => destination.AccountNumber,
-                option => option.MapFrom(source => "[" + source.PaymentDetail.AccountNumber +"]"))
+                option => option.MapFrom(source => "[ " + source.PaymentDetail.AccountNumber +" ]"))
 
                 .ForMember(destination => destination.NetPay,
                 option => option.MapFrom(source => source.NetPay.ToCurrency()));

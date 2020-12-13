@@ -1,0 +1,37 @@
+﻿<div class="card">
+    <div class="card-header" id="arrears">
+        <section class="mb-0 mt-0">
+            <div role="menu" class="collapsed" data-toggle="collapse" data-target="#arrearsAccordion" aria-expanded="false" aria-controls="arrearsAccordion">
+                Specific Arrears  <div class="icons"><svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-chevron-down"><polyline points="6 9 12 15 18 9"></polyline></svg></div>
+            </div>
+        </section>
+    </div>
+
+    <div id="arrearsAccordion" class="collapse" aria-labelledby="arrears" data-parent="#toggleAccordion">
+        <div class="card-body">
+            <div class="form-group col-sm-12 mb-3">
+                <a class="btn btn-primary btn-sm float-md-right mb-2" title="Add New Allowance" id="addArrear">
+                    <i class="fa fa-plus mr-2"></i>Add New
+                </a>
+                <a class="btn btn-danger btn-sm mb-2" title="Remove All Alloances" id="deleteAllArrears">
+                    <i class="fa fa-trash mr-2"></i>Delete All
+                </a>
+            </div>
+            <div class="form-group col-sm-12">
+                <div class="table-responsive">
+                    <table id="arrearTable" class="table table-hover table-white">
+                        <thead>
+                            <tr>
+                                <th>#</th>
+                                <th>Arrear Period</th>
+                                <th></th>
+                            </tr>
+                        </thead>
+                        <tbody id="arrearsBody">
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

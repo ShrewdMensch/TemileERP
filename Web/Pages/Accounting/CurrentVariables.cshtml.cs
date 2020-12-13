@@ -104,6 +104,7 @@ namespace Web.Pages.Accounting
             AddPaymentDetail(newPayroll);
             AddAllowances(setPayrollVariablesInput, newPayroll);
             AddSpecificDeductions(setPayrollVariablesInput, newPayroll);
+            await AddArrears(setPayrollVariablesInput, newPayroll);
         }
 
 
@@ -119,9 +120,10 @@ namespace Web.Pages.Accounting
             payroll.Personnel.Vessel = setPayrollVariablesInput.Vessel;
 
             UpdateDeductionDetails(payroll, deductions);
+            UpdatePaymentDetail(payroll);
             UpdateAllowances(setPayrollVariablesInput, payroll);
             UpdateSpecificDeductions(setPayrollVariablesInput, payroll);
-            UpdatePaymentDetail(payroll);
+            await UpdateArrears(setPayrollVariablesInput, payroll);
         }
 
         private static void UpdatePaymentDetail(Payroll payroll)
@@ -134,6 +136,7 @@ namespace Web.Pages.Accounting
         private void UpdateSpecificDeductions(SetPayrollVariablesInputModel setPayrollVariablesInput, Payroll payroll)
         {
             //Remove existing specific deductions before adding possibly updated ones
+            //Case where Updating with no specific deduction i.e remove all existing ones without adding new one(s)
             _repository.RemoveRange(payroll.SpecificDeductions);
 
             if (setPayrollVariablesInput.SpecificDeductionAmounts == null) return;
@@ -153,6 +156,7 @@ namespace Web.Pages.Accounting
         private void UpdateAllowances(SetPayrollVariablesInputModel setPayrollVariablesInput, Payroll payroll)
         {
             //Remove existing allowances before adding possibly updated ones
+            //Case where Updating with no allowance i.e remove all existing ones without adding new one(s)
             _repository.RemoveRange(payroll.Allowances);
 
             if (setPayrollVariablesInput.AllowanceAmounts == null) return;
@@ -169,9 +173,42 @@ namespace Web.Pages.Accounting
             }
         }
 
+        private async Task UpdateArrears(SetPayrollVariablesInputModel setPayrollVariablesInput, Payroll payroll)
+        {
+            //Remove existing allowances before adding possibly updated ones
+            //Case where Updating with no allowance i.e remove all existing ones without adding new one(s)
+            _repository.RemoveRange(payroll.Arrears);
+
+            if (setPayrollVariablesInput.ArrearPeriods == null) return;
+
+            for (var count = 0; count < setPayrollVariablesInput.ArrearPeriods.Count(); count++)
+            {
+                var dateRange = setPayrollVariablesInput.ArrearPeriods[count].ToDateRange();
+
+                var foundPayroll = await _repository.GetPersonnelPayrollByMonth(payroll.PersonnelId, dateRange.StartDate);
+
+                if (dateRange.StartDate.HasSameMonthAndYearWith(dateRange.EndDate) && foundPayroll != null)
+                {
+                    var newArrear = new Arrear
+                    {
+                        StartDate = dateRange.StartDate,
+                        EndDate = dateRange.EndDate,
+                        AffectedPayroll = await _repository.GetPersonnelPayrollByMonth(payroll.PersonnelId, dateRange.StartDate),
+                        CorrectivePayroll = payroll
+                    };
+
+                    _repository.Add(newArrear);
+
+                }
+
+
+            }
+        }
+
         private void UpdateDeductionDetails(Payroll payroll, IEnumerable<Deduction> deductions)
         {
             //Remove existing deduction details before adding possibly updated ones
+            //Case where Updating with no deductionDetail i.e remove all existing ones without adding new one(s)
             _repository.RemoveRange(payroll.DeductionDetails);
 
             foreach (var deduction in deductions)
@@ -247,6 +284,33 @@ namespace Web.Pages.Accounting
                 };
 
                 _repository.Add(newAllowance);
+            }
+        }
+        private async Task AddArrears(SetPayrollVariablesInputModel setPayrollVariablesInput, Payroll payroll)
+        {
+            if (setPayrollVariablesInput.ArrearPeriods == null) return;
+
+            for (var count = 0; count < setPayrollVariablesInput.ArrearPeriods.Count(); count++)
+            {
+                var dateRange = setPayrollVariablesInput.ArrearPeriods[count].ToDateRange();
+
+                var foundPayroll = await _repository.GetPersonnelPayrollByMonth(payroll.PersonnelId, dateRange.StartDate);
+
+                if (dateRange.StartDate.HasSameMonthAndYearWith(dateRange.EndDate) && foundPayroll != null)
+                {
+                    var newArrear = new Arrear
+                    {
+                        StartDate = dateRange.StartDate,
+                        EndDate = dateRange.EndDate,
+                        AffectedPayroll = await _repository.GetPersonnelPayrollByMonth(payroll.PersonnelId, dateRange.StartDate),
+                        CorrectivePayroll = payroll
+                    };
+
+                    _repository.Add(newArrear);
+
+                }
+
+
             }
         }
 

@@ -46,6 +46,7 @@ namespace Utility
         Task<int> GetNumberOfCurrentPayrolls();
         Task<IEnumerable<Payroll>> GetCurrentPayrolls();
         Task<IEnumerable<Payroll>> GetCurrentPayrollsByVessel(string vessel);
+        Task<Payroll> GetPersonnelPayrollByMonth(string personnelId, DateTime date);
         Task<int> GetNumberOfAllPayrolls();
         Task<string> GenerateNewPayrollId();
         Task ReApplyVariablesToCurrentPayrolls();

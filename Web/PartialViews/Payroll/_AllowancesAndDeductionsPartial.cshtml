@@ -1,4 +1,4 @@
-<div id="toggleAccordion" class="form-group col-sm-12">
+﻿<div id="toggleAccordion" class="form-group col-sm-12">
     <div class="card">
         <div class="card-header" id="allowances">
             <section class="mb-0 mt-0">
@@ -11,10 +11,10 @@
         <div id="allowancesAccordion" class="collapse" aria-labelledby="allowances" data-parent="#toggleAccordion">
             <div class="card-body">
                 <div class="form-group col-sm-12 mb-3">
-                    <a class="btn btn-primary btn-sm float-right" title="Add New Allowance" id="addAllowance">
+                    <a class="btn btn-primary btn-sm float-md-right mb-2" title="Add New Allowance" id="addAllowance">
                         <i class="fa fa-plus mr-2"></i>Add New
                     </a>
-                    <a class="btn btn-danger btn-sm" title="Remove All Alloances" id="deleteAllAllowances">
+                    <a class="btn btn-danger btn-sm mb-2" title="Remove All Alloances" id="deleteAllAllowances">
                         <i class="fa fa-trash mr-2"></i>Delete All
                     </a>
                 </div>
@@ -48,10 +48,10 @@
         <div id="deductionsAccordion" class="collapse" aria-labelledby="deductions" data-parent="#toggleAccordion">
             <div class="card-body">
                 <div class="form-group col-sm-12 mb-3">
-                    <a class="btn btn-primary btn-sm float-right" title="Add New Deduction" id="addDeduction">
+                    <a class="btn btn-primary btn-sm float-md-right mb-2" title="Add New Deduction" id="addDeduction">
                         <i class="fa fa-plus mr-2"></i>Add New
                     </a>
-                    <a class="btn btn-danger btn-sm" title="Remove All Deductions" id="deleteAllDeductions">
+                    <a class="btn btn-danger btn-sm mb-2" title="Remove All Deductions" id="deleteAllDeductions">
                         <i class="fa fa-trash mr-2"></i>Delete All
                     </a>
                 </div>
@@ -74,4 +74,5 @@
             </div>
         </div>
     </div>
+    <partial name="~/PartialViews/Payroll/_ArrearsPartial.cshtml" />
 </div>

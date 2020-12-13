@@ -17,6 +17,13 @@ function getFirstDayOfCurrentMonth() {
     return firstDay;
 }
 
+function getLastDayOfCurrentMonth() {
+    var date = new Date();
+    var lastDay = new Date(date.getFullYear(), date.getMonth() + 1, 0);
+
+    return lastDay;
+}
+
 function getFirstDayOfLastMonth() {
     var date = new Date();
     var year = date.getFullYear();
@@ -30,9 +37,9 @@ function getFirstDayOfLastMonth() {
     return firstDay;
 }
 
-function getLastDayOfCurrentMonth() {
+function getLastDayOfLastMonth() {
     var date = new Date();
-    var lastDay = new Date(date.getFullYear(), date.getMonth() + 1, 0);
+    var lastDay = new Date(date.getFullYear(), date.getMonth(), 0);
 
     return lastDay;
 }

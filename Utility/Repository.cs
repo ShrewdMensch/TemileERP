@@ -119,6 +119,14 @@ namespace Utility
             return payrolls;
         }
 
+        public async Task<Payroll> GetPersonnelPayrollByMonth(string personnelId, DateTime date)
+        {
+            var payroll = (await GetAll<Payroll>()).FirstOrDefault(p => p.PersonnelId == personnelId
+            && p.Date.HasSameMonthAndYearWith(date));
+
+            return payroll;
+        }
+
         public async Task<string> GenerateNewPayrollId()
         {
             var dateAdded = DateTime.Today;
@@ -167,24 +175,24 @@ namespace Utility
             var deductions = await GetAll<Deduction>();
             var totalDeductions = await TotalDeduction();
 
-                currentPayroll.TotalDeductedPercentage = totalDeductions;
-                RemoveRange(currentPayroll.DeductionDetails);
+            currentPayroll.TotalDeductedPercentage = totalDeductions;
+            RemoveRange(currentPayroll.DeductionDetails);
 
-                foreach (var deduction in deductions)
+            foreach (var deduction in deductions)
+            {
+                var deductionDetail = new DeductionDetail
                 {
-                    var deductionDetail = new DeductionDetail
-                    {
-                        DeductionName = deduction.Name,
-                        DeductedPercentage = deduction.Percentage,
-                        DeductedAmount = currentPayroll.GrossPay * (deduction.Percentage / 100)
-                    };
+                    DeductionName = deduction.Name,
+                    DeductedPercentage = deduction.Percentage,
+                    DeductedAmount = currentPayroll.GrossPay * (deduction.Percentage / 100)
+                };
 
-                    currentPayroll.DeductionDetails.Add(deductionDetail);
-                }
+                currentPayroll.DeductionDetails.Add(deductionDetail);
+            }
 
-                currentPayroll.PaymentDetail.Bank = currentPayroll.Personnel.Bank;
-                currentPayroll.PaymentDetail.AccountName = currentPayroll.Personnel.AccountName;
-                currentPayroll.PaymentDetail.AccountNumber = currentPayroll.Personnel.AccountNumber;
+            currentPayroll.PaymentDetail.Bank = currentPayroll.Personnel.Bank;
+            currentPayroll.PaymentDetail.AccountName = currentPayroll.Personnel.AccountName;
+            currentPayroll.PaymentDetail.AccountNumber = currentPayroll.Personnel.AccountNumber;
         }
 
         /***********************************************************************************************************

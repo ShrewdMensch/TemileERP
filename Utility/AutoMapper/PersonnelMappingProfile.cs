@@ -71,6 +71,9 @@ namespace Utility.AutoMapper
                 
                 .ForMember(destination => destination.SpecificDeductions, 
                 option => option.MapFrom(source => source.Payrolls.GetCurrentPayroll().SpecificDeductions))
+                
+                .ForMember(destination => destination.Arrears, 
+                option => option.MapFrom(source => source.Payrolls.GetCurrentPayroll().Arrears))
 
                 .ForMember(destination => destination.Vessel, 
                 option => option.MapFrom(source => source.Vessel))

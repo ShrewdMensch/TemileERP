@@ -88,10 +88,11 @@ body {
 input.parsley-success,
 select.parsley-success,
 textarea.parsley-success,
-span.parsley-success{
-    color: #468847!important;
-    background-color: #dff0d8!important;
-    border: 1px solid #d6e9c6!important;
+input.flatpickr-input.parsley-success,
+span.parsley-success {
+    color: #468847 !important;
+    background-color: #dff0d8 !important;
+    border: 1px solid #d6e9c6 !important;
 }
 
 textarea {
@@ -104,7 +105,8 @@ textarea {
     textarea.parsley-error,
     input.input-validation-error,
     select.input-validation-error,
-    textarea.input-validation-error {
+    textarea.input-validation-error,
+    input.flatpickr-input.parsley-error {
         color: #b94a48 !important;
         background-color: #f2dede !important;
         border: 1px solid #eed3d7 !important;
@@ -465,7 +467,8 @@ li.select2-results__option {
 }
 
 .signature-row {
-    margin-top: 160px;
+    position: relative;
+    bottom: -200px;
 }
 
 /* Personnel-Payroll Details  Modal */
@@ -482,13 +485,19 @@ table input.form-control {
     min-width: 200px;
 }
 
+table input.form-control.arrearPeriod {
+        min-width: 250px;
+}
+
 table i.fa {
     font-size: 20px;
 }
 
 
-/*Flatpickr support form IE9*/
-
+/*Flatpickr styles and support form IE9*/
+.flatpickr-input[readonly] {
+    color: #888;
+}
 span.flatpickr-weekday {
     display: inline-block;
     width: 14.2857143%;

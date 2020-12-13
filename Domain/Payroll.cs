@@ -21,6 +21,7 @@ namespace Domain
         public float TotalDeductedPercentage { get; set; }
         public double TotalDeductedAmount => GetTotalDeductedAmount();
         public double TotalEarnings => GetTotalEarnings();
+        public double TotalArrears => Arrears.Sum(a => a.Amount);
         public DateTime Date { get; set; }
         public bool IsVariablesSet { get; set; }
         public string PersonnelId { get; set; }
@@ -33,26 +34,28 @@ namespace Domain
         public virtual ICollection<Allowance> Allowances { get; set; }
         public virtual ICollection<SpecificDeduction> SpecificDeductions { get; set; }
         public virtual ICollection<DeductionDetail> DeductionDetails { get; set; }
+        public virtual ICollection<Arrear> Arrears { get; set; }
         public virtual PaymentDetail PaymentDetail { get; set; }
 
         private double GetNetPay()
         {
             var totalAllowances = Allowances.Sum(s => s.Amount);
-            var netPay = (GrossPay + totalAllowances) - (TotalDeductedAmount);
+            var netPay = GetTotalEarnings() - (TotalDeductedAmount);
 
             return netPay;
         }
-        
+
         private double GetTotalEarnings()
         {
             var totalAllowances = Allowances.Sum(s => s.Amount);
 
-            return GrossPay + totalAllowances;
+            return GrossPay + totalAllowances + TotalArrears;
         }
+
         private double GetTotalDeductedAmount()
         {
             var totalSpecificDeductions = SpecificDeductions.Sum(s => s.Amount);
-            var totalDeductions = (GrossPay * (TotalDeductedPercentage / 100))  + totalSpecificDeductions;
+            var totalDeductions = (GrossPay * (TotalDeductedPercentage / 100)) + totalSpecificDeductions;
 
             return totalDeductions;
         }

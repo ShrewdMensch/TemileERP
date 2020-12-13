@@ -26,14 +26,10 @@ function AddPrintButtonClickEvent() {
     $("#printBtn").click(function () {
         var year = new Date().getFullYear();
         $("#salaryContainer").print({
-            title: "Monthly Payroll",
-            append: "",
+            title: 'Temile and Sons Limited Monthly Payroll',
             iframe: false,
             deferred: $.Deferred(),
             doctype: "<!doctype html>",
-            prepend: '<br><p class="text-primary font-weight-bold">Temile and Sons Limited &copy;' +
-                year +
-                "</p>",
         });
     });
 }
@@ -203,6 +199,8 @@ function LoadValuesFromAPI(payrollId, modal) {
 
             AddDeductions(modal, data);
 
+            AddArrears(modal, data);
+
             modal.find(".modal-body .row").attr("hidden", false);
             $("#loader").attr("hidden", true);
             $(".spinner-border").attr("hidden", true);
@@ -258,6 +256,9 @@ function AddAllowances(modal, data) {
 
     if (data.allowances.length > 0) {
         $('#rowAllowancesTable').attr('hidden', false);
+
+        (data.allowances.length > 1) ? $('#allowanceTitle').text("Allowances") : $('#allowanceTitle').text("Allowance");
+
         $.each(data.allowances, function (index, value) {
             var valueHtml = "<tr><td><strong>" +
                 value.name +
@@ -265,6 +266,40 @@ function AddAllowances(modal, data) {
                 value.amountInCurrency +
                 "</span></td></tr>";
             modal.find("#allowances").append(valueHtml);
+        });
+    }
+
+}
+
+function AddArrears(modal, data) {
+    modal.find("#arrearContainer").html("");
+    $('#arrearTitle').attr('hidden', true);
+    $('#totalArrearsContainer').attr('hidden', true);
+    $('#arrearContainer').attr('hidden', true);
+    $('#arrearRow').attr('hidden', true);
+
+    if (data.arrears.length > 0) {
+        $('#arrearTitle').attr('hidden', false);
+        $('#totalArrearsContainer').attr('hidden', false);
+        $('#arrearContainer').attr('hidden', false);
+        $('#arrearRow').attr('hidden', false);
+
+        (data.arrears.length > 1) ? $('#arrearTitle').text("Arrears") : $('#arrearTitle').text("Arrear");
+
+        $.each(data.arrears, function (index, value) {
+            var weekendMsg = value.workedWeekend ? " (including weekends)" : " (excluding weekends)";
+            var period = value.period + weekendMsg;
+            var workDetail = value.vessel + " Vessel as " + value.personnelDesignation;
+
+            var valueHtml = '<table class="table table-borderless"><tbody><tr><td> <strong>Period' +
+                '</strong><span class="float-right">' + period +
+                '</span></td></tr><tr><td><strong>Days Worked</strong><span class="float-right">' + value.daysWorked + '</span>' +
+                '</td></tr><tr><td><strong>Daily Rate</strong><span class="float-right">' + value.personnelDailyRate + '</span></td>' +
+                '</tr><tr><td> <strong>Worked on</strong><span class="float-right">' + workDetail + '</span></td>' +
+                '</tr><tr><td><strong>Amount</strong><span class="float-right">' + value.amount + '</span></td></tr></tbody></table>';
+
+            modal.find("#arrearContainer").append(valueHtml);
+            $('#totalArrears').text(data.totalArrears);
         });
     }
 

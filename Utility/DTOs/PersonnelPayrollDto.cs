@@ -27,5 +27,6 @@ namespace Utility.DTOs
         public string Period { get; set; }
         public IEnumerable<AllowanceDto> Allowances { get; set; }
         public IEnumerable<SpecificDeductionDto> SpecificDeductions { get; set; }
+        public IEnumerable<ArrearDto> Arrears { get; set; }
     }
 }

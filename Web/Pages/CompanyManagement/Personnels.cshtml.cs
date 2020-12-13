@@ -83,7 +83,7 @@ namespace Web.Pages.CompanyManagement
 
             else
             {
-                await UpdatePersonnelInDataBase(personnelInputModel, personnelInDb);
+                UpdatePersonnelInDataBase(personnelInputModel, personnelInDb);
 
                 if (await _repository.SaveAll())
                 {
@@ -122,7 +122,7 @@ namespace Web.Pages.CompanyManagement
             return RedirectToPage();
         }
 
-        private async Task UpdatePersonnelInDataBase(PersonnelInputModel personnelInputModel, Personnel personnelInDb)
+        private void UpdatePersonnelInDataBase(PersonnelInputModel personnelInputModel, Personnel personnelInDb)
         {
             personnelInDb.Id = personnelInputModel.Id;
             personnelInDb.FirstName = personnelInputModel.FirstName.ToTitleCase();
@@ -143,7 +143,7 @@ namespace Web.Pages.CompanyManagement
             personnelInDb.Address = personnelInputModel.Address;
             personnelInDb.Designation = personnelInputModel.Designation;
 
-            var currentPayroll = personnelInDb.Payrolls.GetCurrentPayroll();
+            /*var currentPayroll = personnelInDb.Payrolls.GetCurrentPayroll();
 
             if (currentPayroll != null)
             {
@@ -153,7 +153,7 @@ namespace Web.Pages.CompanyManagement
 
                 await _repository.ReApplyVariablesOnCurrentPayroll(currentPayroll);
 
-            }
+            }*/
         }
     }
 }

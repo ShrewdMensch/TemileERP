@@ -6,6 +6,7 @@ using Microsoft.AspNetCore.Html;
 using Domain;
 using Utility.DTOs;
 using Utility.Comparer;
+using Domain.Utility;
 
 namespace Utility
 {
@@ -206,12 +207,41 @@ namespace Utility
             return firstDateStr + " to " + secondDateStr;
 
         }
+
         public static string[] SplitBySpace(this string theString)
         {
             return theString.Split(' ', 2);
 
         }
 
+        public static DateRange ToDateRange(this string dateRangeStr)
+        {
+            if (dateRangeStr == null) return null;
+
+            DateTime startDate, endDate;
+
+            if (dateRangeStr.IndexOf("to") >= 0)
+            {
+                var dateRangeArray = dateRangeStr.Split("to");
+                startDate = DateTime.Parse(dateRangeArray[0].Trim());
+                endDate = DateTime.Parse(dateRangeArray[1].Trim());
+            }
+
+            else
+            {
+                startDate = DateTime.Parse(dateRangeStr.Trim());
+                endDate = DateTime.Parse(dateRangeStr.Trim());
+            }
+
+            var dateRange = new DateRange
+            {
+                StartDate = startDate,
+                EndDate = endDate
+            };
+
+            return dateRange;
+
+        }
         /***********************************************************************************************************
                ******* int Extension Methods*************************************************************************
                ************************************************************************************************************/

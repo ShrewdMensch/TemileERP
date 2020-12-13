@@ -1,12 +1,12 @@
-<!-- Modal -->
+﻿<!-- Modal -->
 <div class="modal fade animated fadeInDown custo-fadeInDown show payrollPrintModal" id="payrollPrintModal"
-    data-backdrop="static" data-keyboard="false" tabindex="-1" aria-labelledby="staticBackdropLabel" aria-hidden="true">
+     data-backdrop="static" data-keyboard="false" tabindex="-1" aria-labelledby="staticBackdropLabel" aria-hidden="true">
     <div class="modal-dialog modal-xl  modal-dialog-centered modal-dialog-scrollable">
         <div class="modal-content">
             <div class="modal-header">
                 <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none"
-                    stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"
-                    class="feather feather-file">
+                     stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"
+                     class="feather feather-file">
                     <path d="M13 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V9z"></path>
                     <polyline points="13 2 13 9 20 9"></polyline>
                 </svg>
@@ -21,8 +21,10 @@
                         <h4 class="page-title">Payslip</h4>
                     </div>
                     <div class="col-sm-7 col-8 text-right m-b-30">
-                        <button class="btn btn-white btn-lg" id="printBtn"><i class="fa fa-print fa-lg mr-2"></i>
-                            Print</button>
+                        <button class="btn btn-white btn-lg" id="printBtn">
+                            <i class="fa fa-print fa-lg mr-2"></i>
+                            Print
+                        </button>
                     </div>
                 </div>
                 <div class="row" id="salaryContainer">
@@ -107,12 +109,25 @@
                                                 </tr>
                                                 <tr id="rowAllowancesTable" hidden>
                                                     <td>
-                                                        <p class="m-b-10"><strong>Allowances</strong></p>
+                                                        <p class="m-b-10"><strong id="allowanceTitle">Allowances</strong></p>
                                                         <table class="table table-bordered">
                                                             <tbody id="allowances">
                                                             </tbody>
                                                         </table>
                                                     </td>
+                                                </tr>
+                                                <tr id="arrearRow">
+                                                    <td>
+                                                        <p class="m-b-10"><strong id="arrearTitle">Arrears</strong></p>
+                                                        <div id="arrearContainer">
+                                                        </div>
+                                                        <div id="totalArrearsContainer">
+                                                            <strong>Total Arrears</strong> <span id="totalArrears" class="float-right"></span>
+                                                        </div>
+                                                    </td>
+                                                </tr>
+                                                <tr>
+                                                    <td></td>
                                                 </tr>
                                                 <tr class="summation">
                                                     <td>
@@ -143,8 +158,8 @@
                                 </div>
                             </div>
                             <div class="row signature-row d-flex justify-content-between mx-4">
-                                <div class="signature mb-5">Accountant's Siganture and Date</div>
-                                <div class="signature mb-5">Crew's Siganture and Date</div>
+                                <div class="signature">Accountant's Signature and Date</div>
+                                <div class="signature">Crew's Signature and Date</div>
                             </div>
                         </div>
                     </div>

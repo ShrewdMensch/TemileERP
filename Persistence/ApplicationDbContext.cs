@@ -22,6 +22,11 @@ namespace Persistence
                 b.Property(p => p.Id).ValueGeneratedNever();
             });
 
+            builder.Entity<Arrear>()
+            .HasOne(a => a.CorrectivePayroll)
+            .WithMany(p => p.Arrears)
+            .HasForeignKey(a => a.CorrectivePayrollId)
+            .OnDelete(DeleteBehavior.Restrict);
 
         }
         public DbSet<Photo> Photos { get; set; }
@@ -33,5 +38,6 @@ namespace Persistence
         public DbSet<SpecificDeduction> SpecificDeductions { get; set; }
         public DbSet<DeductionDetail> DeductionDetails { get; set; }
         public DbSet<PaymentDetail> PaymentDetails { get; set; }
+        public DbSet<Arrear> Arrears { get; set; }
     }
 }

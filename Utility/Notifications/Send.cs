@@ -21,7 +21,7 @@ namespace Utility
         {
             var sendGridMessage = new SendGridMessage()
             {
-                From = new EmailAddress("Temile Information",_sendGridSetting.From),
+                From = new EmailAddress(_sendGridSetting.From),
                 Subject = message.Subject ?? "Testing SendGrid Mail",
                 PlainTextContent = message.PlainTextContent,
                 HtmlContent = message.HtmlContent,

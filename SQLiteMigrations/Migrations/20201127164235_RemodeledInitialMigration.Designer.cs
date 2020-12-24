@@ -6,11 +6,11 @@ using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 using Persistence;
 
-namespace Persistence.Migrations
+namespace SQLiteMigrations.Migrations
 {
     [DbContext(typeof(ApplicationDbContext))]
-    [Migration("20201211173426_AddPersonnelDesignationToPayrolls")]
-    partial class AddPersonnelDesignationToPayrolls
+    [Migration("20201127164235_RemodeledInitialMigration")]
+    partial class RemodeledInitialMigration
     {
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
@@ -244,9 +244,6 @@ namespace Persistence.Migrations
 
                     b.Property<bool>("IsVariablesSet")
                         .HasColumnType("INTEGER");
-
-                    b.Property<string>("PersonnelDesignation")
-                        .HasColumnType("TEXT");
 
                     b.Property<string>("PersonnelId")
                         .HasColumnType("TEXT");

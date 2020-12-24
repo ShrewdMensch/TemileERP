@@ -111,6 +111,12 @@ function AddSendMailModalLogic() {
         $("#sendMailForm").parsley().reset();
         $("#sendMailForm")[0].reset();
     });
+
+    $("#sendMailForm")
+        .on("submit", function () {
+            $("#discardBtn").attr('disabled',true);
+            $("#sendMailBtn").attr('disabled', true);
+        });
 }
 
 function AddPrintButtonClickEvent() {

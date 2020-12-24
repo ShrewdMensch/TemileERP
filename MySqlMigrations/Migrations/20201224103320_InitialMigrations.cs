@@ -2,9 +2,9 @@
 using Microsoft.EntityFrameworkCore.Metadata;
 using Microsoft.EntityFrameworkCore.Migrations;
 
-namespace Persistence.Migrations
+namespace MySqlMigrations.Migrations
 {
-    public partial class RemodeledInitialMigration : Migration
+    public partial class InitialMigrations : Migration
     {
         protected override void Up(MigrationBuilder migrationBuilder)
         {
@@ -39,8 +39,7 @@ namespace Persistence.Migrations
                 columns: table => new
                 {
                     Id = table.Column<int>(nullable: false)
-                         .Annotation("MySql:ValueGenerationStrategy", MySqlValueGenerationStrategy.IdentityColumn)
-                        .Annotation("Sqlite:Autoincrement", true),
+                        .Annotation("MySql:ValueGenerationStrategy", MySqlValueGenerationStrategy.IdentityColumn),
                     RoleId = table.Column<string>(nullable: false),
                     ClaimType = table.Column<string>(nullable: true),
                     ClaimValue = table.Column<string>(nullable: true)
@@ -141,8 +140,7 @@ namespace Persistence.Migrations
                 columns: table => new
                 {
                     Id = table.Column<int>(nullable: false)
-                     .Annotation("MySql:ValueGenerationStrategy", MySqlValueGenerationStrategy.IdentityColumn)
-                        .Annotation("Sqlite:Autoincrement", true),
+                        .Annotation("MySql:ValueGenerationStrategy", MySqlValueGenerationStrategy.IdentityColumn),
                     UserId = table.Column<string>(nullable: false),
                     ClaimType = table.Column<string>(nullable: true),
                     ClaimValue = table.Column<string>(nullable: true)
@@ -289,6 +287,7 @@ namespace Persistence.Migrations
                     Date = table.Column<DateTime>(nullable: false),
                     IsVariablesSet = table.Column<bool>(nullable: false),
                     PersonnelId = table.Column<string>(nullable: true),
+                    PersonnelDesignation = table.Column<string>(nullable: true),
                     Vessel = table.Column<string>(nullable: true),
                     StartDate = table.Column<DateTime>(nullable: false),
                     EndDate = table.Column<DateTime>(nullable: false),
@@ -320,6 +319,33 @@ namespace Persistence.Migrations
                     table.ForeignKey(
                         name: "FK_Allowances_Payrolls_PayrollId",
                         column: x => x.PayrollId,
+                        principalTable: "Payrolls",
+                        principalColumn: "Id",
+                        onDelete: ReferentialAction.Restrict);
+                });
+
+            migrationBuilder.CreateTable(
+                name: "Arrears",
+                columns: table => new
+                {
+                    Id = table.Column<Guid>(nullable: false),
+                    StartDate = table.Column<DateTime>(nullable: false),
+                    EndDate = table.Column<DateTime>(nullable: false),
+                    AffectedPayrollId = table.Column<string>(nullable: true),
+                    CorrectivePayrollId = table.Column<string>(nullable: true)
+                },
+                constraints: table =>
+                {
+                    table.PrimaryKey("PK_Arrears", x => x.Id);
+                    table.ForeignKey(
+                        name: "FK_Arrears_Payrolls_AffectedPayrollId",
+                        column: x => x.AffectedPayrollId,
+                        principalTable: "Payrolls",
+                        principalColumn: "Id",
+                        onDelete: ReferentialAction.Restrict);
+                    table.ForeignKey(
+                        name: "FK_Arrears_Payrolls_CorrectivePayrollId",
+                        column: x => x.CorrectivePayrollId,
                         principalTable: "Payrolls",
                         principalColumn: "Id",
                         onDelete: ReferentialAction.Restrict);
@@ -391,6 +417,16 @@ namespace Persistence.Migrations
                 name: "IX_Allowances_PayrollId",
                 table: "Allowances",
                 column: "PayrollId");
+
+            migrationBuilder.CreateIndex(
+                name: "IX_Arrears_AffectedPayrollId",
+                table: "Arrears",
+                column: "AffectedPayrollId");
+
+            migrationBuilder.CreateIndex(
+                name: "IX_Arrears_CorrectivePayrollId",
+                table: "Arrears",
+                column: "CorrectivePayrollId");
 
             migrationBuilder.CreateIndex(
                 name: "IX_AspNetRoleClaims_RoleId",
@@ -485,6 +521,9 @@ namespace Persistence.Migrations
         {
             migrationBuilder.DropTable(
                 name: "Allowances");
+
+            migrationBuilder.DropTable(
+                name: "Arrears");
 
             migrationBuilder.DropTable(
                 name: "AspNetRoleClaims");

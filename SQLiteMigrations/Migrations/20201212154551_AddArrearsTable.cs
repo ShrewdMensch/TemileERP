@@ -1,7 +1,7 @@
 ﻿using System;
 using Microsoft.EntityFrameworkCore.Migrations;
 
-namespace Persistence.Migrations
+namespace SQLiteMigrations.Migrations
 {
     public partial class AddArrearsTable : Migration
     {

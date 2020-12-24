@@ -3,14 +3,13 @@ using System;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Migrations;
-using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 using Persistence;
 
-namespace Persistence.Migrations
+namespace SQLiteMigrations.Migrations
 {
     [DbContext(typeof(ApplicationDbContext))]
-    [Migration("20201127164235_RemodeledInitialMigration")]
-    partial class RemodeledInitialMigration
+    [Migration("20201212154551_AddArrearsTable")]
+    partial class AddArrearsTable
     {
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
@@ -144,6 +143,33 @@ namespace Persistence.Migrations
                     b.ToTable("AspNetUsers");
                 });
 
+            modelBuilder.Entity("Domain.Arrear", b =>
+                {
+                    b.Property<Guid>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("TEXT");
+
+                    b.Property<string>("AffectedPayrollId")
+                        .HasColumnType("TEXT");
+
+                    b.Property<string>("CorrectivePayrollId")
+                        .HasColumnType("TEXT");
+
+                    b.Property<DateTime>("EndDate")
+                        .HasColumnType("TEXT");
+
+                    b.Property<DateTime>("StartDate")
+                        .HasColumnType("TEXT");
+
+                    b.HasKey("Id");
+
+                    b.HasIndex("AffectedPayrollId");
+
+                    b.HasIndex("CorrectivePayrollId");
+
+                    b.ToTable("Arrears");
+                });
+
             modelBuilder.Entity("Domain.Deduction", b =>
                 {
                     b.Property<Guid>("Id")
@@ -244,6 +270,9 @@ namespace Persistence.Migrations
 
                     b.Property<bool>("IsVariablesSet")
                         .HasColumnType("INTEGER");
+
+                    b.Property<string>("PersonnelDesignation")
+                        .HasColumnType("TEXT");
 
                     b.Property<string>("PersonnelId")
                         .HasColumnType("TEXT");
@@ -547,6 +576,18 @@ namespace Persistence.Migrations
                     b.HasOne("Domain.Photo", "Photo")
                         .WithMany()
                         .HasForeignKey("PhotoId");
+                });
+
+            modelBuilder.Entity("Domain.Arrear", b =>
+                {
+                    b.HasOne("Domain.Payroll", "AffectedPayroll")
+                        .WithMany()
+                        .HasForeignKey("AffectedPayrollId");
+
+                    b.HasOne("Domain.Payroll", "CorrectivePayroll")
+                        .WithMany("Arrears")
+                        .HasForeignKey("CorrectivePayrollId")
+                        .OnDelete(DeleteBehavior.Restrict);
                 });
 
             modelBuilder.Entity("Domain.Deduction", b =>

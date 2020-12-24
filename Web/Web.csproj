@@ -4,8 +4,10 @@
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\Domain\Domain.csproj" />
+    <ProjectReference Include="..\MySqlMigrations\MySqlMigrations.csproj" />
     <ProjectReference Include="..\Utility\Utility.csproj" />
     <ProjectReference Include="..\Persistence\Persistence.csproj" />
+    <ProjectReference Include="..\SQLiteMigrations\SQLiteMigrations.csproj" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="wwwroot\assets\css\pages\NewFolder\" />

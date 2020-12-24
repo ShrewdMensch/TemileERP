@@ -35,16 +35,10 @@
                                 <a class="dropdown-item" id="exportToExcelBtn">To Excel</a>
                             </div>
                         </div>
-                        <div class="btn-group mt-sm-3 mr-2" role="group">
-                            <button id="btnGroupDrop2" type="button" class="btn btn-white dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                                Send Via Mail
-                                <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-chevron-down"><polyline points="6 9 12 15 18 9"></polyline></svg>
-                            </button>
-                            <div class="dropdown-menu" aria-labelledby="btnGroupDrop2">
-                                <a class="dropdown-item" id="sendPdfBtn">PDF</a>
-                                <a class="dropdown-item" id="sendExcelBtn">Excel</a>
-                            </div>
-                        </div>
+                        <button class="btn btn-white mr-2 mt-sm-3" id="printBtn" data-toggle="modal" data-target="#sendMailModal">
+                            <i class="fa fa-envelope fa-lg mr-2"></i>
+                            Send Via Mail
+                        </button>
                     </div>
                 </div>
                 <div class="row" id="bankInstructionContainer">

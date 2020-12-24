@@ -1,0 +1,7 @@
+﻿#sendMailModal .modal-content {
+    background-color: #bbb;
+}
+
+ #sendMailModal .modal-content .form-group label, #sendMailModal .modal-content label {
+        color: #fff!important;
+}

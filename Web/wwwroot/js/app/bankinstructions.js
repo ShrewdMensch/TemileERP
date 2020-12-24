@@ -5,10 +5,11 @@ $(document).ready(function () {
 
     AddBankInstructionsPrintModalLogic();
 
+    AddSendMailModalLogic();
+
     AddPrintButtonClickEvent();
 
     AddButtonsClickEvent();
-
 });
 
 function GetCreatedPdfFromTable() {
@@ -81,31 +82,34 @@ function AddButtonsClickEvent() {
 
         pdfMake.createPdf(dd).download(todayDate.replace(/ /g, '_') + '_instructionsToBank');
     });
-
-
-    $("#sendPdfBtn").click(function () {
-
-        var dd = GetCreatedPdfFromTable();
-
-        pdfMake.createPdf(dd).getBase64(function (data) {
-            alert(data);
-        });
-    });
-
-
-    $("#sendExcelBtn").click(function () {
-        var uri = 'data:application/vnd.ms-excel;base64,'
-        var workbook = GetWorkBook();
-
-        var XlsxToBase64 = XLSX.write(workbook, { raw: true, type: "base64", bookType: "xlsx" });
-        /* window.location.href = uri + XlsxToBase64;*/
-        alert(XlsxToBase64);
-    });
-
+    
 
     $("#exportToExcelBtn").click(function () {
         var workbook = GetWorkBook();
         XLSX.writeFile(workbook, fileName + ".xlsx", { raw: true, type: "base64", bookType: "xlsx" });
+    });
+}
+
+function AddSendMailModalLogic() {
+    $("#sendMailModal").on("shown.bs.modal", function(event) {
+        $('#discardBtn').attr("disabled", false);
+
+        var dd = GetCreatedPdfFromTable();
+
+        pdfMake.createPdf(dd).getBase64(function(data) {
+            $("#PdfContent").val(data);
+        });
+
+        var workbook = GetWorkBook();
+
+        var XlsxToBase64 = XLSX.write(workbook, { raw: true, type: "base64", bookType: "xlsx" });
+        $("#ExcelContent").val(XlsxToBase64);
+
+    });
+
+    $("#sendMailModal").on("hidden.bs.modal", function(event) {
+        $("#sendMailForm").parsley().reset();
+        $("#sendMailForm")[0].reset();
     });
 }
 
@@ -175,6 +179,7 @@ function AddBankInstructionsPrintModalLogic() {
                 modal.find(".modal-body .row").attr("hidden", false);
                 $("#loader").attr("hidden", true);
                 $(".spinner-border").attr("hidden", true);
+
             },
             error: function () {
                 alert("Error occurred...");

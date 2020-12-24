@@ -14,6 +14,7 @@ using Persistence;
 using AutoMapper;
 using Utility;
 using Microsoft.AspNetCore.HttpOverrides;
+using Utility.Notifications;
 
 namespace Web
 {
@@ -61,6 +62,11 @@ namespace Web
                     options.Conventions.AddPageRoute("/Account/Login", "");
                 }).AddRazorRuntimeCompilation();
 
+
+            services.AddSingleton(Configuration.GetSection("SendGridSetting").Get<SendGridSetting>());
+
+
+
             services.AddControllers(opt =>
             {
                 var policy = new AuthorizationPolicyBuilder().RequireAuthenticatedUser().Build();
@@ -91,6 +97,7 @@ namespace Web
             services.AddAutoMapper(typeof(IRepository));
             services.AddScoped<IUserAccessor, UserAccessor>();
             services.AddScoped<IRepository, Repository>();
+            services.AddScoped<ISend, Send>();
 
         }
 

@@ -3,8 +3,10 @@ using System.Collections.Generic;
 using System.Threading.Tasks;
 using Domain;
 using Microsoft.AspNetCore.Mvc;
+using SendGrid.Helpers.Mail;
 using Utility;
 using Utility.DTOs;
+using Utility.Notifications;
 
 namespace Web.API
 {

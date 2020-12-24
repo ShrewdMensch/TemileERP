@@ -1,0 +1,56 @@
+<form id="sendMailForm" method="post" data-parsley-validate>
+    <!-- Modal -->
+    <div class="modal fade animated fadeInUp custo-fadeInUp show" id="sendMailModal" data-backdrop="static"
+         data-keyboard="false" tabindex="-1" aria-labelledby="staticBackdropLabel" aria-hidden="true">
+        <div class="modal-dialog modal-md  modal-dialog-centered modal-dialog-scrollable" role="document">
+            <div class="modal-content">
+                <div class="modal-body">
+                    <div class="row">
+                        <div class="form-group col-sm-12">
+                            <label class="control-label" for="Name">
+                                Recipient<span class="text-danger">*</span>
+                            </label>
+                            <input required data-parsley-required-message="Recipient is required"
+                                   data-parsley-type="email"
+                                   data-parsley-type-message="Recipient must be a valid email"
+                                   class="form-control" type="text" id="Recipient" value="" name="Recipient">
+
+                            <input type="text" id="PdfContent" name="PdfContent" hidden/>
+                            <input type="text" id="ExcelContent" name="ExcelContent" hidden/>
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="form-group col-sm-12 d-flex justify-content-start">
+                            <label class="switch s-info  mb-4 mr-2">
+                                <input name="AttachExcel" id="attachmentTypeXlxs"
+                                       data-parsley-mincheck="1" data-parsley-required-message="You must attach atleast one format"
+                                       required data-parsley-errors-container="#attachment-error"
+                                       data-parsley-multiple="attachment"
+                                       type="checkbox" value="true">
+                                <span class="slider round"></span>
+                            </label>
+                            <label for="attachmentTypeXlxs">Attach .XLXS</label>
+                        </div>
+                        <div class="form-group col-sm-12 d-flex justify-content-start">
+                            <label class="switch s-info  mb-4 mr-2">
+                                <input name="AttachPdf" id="attachmentTypePDF" type="checkbox" value="true" data-parsley-multiple="attachment">
+                                <span class="slider round"></span>
+                            </label>
+                            <label for="attachmentTypePDF">Attach PDF</label>
+                        </div>
+                        <div class="form-group col-sm-12">
+                            <span id="attachment-error"></span>
+                        </div>
+                    </div>
+                </div>
+                <div class="modal-footer">
+                    <button type="reset" class="btn" data-dismiss="modal" id="discardBtn">
+                        <i class="flaticon-cancel-12"></i>
+                        Discard
+                    </button>
+                    <button asp-page-handler="SendMail" id="sendMailBtn" class="btn btn-primary">Send</button>
+                </div>
+            </div>
+        </div>
+    </div>
+</form>

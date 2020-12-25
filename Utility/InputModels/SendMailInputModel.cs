@@ -1,3 +1,4 @@
+using System;
 using System.Collections.Generic;
 
 namespace Utility.InputModels
@@ -9,6 +10,8 @@ namespace Utility.InputModels
         public string ExcelContent { get; set; }
         public bool AttachExcel { get; set; }
         public bool AttachPdf { get; set; }
+        public string VesselName { get; set; }
+        public Guid BankInstructionId { get; set; }
 
     }
 }

@@ -2,6 +2,7 @@
 using System;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
+using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 using Persistence;
 
 namespace SQLiteMigrations.Migrations
@@ -224,6 +225,39 @@ namespace SQLiteMigrations.Migrations
                     b.HasIndex("PayrollId");
 
                     b.ToTable("DeductionDetails");
+                });
+
+            modelBuilder.Entity("Domain.EmailSentToBankLog", b =>
+                {
+                    b.Property<Guid>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("TEXT");
+
+                    b.Property<string>("AddedById")
+                        .HasColumnType("TEXT");
+
+                    b.Property<DateTime>("DateAdded")
+                        .HasColumnType("TEXT");
+
+                    b.Property<DateTime>("LastModified")
+                        .HasColumnType("TEXT");
+
+                    b.Property<string>("ModifiedById")
+                        .HasColumnType("TEXT");
+
+                    b.Property<int>("SentCount")
+                        .HasColumnType("INTEGER");
+
+                    b.Property<string>("Vessel")
+                        .HasColumnType("TEXT");
+
+                    b.HasKey("Id");
+
+                    b.HasIndex("AddedById");
+
+                    b.HasIndex("ModifiedById");
+
+                    b.ToTable("EmailSentToBankLogs");
                 });
 
             modelBuilder.Entity("Domain.PaymentDetail", b =>
@@ -604,6 +638,17 @@ namespace SQLiteMigrations.Migrations
                     b.HasOne("Domain.Payroll", "Payroll")
                         .WithMany("DeductionDetails")
                         .HasForeignKey("PayrollId");
+                });
+
+            modelBuilder.Entity("Domain.EmailSentToBankLog", b =>
+                {
+                    b.HasOne("Domain.AppUser", "AddedBy")
+                        .WithMany()
+                        .HasForeignKey("AddedById");
+
+                    b.HasOne("Domain.AppUser", "ModifiedBy")
+                        .WithMany()
+                        .HasForeignKey("ModifiedById");
                 });
 
             modelBuilder.Entity("Domain.PaymentDetail", b =>

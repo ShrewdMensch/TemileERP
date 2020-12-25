@@ -39,5 +39,6 @@ namespace Persistence
         public DbSet<DeductionDetail> DeductionDetails { get; set; }
         public DbSet<PaymentDetail> PaymentDetails { get; set; }
         public DbSet<Arrear> Arrears { get; set; }
+        public DbSet<EmailSentToBankLog> EmailSentToBankLogs { get; set; }
     }
 }

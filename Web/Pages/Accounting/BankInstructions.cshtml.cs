@@ -46,11 +46,13 @@ namespace Web.Pages.Accounting
 
             var bankInstructions = payrolls.GroupBy(p => p.Vessel, (vessel, payroll) => new InstructionToBankListDto
             {
+                Id = (_repository.GetCurrentMonthEmailSentToBankLogId(vessel).Result.GetValueOrDefault()),
                 Title = String.Format("Instructions To Bank For {0} Vessel", vessel),
                 Vessel = vessel,
                 Date = payroll.FirstOrDefault()?.Date.ToFormalMonthAndYear(),
                 PersonnelCount = payroll.Count(),
-                GrandTotal = payroll.Sum(p => p.NetPay).ToCurrency()
+                GrandTotal = payroll.Sum(p => p.NetPay).ToCurrency(),
+                SentCount = (_repository.GetCurrentMonthEmailSentToBankLogCount(vessel).Result)
             });
 
             BankInstructions = bankInstructions.DistinctByVessel();
@@ -72,7 +74,19 @@ namespace Web.Pages.Accounting
 
             if (await _send.Mail(message))
             {
-                SetNotificationMessageAndIcon("Email sent to Bank successfully", MessageType.Success);
+                await _repository.CreateOrUpdateEmailSentToBankLog(sendMailInput.BankInstructionId,
+                    _userAccessor.GetCurrentUser(), sendMailInput.VesselName);
+
+                if (await _repository.SaveAll())
+                {
+                    SetNotificationMessageAndIcon("Email sent to Bank successfully", MessageType.Success);
+
+                }
+
+                else
+                {
+                    SetNotificationMessageAndIcon("Email could not be sent to Bank", MessageType.Error);
+                }
             }
 
             else

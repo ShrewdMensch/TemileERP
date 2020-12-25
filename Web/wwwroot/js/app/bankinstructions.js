@@ -91,7 +91,8 @@ function AddButtonsClickEvent() {
 }
 
 function AddSendMailModalLogic() {
-    $("#sendMailModal").on("shown.bs.modal", function(event) {
+    $("#sendMailModal").on("shown.bs.modal", function (event) {
+
         $('#discardBtn').attr("disabled", false);
 
         var dd = GetCreatedPdfFromTable();
@@ -116,6 +117,9 @@ function AddSendMailModalLogic() {
         .on("submit", function () {
             $("#discardBtn").attr('disabled',true);
             $("#sendMailBtn").attr('disabled', true);
+
+            $('#VesselName').val($('#sendBtn').data("vessel"));
+            $('#BankInstructionId').val($('#sendBtn').data("id"));
         });
 }
 
@@ -139,7 +143,11 @@ function AddBankInstructionsPrintModalLogic() {
     $("#bankInstructionsPrintModal").on("shown.bs.modal", function (event) {
         var button = $(event.relatedTarget);
         var vessel = button.data("vessel");
+        var id = button.data("id");
         var modal = $(this);
+
+        modal.find('#sendBtn').attr('data-vessel', vessel);
+        modal.find('#sendBtn').attr('data-id', id);
 
         modal.find(".modal-body .row").attr("hidden", true);
         modal.find("#loader").attr("hidden", false);

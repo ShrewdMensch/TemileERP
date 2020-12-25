@@ -34,7 +34,7 @@ namespace Web
             {
                 options.UseLazyLoadingProxies();
                 options.UseSqlite(
-                    Configuration.GetConnectionString("SQLiteConnection"), x => x.MigrationsAssembly("SQLiteMigrations"));
+                    Configuration.GetConnectionString("DevelopmentDbConnection"), x => x.MigrationsAssembly("SQLiteMigrations"));
             });
 
             StartUpConfigureServices(services);
@@ -46,7 +46,7 @@ namespace Web
             {
                 options.UseLazyLoadingProxies();
                 options.UseMySql(
-                    Configuration.GetConnectionString("MySQLConnection"), x => x.MigrationsAssembly("MySqlMigrations"));
+                    Configuration.GetConnectionString("ProductionDbConnection"), x => x.MigrationsAssembly("MySqlMigrations"));
             });
 
             StartUpConfigureServices(services);

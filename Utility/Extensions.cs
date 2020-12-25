@@ -266,6 +266,22 @@ namespace Utility
         {
             return string.Format("{0} {1}", number.ToString(), (number < 2) ? "day" : "days");
         }
+        public static string ToSentFrequency(this int number)
+        {
+            if(number < 1)
+            {
+                return "Never Sent";
+            }
+
+            else if (number == 1)
+            {
+                return "Sent Once";
+            }
+            else
+            {
+                return string.Format("Sent {0} times", number.ToString());
+            }
+        }
 
         /***********************************************************************************************************
                ******* double/currency Extension Methods*************************************************************************

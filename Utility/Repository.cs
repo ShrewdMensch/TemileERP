@@ -249,5 +249,57 @@ namespace Utility
 
             return staffId;
         }
+
+        /***********************************************************************************************************
+               ******* EmailSentToBankLog Related Queries*************************************************************************
+               ************************************************************************************************************/
+        public async Task<IEnumerable<EmailSentToBankLog>> GetCurrentEmailSentToBankLogs()
+        {
+            var today = DateTime.Today.ToFormalMonthAndYear();
+            var emailSentToBankLogs = (await GetAll<EmailSentToBankLog>()).Where(p => p.DateAdded.ToFormalMonthAndYear() == today);
+
+            return emailSentToBankLogs;
+        }
+
+        public async Task<EmailSentToBankLog> GetCurrentMonthEmailSentToBankLog(string vessel)
+        {
+            var emailSentToBankLog = (await GetCurrentEmailSentToBankLogs())
+                .Where(p => p.Vessel.ToLower() == vessel.ToLower()).FirstOrDefault();
+
+            return emailSentToBankLog;
+        }
+        public async Task<int> GetCurrentMonthEmailSentToBankLogCount(string vessel)
+        {
+            var emailSentToBankLog = await GetCurrentMonthEmailSentToBankLog(vessel);
+
+            return emailSentToBankLog == null ? 0 : emailSentToBankLog.SentCount;
+        }
+        public async Task<Guid?> GetCurrentMonthEmailSentToBankLogId(string vessel)
+        {
+            var emailSentToBankLog = (await GetCurrentEmailSentToBankLogs())
+                .Where(p => p.Vessel.ToLower() == vessel.ToLower()).FirstOrDefault();
+
+            return emailSentToBankLog?.Id;
+        }
+        public async Task CreateOrUpdateEmailSentToBankLog(Guid id, AppUser user, string vessel)
+        {
+            var emailSentToBankLog = (await Get<EmailSentToBankLog>(id));
+
+            if (emailSentToBankLog == null)
+            {
+                var newEmailSentLog = new EmailSentToBankLog { AddedBy = user, ModifiedBy = user, SentCount = 1, Vessel = vessel };
+
+                Add(newEmailSentLog);
+            }
+
+            else
+            {
+                emailSentToBankLog.Vessel = vessel;
+                emailSentToBankLog.ModifiedBy = user;
+                emailSentToBankLog.LastModified = DateTime.Now;
+                emailSentToBankLog.SentCount += 1;
+            }
+
+        }
     }
 }

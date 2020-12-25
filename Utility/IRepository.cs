@@ -52,5 +52,11 @@ namespace Utility
         Task ReApplyVariablesToCurrentPayrolls();
         Task ReApplyVariablesOnCurrentPayroll(Payroll currentPayroll);
 
+        //EmailSentToBankLog Entity Related
+        Task<EmailSentToBankLog> GetCurrentMonthEmailSentToBankLog(string vessel);
+        Task<int> GetCurrentMonthEmailSentToBankLogCount(string vessel);
+        Task<IEnumerable<EmailSentToBankLog>> GetCurrentEmailSentToBankLogs();
+        Task<Guid?> GetCurrentMonthEmailSentToBankLogId(string vessel);
+        Task CreateOrUpdateEmailSentToBankLog(Guid id, AppUser user, string vessel);
     }
 }

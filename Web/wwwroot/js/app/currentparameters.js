@@ -16,7 +16,28 @@ $(document).ready(function () {
     AddUpdateCurrentPayrollVariablesLogic();
 
     AddPersonnelPayrollTableModalOnShowEvent();
+
+    AddArrearPeriodValidator();
 });
+
+function AddArrearPeriodValidator() {
+    Parsley.addValidator('validateArrear', {
+        validateString: function(value) {
+
+            if (value == null || value == '')
+                return false;
+
+            var personId = $('#Personnel_Id').val();
+
+            console.clear();
+
+            return $.ajax("/api/arrears/validate?" + "period=" + value + "&personnelId=" + personId);
+        },
+        messages: {
+            en: "Invalid arrear period specified"
+        }
+    });
+}
 
 function AddPersonnelPayrollTableModalOnShowEvent() {
     $("#personnelPayrollTableModal").on("shown.bs.modal", function (event) {
@@ -273,9 +294,9 @@ function AddDeductionItem(name, amount, count) {
 
 function AddNewArrearItem() {
     var arrearHtml = '<tr class="arrear"><td class="serial-no">1</td><td><div class="cal-icon">' +
-        '<input required="" class="form-control table-input arrearPeriod" type="text" ' +
-        'data-parsley-required-message="Arrear period is required" data-parsley-no-focus name="ArrearPeriods" ' +
-        'value="" data-parsley-trigger-after-failure="input change"></div></td><td><a href="javascript:void(0)" title="Remove item"' +
+        '<input required="" class="form-control table-input arrearPeriod" type="text" data-parsley-validate-arrear ' +
+        'data-parsley-required-message="Arrear period is required" data-parsley-no-focus name="ArrearPeriods" '+
+        'value="" data-parsley-trigger="input"></div></td><td><a href="javascript:void(0)" title="Remove item"' +
         ' class="js-delete"><i class="text-danger fa fa-trash"></i></a></td></tr>';
 
     $('#arrearsBody').append(arrearHtml);
@@ -297,9 +318,10 @@ function AddNewArrearItem() {
 
 function AddArrearItem() {
     var arrearHtml = '<tr class="arrear"><td class="serial-no">1</td><td><div class="cal-icon">' +
-        '<input required="" class="form-control table-input arrearPeriod" type="text" ' +
-        'data-parsley-required-message="Arrear period is required" data-parsley-no-focus name="ArrearPeriods" ' +
-        'value="" data-parsley-trigger-after-failure="input change"></div></td><td><a href="javascript:void(0)" title="Remove item"' +
+        '<input required="" class="form-control table-input arrearPeriod" type="text" data-parsley-validate-arrear ' +
+        'data-parsley-required-message="Arrear period is required" data-parsley-no-focus name="ArrearPeriods" ' 
+        + 'data-parsley-trigger="input"' +
+        'value=""></div></td><td><a href="javascript:void(0)" title="Remove item"' +
         ' class="js-delete"><i class="text-danger fa fa-trash"></i></a></td></tr>';
 
     $('#arrearsBody').append(arrearHtml);

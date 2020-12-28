@@ -1,19 +1,13 @@
-using System;
-using System.Collections.Generic;
 using System.Threading.Tasks;
-using Domain;
 using Microsoft.AspNetCore.Mvc;
-using SendGrid.Helpers.Mail;
 using Utility;
-using Utility.DTOs;
-using Utility.Notifications;
 
 namespace Web.API
 {
     public class ArrearsController : BaseController
     {
         [HttpGet("validate")]
-        public async Task<ActionResult<bool>> IsArrearsPeriodValid(string period, string personnelId)
+        public async Task<ActionResult> IsArrearsPeriodValid(string period, string personnelId)
         {
             var dateRange = period.ToDateRange();
 

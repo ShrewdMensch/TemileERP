@@ -9,8 +9,75 @@ $(document).ready(function () {
 
     AddPrintButtonClickEvent();
 
-    AddButtonsClickEvent();
+    AddClickEvents();
+
+    AddDeleteHandler();
+
+    AddCcInputEvents();
 });
+
+
+function AddCcInputEvents() {
+    $("#ccInput")
+        .parsley()
+        .on("field:error", function () {
+            $('#addCcBtn').attr('disabled', true);
+        });
+
+    $("#ccInput")
+        .parsley()
+        .on("field:success", function () {
+            $('#addCcBtn').attr('disabled', false);
+        });
+
+    $("#ccInput")
+        .keyup(function () {
+            var input = $(this);
+            if (input.val() == '')
+                $('#addCcBtn').attr('disabled', true);
+        });
+}
+
+function AddCc() {
+    if ($('#ccInput').val() == '') return;
+
+    var ccHtml = '<tr class="ccRow"><td class="serial-no">1</td><td> <input class="form-control table-input ' +
+        'ccRecipient" readonly type="text" name="CcRecipients" value="' + $('#ccInput').val() + '">' +
+        '</td><td><a href="javascript:void(0)" title="Remove item" class="js-delete">' +
+        '<i class="text-danger fa fa-trash"></i></a></td></tr>';
+
+    $('#ccTableBody').append(ccHtml);
+
+    ReorderCcRows();
+    AddDeleteHandler();
+    HideAppropriateTable();
+    $('#ccInput').val('');
+}
+
+
+function AddDeleteHandler() {
+    if ($(".js-delete").length > 0) {
+        $('.js-delete').on('click', function () {
+            var button = $(this);
+            button.parents('tr').remove();
+            ReorderCcRows();
+            HideAppropriateTable();
+        })
+    }
+}
+
+function ReorderCcRows() {
+    $('.ccRow').each(function (index) {
+        var ccRow = $(this);
+        ccRow.children('.serial-no').text(index + 1);
+    });
+}
+
+function HideAppropriateTable() {
+    var noCc = $('.ccRow').length < 1;
+    $("#ccTable").attr("hidden", noCc);
+    $("#ccTableDiv").attr("hidden", noCc);
+}
 
 function GetCreatedPdfFromTable() {
     var todayDate = new Date().toDateString();
@@ -73,7 +140,7 @@ function GetWorkBook() {
     return workbook;
 }
 
-function AddButtonsClickEvent() {
+function AddClickEvents() {
     $("#exportToPdfBtn").click(function () {
 
         var dd = GetCreatedPdfFromTable();
@@ -82,11 +149,23 @@ function AddButtonsClickEvent() {
 
         pdfMake.createPdf(dd).download(todayDate.replace(/ /g, '_') + '_instructionsToBank');
     });
-    
+
 
     $("#exportToExcelBtn").click(function () {
         var workbook = GetWorkBook();
         XLSX.writeFile(workbook, fileName + ".xlsx", { raw: true, type: "base64", bookType: "xlsx" });
+    });
+
+    $('#addCc').click(function () {
+        var chkBox = $('#addCc');
+        $('#ccDetails').attr('hidden', !chkBox.prop("checked"));
+        $('#ccTable').attr('hidden', !chkBox.prop("checked"));
+
+    });
+
+    $('#addCcBtn').click(function () {
+        AddCc();
+        HideAppropriateTable();
     });
 }
 
@@ -97,7 +176,7 @@ function AddSendMailModalLogic() {
 
         var dd = GetCreatedPdfFromTable();
 
-        pdfMake.createPdf(dd).getBase64(function(data) {
+        pdfMake.createPdf(dd).getBase64(function (data) {
             $("#PdfContent").val(data);
         });
 
@@ -108,14 +187,14 @@ function AddSendMailModalLogic() {
 
     });
 
-    $("#sendMailModal").on("hidden.bs.modal", function(event) {
+    $("#sendMailModal").on("hidden.bs.modal", function (event) {
         $("#sendMailForm").parsley().reset();
         $("#sendMailForm")[0].reset();
     });
 
     $("#sendMailForm")
         .on("submit", function () {
-            $("#discardBtn").attr('disabled',true);
+            $("#discardBtn").attr('disabled', true);
             $("#sendMailBtn").attr('disabled', true);
 
             $('#VesselName').val($('#sendBtn').data("vessel"));

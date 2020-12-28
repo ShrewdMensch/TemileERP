@@ -523,3 +523,14 @@ span.flatpickr-day {
 .table-responsive table th {
     text-align: center;
 }
+
+input.form-control.table-input.ccRecipient {
+    outline-color: transparent !important;
+    border-color: transparent !important;
+    background-color: transparent !important;
+    color: #fff;
+}
+
+#ccTable tr:hover {
+    background-color: transparent !important;
+}

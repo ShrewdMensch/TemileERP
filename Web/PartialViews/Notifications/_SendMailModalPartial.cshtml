@@ -1,4 +1,4 @@
-<form id="sendMailForm" method="post" data-parsley-validate>
+﻿<form id="sendMailForm" method="post" data-parsley-validate>
     <!-- Modal -->
     <div class="modal fade animated fadeInUp custo-fadeInUp show" id="sendMailModal" data-backdrop="static"
          data-keyboard="false" tabindex="-1" aria-labelledby="staticBackdropLabel" aria-hidden="true">
@@ -15,17 +15,33 @@
                                    data-parsley-type-message="Recipient must be a valid email"
                                    class="form-control" type="text" id="Recipient" value="" name="Recipient">
 
-                            <input type="text" id="PdfContent" name="PdfContent" hidden/>
-                            <input type="text" id="ExcelContent" name="ExcelContent" hidden/>
-                            <input type="text" id="VesselName" name="VesselName" hidden value=""/>
-                            <input type="text" id="BankInstructionId" name="BankInstructionId" hidden value=""/>
+                            <input type="text" id="PdfContent" name="PdfContent" hidden />
+                            <input type="text" id="ExcelContent" name="ExcelContent" hidden />
+                            <input type="text" id="VesselName" name="VesselName" hidden value="" />
+                            <input type="text" id="BankInstructionId" name="BankInstructionId" hidden value="" />
                         </div>
-                    </div>
-                    <div class="row">
+
                         <div class="form-group col-sm-12 d-flex justify-content-start">
                             <label class="switch s-info  mb-4 mr-2">
+                                <input id="addCc" type="checkbox" value="true">
+                                <span class="slider round"></span>
+                            </label>
+                            <label for="addCc">Show Cc</label>
+                        </div>
+                        <div hidden class="form-group col-sm-12" id="ccDetails">
+                            <label class="control-label" for="ccInput">
+                                Cc
+                            </label>
+                            <input class="form-control" type="text" id="ccInput" data-parsley-trigger="input change" 
+                                  data-parsley-type-message="Cc must be a valid email" data-parsley-type="email" data-parsley-validation-threshold="0"/>
+                            <button class="btn btn-primary mt-2" type="button" id="addCcBtn" disabled>Add to copy</button>
+                        </div>
+                    </div>
+                    <div class="row mt-2">
+                        <div class="form-group col-sm-6 d-flex justify-content-start">
+                            <label class="switch s-info  mb-4 mr-2">
                                 <input name="AttachExcel" id="attachmentTypeXlxs"
-                                       data-parsley-mincheck="1" data-parsley-required-message="You must attach atleast one format"
+                                       data-parsley-mincheck="1" data-parsley-required-message="You must attach atleast one format (pdf or excel)"
                                        required data-parsley-errors-container="#attachment-error"
                                        data-parsley-multiple="attachment"
                                        type="checkbox" value="true">
@@ -33,7 +49,7 @@
                             </label>
                             <label for="attachmentTypeXlxs">Attach .XLXS</label>
                         </div>
-                        <div class="form-group col-sm-12 d-flex justify-content-start">
+                        <div class="form-group col-sm-6 d-flex justify-content-start">
                             <label class="switch s-info  mb-4 mr-2">
                                 <input name="AttachPdf" id="attachmentTypePDF" type="checkbox" value="true" data-parsley-multiple="attachment">
                                 <span class="slider round"></span>
@@ -42,6 +58,21 @@
                         </div>
                         <div class="form-group col-sm-12">
                             <span id="attachment-error"></span>
+                        </div>
+                    </div>
+
+                    <div class="row">
+                        <div class="table-responsive" id="ccTableDiv" hidden>
+                            <table id="ccTable" class="table table-hover table-white" hidden>
+                                <thead>
+                                    <tr>
+                                        <th colspan="2">Cc Recipients</th>
+                                        <th></th>
+                                    </tr>
+                                </thead>
+                                <tbody id="ccTableBody">
+                                 </tbody>
+                            </table>
                         </div>
                     </div>
                 </div>

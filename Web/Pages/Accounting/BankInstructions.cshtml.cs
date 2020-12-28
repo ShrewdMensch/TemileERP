@@ -106,7 +106,6 @@ namespace Web.Pages.Accounting
                     Content = sendMailInput.ExcelContent,
                     FileName = subject + ".xlsx"
                 });
-
             }
 
             if (sendMailInput.AttachPdf)
@@ -120,6 +119,12 @@ namespace Web.Pages.Accounting
             }
 
             message.ToRecipients.Add(new EmailAddress(sendMailInput.Recipient));
+
+
+            foreach (var ccRecipient in sendMailInput.CcRecipients)
+            {
+                message.CcRecipients.Add(new EmailAddress(ccRecipient));
+            }
 
             message.HtmlContent = "<p>Dear Banker, <br><br> Find attached Temile and Sons Employees' Pay Slip for " + monthYear +
                 "<br><br>Best Regards, <br>Temile and Sons Limited</p>";

@@ -393,6 +393,11 @@ function AddDeleteHandler() {
         HideAppropriateTable();
     });
 
+    $('#deleteAllArrears').on('click', function () {
+        $('#arrearTable').find('tbody tr').remove();
+        HideAppropriateTable();
+    });
+
 
 }
 

@@ -1,3 +1,4 @@
+var joinedCalendar;
 $(document).ready(function () {
     InitializeDataTables();
 
@@ -18,7 +19,24 @@ $(document).ready(function () {
 
 
     AddSpinToDailyRate();
+
+    InitializeDateJoinedCalendarPicker();
+
 });
+
+function InitializeDateJoinedCalendarPicker() {
+    flatpickr("#Personnel_DateJoined", {
+        dateFormat: "d/m/Y",
+        maxDate: 'today',
+        position: "auto center"
+    });
+
+    joinedCalendar = flatpickr("#Edit_DateJoined", {
+        dateFormat: "d/m/Y",
+        maxDate: 'today',
+        position: "auto center"
+    });
+}
 
 function AddPersonnelDetailsLogic() {
     $("#personnelDetailsModal").on("shown.bs.modal", function (event) {
@@ -60,6 +78,11 @@ function AddPersonnelEditLogic() {
         $("#editBtn").attr("disabled", true);
 
         initialform = LoadValuesFromApiToPersonnelEditForm(id, initialform, form, modal);
+    });
+
+    $("#personnelEditModal").on("hidden.bs.modal", function (event) {
+        $("#personnelEditForm").parsley().reset();
+        $("#personnelEditForm")[0].reset();
     });
 }
 
@@ -163,6 +186,8 @@ function LoadValuesFromApiToPersonnelEditForm(id, initialform, form, modal) {
             $("#Edit_NextOfKin").val(data.nextOfKin);
             $("#Edit_NextOfKinPhoneNo").val(data.nextOfKinPhoneNumber);
             $("#Edit_Address").val(data.address);
+
+            joinedCalendar.setDate(data.dateJoined, true, 'M. d, Y');
 
             $("#Edit_Bank").val(data.bank);
             $("#Edit_Bank").trigger("change");

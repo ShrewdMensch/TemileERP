@@ -125,9 +125,6 @@ function InitializeCalendar() {
             if (selectedDates.length > 1) {
                 $('#Edit_StartDate').val(getStandardShortDate(new Date(selectedDates[0])));
                 $('#Edit_EndDate').val(getStandardShortDate(new Date(selectedDates[1])));
-
-                console.log("Calendar Instance " + instance);
-                console.log("Calendar Instance Value " + instance[0]);
             }
         }
     });

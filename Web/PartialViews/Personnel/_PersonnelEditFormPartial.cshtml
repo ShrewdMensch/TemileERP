@@ -41,6 +41,12 @@
                             <input class="form-control" type="text" id="Edit_OtherName" name="OtherName" value="">
                         </div>
                         <div class="form-group col-sm-6 tb-alternating">
+                            <label class="control-label" for="Edit_DateJoined">
+                                DateJoined <span class="text-muted-light">(optional, leave blank if it's today)</span>
+                            </label>
+                            <input class="form-control" type="text" id="Edit_DateJoined" name="DateJoined" value="">
+                        </div>
+                        <div class="form-group col-sm-6 tb-alternating">
                             <label class="control-label" for="Edit_Sex">Sex <span class="text-danger">*</span></label>
                             <select required data-parsley-required-message="Sex is required." id="Edit_Sex" name="Sex"
                                     class="form-control">
@@ -159,7 +165,7 @@
                                    data-parsley-pattern-message="Specify a valid 11 digits mobile number."
                                    id="Edit_NextOfKinPhoneNo" name="NextOfKinPhoneNo" pattern="/^\d{11}$/" value="">
                         </div>
-                        <div class="form-group col-sm-12">
+                        <div class="form-group col-sm-6">
                             <label class="control-label" for="Edit_Address">
                                 Address <span class="text-danger">*</span>
                             </label>

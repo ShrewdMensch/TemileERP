@@ -6,8 +6,8 @@ using Domain;
 using Utility;
 using Utility.DTOs;
 using Utility.InputModels;
-using Microsoft.EntityFrameworkCore;
 using static Utility.UtilityClasses;
+using static Utility.UtilityFunctions;
 
 namespace Web.Pages.CompanyManagement
 {
@@ -53,7 +53,8 @@ namespace Web.Pages.CompanyManagement
                 NextOfKin = personnelInputModel.NextOfKin,
                 NextOfKinPhoneNumber = personnelInputModel.NextOfKinPhoneNo,
                 Address = personnelInputModel.Address,
-                Designation = personnelInputModel.Designation
+                Designation = personnelInputModel.Designation,
+                DateJoined = GetDateOrReturnTodayIfNull(personnelInputModel.DateJoined)
             };
 
             personnel.Id = await _repository.GenerateNewPersonnelId(personnel);
@@ -142,6 +143,8 @@ namespace Web.Pages.CompanyManagement
             personnelInDb.NextOfKinPhoneNumber = personnelInputModel.NextOfKinPhoneNo;
             personnelInDb.Address = personnelInputModel.Address;
             personnelInDb.Designation = personnelInputModel.Designation;
+            personnelInDb.DateJoined = string.IsNullOrWhiteSpace(personnelInputModel.DateJoined) ?
+                personnelInDb.DateJoined : GetDateOrReturnTodayIfNull(personnelInputModel.DateJoined);
 
             /*var currentPayroll = personnelInDb.Payrolls.GetCurrentPayroll();
 

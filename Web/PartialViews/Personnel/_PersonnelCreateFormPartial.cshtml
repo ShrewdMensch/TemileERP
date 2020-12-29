@@ -42,6 +42,12 @@
                             </label>
                             <input class="form-control" type="text" id="Personnel_OtherName" name="OtherName" value="">
                         </div>
+                        <div class="form-group col-sm-6 tb-alternating">
+                            <label class="control-label" for="Personnel_DateJoined">
+                                DateJoined <span class="text-muted-light">(optional, leave blank if it's today)</span>
+                            </label>
+                            <input class="form-control" type="text" id="Personnel_DateJoined" name="DateJoined" value="">
+                        </div>
                         <div class="form-group col-sm-6 tb-alternating" id="Personnel_sex_group">
                             <label class="control-label" for="Personnel_Sex">
                                 Sex <span class="text-danger">*</span>
@@ -172,7 +178,7 @@
                                    data-parsley-pattern-message="Specify a valid 11 digits mobile number."
                                    id="Personnel_NextOfKinPhoneNo" name="NextOfKinPhoneNo" pattern="/^\d{11}$/" value="">
                         </div>
-                        <div class="form-group col-sm-12">
+                        <div class="form-group col-sm-6">
                             <label class="control-label" for="Personnel_Address">
                                 Address <span class="text-danger">*</span>
                             </label>

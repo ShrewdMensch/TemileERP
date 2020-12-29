@@ -57,5 +57,18 @@ namespace Utility
 
             return str_build.ToString();
         }
+
+        public static DateTime GetDateOrReturnTodayIfNull(string theDateTimeStr)
+        {
+            try
+            {
+                return string.IsNullOrWhiteSpace(theDateTimeStr) ? DateTime.Now.Date : DateTime.Parse(theDateTimeStr);
+            }
+
+            catch
+            {
+                return DateTime.Now.Date;
+            }
+        }
     }
 }

@@ -52,45 +52,23 @@ namespace Utility
             return theDateTime.ToString("yyyy-MM-dd");
         }
 
-        public static string ToISO8601(this DateTime theDateTime)
-        {
-            return theDateTime.ToUniversalTime().ToString("yyyy'-'MM'-'dd'T'HH':'mm':'ss'Z'", DateTimeFormatInfo.InvariantInfo);
-        }
+        public static string ToISO8601(this DateTime theDateTime) => theDateTime.ToUniversalTime()
+            .ToString("yyyy'-'MM'-'dd'T'HH':'mm':'ss'Z'", DateTimeFormatInfo.InvariantInfo);
 
-        public static string ToFormalTime(this DateTime theDateTime)
-        {
-            return theDateTime.ToString("hh:mm tt");
-        }
+        public static string ToFormalTime(this DateTime theDateTime) => theDateTime.ToString("hh:mm tt");
 
-        public static string ToFormalDate(this DateTime theDateTime)
-        {
-            return theDateTime.ToString("dddd, MMMM, dd, yyyy");
-        }
+        public static string ToFormalDate(this DateTime theDateTime) => theDateTime.ToString("dddd, MMMM, dd, yyyy");
 
-        public static string ToFormalShortDate(this DateTime theDateTime)
-        {
-            return theDateTime.ToString("MMM. dd, yyyy");
-        }
+        public static string ToFormalShortDate(this DateTime theDateTime) => theDateTime.ToString("MMM. dd, yyyy");
 
-        public static string ToFormalShortDateWithTime(this DateTime theDateTime)
-        {
-            return theDateTime.ToString("MMMM dd, yyyy 'at' hh:mmtt");
-        }
+        public static string ToFormalShortDateWithTime(this DateTime theDateTime) => theDateTime.ToString("MMMM dd, yyyy 'at' hh:mmtt");
 
-        public static string ToFormalMonthAndYear(this DateTime theDateTime)
-        {
-            return theDateTime.ToString("MMMM, yyyy");
-        }
+        public static string ToFormalMonthAndYear(this DateTime theDateTime) => theDateTime.ToString("MMMM, yyyy");
 
-        public static string ToFormalMonthAndDay(this DateTime theDateTime)
-        {
-            return theDateTime.ToString("MMMM, dd");
-        }
+        public static string ToFormalMonthAndDay(this DateTime theDateTime) => theDateTime.ToString("MMMM, dd");
 
-        public static string ToFormalShortMonthAndDay(this DateTime theDateTime)
-        {
-            return theDateTime.ToString("MMM dd");
-        }
+        public static string ToFormalShortMonthAndDay(this DateTime theDateTime) => theDateTime.ToString("MMM dd");
+
         public static string ToFormalMonthAndOrdinalDay(this DateTime theDateTime)
         {
             if (theDateTime == null)
@@ -98,41 +76,22 @@ namespace Utility
             return String.Format("{0} {1}", theDateTime.ToFormalOrdinalDay(), theDateTime.ToString("MMM"));
         }
 
-        public static string ToFormalMonth(this DateTime theDateTime)
-        {
-            return theDateTime.ToString("MMMM");
-        }
+        public static string ToFormalMonth(this DateTime theDateTime) => theDateTime.ToString("MMMM");
 
-        public static string ToFormalDay(this DateTime theDateTime)
-        {
-            return theDateTime.ToString("dddd");
-        }
+        public static string ToFormalDay(this DateTime theDateTime) => theDateTime.ToString("dddd");
 
-        public static string ToFormalOrdinalDay(this DateTime theDateTime)
-        {
-            return theDateTime.Day.Ordinal();
-        }
+        public static string ToFormalOrdinalDay(this DateTime theDateTime) => theDateTime.Day.Ordinal();
 
-        public static DateTime ToDateOnly(this DateTime theDateTime)
-        {
-            return theDateTime.Date;
-        }
+        public static DateTime ToDateOnly(this DateTime theDateTime) => theDateTime.Date;
+
         public static DateTime GetFirstDayOfYear(this DateTime theDateTime)
         {
             return new DateTime(theDateTime.Year, 1, 1);
         }
 
-        public static DateTime GetLastDayOfYear(this DateTime theDateTime)
-        {
-            var daysInMonth = DateTime.DaysInMonth(theDateTime.Year, theDateTime.Month);
+        public static DateTime GetLastDayOfYear(this DateTime theDateTime) => new DateTime(theDateTime.Year, 12, 31);
 
-            return new DateTime(theDateTime.Year, 12, 31);
-        }
-
-        public static DateTime GetFirstDayOfMonth(this DateTime theDateTime)
-        {
-            return new DateTime(theDateTime.Year, theDateTime.Month, 1);
-        }
+        public static DateTime GetFirstDayOfMonth(this DateTime theDateTime) => new DateTime(theDateTime.Year, theDateTime.Month, 1);
 
         public static DateTime GetLastDayOfMonth(this DateTime theDateTime)
         {
@@ -268,7 +227,7 @@ namespace Utility
         }
         public static string ToSentFrequency(this int number)
         {
-            if(number < 1)
+            if (number < 1)
             {
                 return "Never Sent";
             }

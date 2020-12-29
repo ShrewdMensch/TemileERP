@@ -37,6 +37,7 @@ namespace Utility
         Task<int> GetNumberOfInctivePersonnels();
         Task<IEnumerable<Personnel>> GetPersonnelsWithCurrentPayroll();
         Task<IEnumerable<Personnel>> GetActivePersonnels();
+        Task<IEnumerable<Personnel>> GetAllPersonnelsOrderByStatus();
 
         //AppUser Related
         Task<string> GenerateNewUserStaffId(AppUser user);

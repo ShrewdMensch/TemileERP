@@ -103,6 +103,7 @@
                         <th class="not-export-col">Name</th>
                         <th>PersonnelName</th>
                         <th>JobStatus</th>
+                        <th>DateLeft</th>
                         <th>DailyRate</th>
                         <th>DaysWorked</th>
                         <th>Vessel</th>
@@ -135,6 +136,7 @@
                                     <span class="badge badge-pill badge-danger">Inactive</span>
                                 }
                             </td>
+                            <td>@payroll.DateLeft</td>
                             <td class="text-left">@payroll.DailyRate.ToCurrency()</td>
                             <td class="text-left">@payroll.DaysWorked</td>
                             <td class="text-left">@payroll.Vessel</td>
@@ -168,6 +170,7 @@
                         <th>Name</th>
                         <th>PersonnelName</th>
                         <th>JobStatus</th>
+                        <th>DateLeft</th>
                         <th>DailyRate</th>
                         <th>Status</th>
                         <th>Vessel</th>

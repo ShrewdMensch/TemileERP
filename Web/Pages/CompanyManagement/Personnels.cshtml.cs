@@ -8,6 +8,7 @@ using Utility.DTOs;
 using Utility.InputModels;
 using static Utility.UtilityClasses;
 using static Utility.UtilityFunctions;
+using System;
 
 namespace Web.Pages.CompanyManagement
 {
@@ -109,6 +110,9 @@ namespace Web.Pages.CompanyManagement
             personnel.IsActive = !personnel.IsActive;
 
             var clause = (personnel.IsActive) ? "active" : "inactive";
+
+            _ = (personnel.IsActive) ? null : personnel.DateLeft = DateTime.Now;
+
 
             if (await _repository.SaveAll())
             {

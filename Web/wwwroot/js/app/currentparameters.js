@@ -191,7 +191,7 @@ function InitializeDataTables() {
                     { orderable: false, targets: -1 },
                     {
                         visible: false,
-                        targets: 1
+                        targets: [1, 3]
                     }
                 ],
                 buttons: [

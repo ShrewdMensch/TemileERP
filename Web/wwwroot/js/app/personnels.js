@@ -364,7 +364,7 @@ function InitializeDataTables() {
                     { orderable: false, targets: [-2, -1] },
                     {
                         visible: false,
-                        targets: [0, 2, 5, 6, 10, 11, 13, 14, 15, 16, 17]
+                        targets: [0, 2, 5, 6, 10, 11, 13, 14, 15, 16, 17, 19]
                     }
                 ],
                 buttons: [

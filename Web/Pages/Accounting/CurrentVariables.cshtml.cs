@@ -31,7 +31,7 @@ namespace Web.Pages.Accounting
 
         public async Task<IActionResult> OnGet()
         {
-            var personnels = await _repository.GetActivePersonnels();
+            var personnels = await _repository.GetAllPersonnelsOrderByStatus();
 
             PersonnelCurrentPayrolls = _mapper.Map<IEnumerable<Personnel>, IEnumerable<PersonnelPayrollDto>>(personnels);
 

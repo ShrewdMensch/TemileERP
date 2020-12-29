@@ -1,5 +1,6 @@
 $.extend($.fn.dataTable.defaults, {
     responsive: true,
+    order: [],
     processing: true,
     iDisplayLength: 5,
     aLengthMenu: [

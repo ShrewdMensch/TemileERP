@@ -16,6 +16,7 @@ namespace Utility.DTOs
         public string DailyRateInCurrency { get; set; }
         public string StartDate { get; set; }
         public string EndDate { get; set; }
+        public string DateLeft { get; set; }
         public bool WorkedWeekend { get; set; }
         public string Vessel { get; set; }
         public double NetPay { get; set; }

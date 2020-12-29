@@ -235,6 +235,12 @@ namespace Utility
 
             return personnels;
         }
+        public async Task<IEnumerable<Personnel>> GetAllPersonnelsOrderByStatus()
+        {
+            var personnels = (await GetAll<Personnel>()).OrderByDescending(p => p.IsActive);
+
+            return personnels;
+        }
 
         /***********************************************************************************************************
                ******* AppUsers Related Queries*************************************************************************

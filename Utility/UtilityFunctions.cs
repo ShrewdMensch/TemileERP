@@ -1,3 +1,5 @@
+using Domain;
+using Domain.Utility;
 using System;
 using System.Text;
 
@@ -69,6 +71,59 @@ namespace Utility
             {
                 return DateTime.Now.Date;
             }
+        }
+
+        public static bool IsArrearsDateRangeApplicable(DateRange dateRange, Payroll payroll, Personnel personnel)
+        {
+            bool dateRangeIsValid = true;
+
+            if ((dateRange.StartDate.Date > dateRange.EndDate.Date) ||
+                !dateRange.StartDate.HasSameMonthAndYearWith(dateRange.EndDate) || payroll == null ||
+                (dateRange.StartDate.Date < personnel.DateJoined.Date) || (dateRange.EndDate < personnel.DateJoined.Date))
+            {
+                dateRangeIsValid = false;
+            }
+
+            if (personnel.DateLeft != null)
+            {
+                if (dateRange.StartDate.Date > personnel.DateLeft.GetValueOrDefault().Date)
+                {
+                    dateRangeIsValid = false;
+                }
+
+                if (dateRange.EndDate.Date > personnel.DateLeft.GetValueOrDefault().Date)
+                {
+                    dateRangeIsValid = false;
+                }
+            }
+
+            return dateRangeIsValid;
+        }
+
+        public static bool IsDaysWorkedApplicableToPersonnel(DateRange dateRange, Personnel personnel)
+        {
+            bool IsDaysWorkedApplicable = true;
+
+            if ((dateRange.StartDate.Date > dateRange.EndDate.Date) || (dateRange.StartDate.Date < personnel.DateJoined.Date) ||
+                (dateRange.EndDate < personnel.DateJoined.Date))
+            {
+                IsDaysWorkedApplicable = false;
+            }
+
+            if (personnel.DateLeft != null)
+            {
+                if (dateRange.StartDate.Date > personnel.DateLeft.GetValueOrDefault().Date)
+                {
+                    IsDaysWorkedApplicable = false;
+                }
+
+                if (dateRange.EndDate.Date > personnel.DateLeft.GetValueOrDefault().Date)
+                {
+                    IsDaysWorkedApplicable = false;
+                }
+            }
+
+            return IsDaysWorkedApplicable;
         }
     }
 }

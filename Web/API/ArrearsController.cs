@@ -1,6 +1,8 @@
 using System.Threading.Tasks;
+using Domain;
 using Microsoft.AspNetCore.Mvc;
 using Utility;
+using static Utility.UtilityFunctions;
 
 namespace Web.API
 {
@@ -10,19 +12,11 @@ namespace Web.API
         public async Task<ActionResult> IsArrearsPeriodValid(string period, string personnelId)
         {
             var dateRange = period.ToDateRange();
-
             var payroll = await Repository.GetPersonnelPayrollByMonth(personnelId, dateRange.StartDate);
+            var personnel = await Repository.Get<Personnel>(personnelId);
+            var dateRangeIsValid = IsArrearsDateRangeApplicable(dateRange, payroll, personnel);
 
-            if (dateRange.StartDate.HasSameMonthAndYearWith(dateRange.EndDate) && payroll != null)
-            {
-                return Ok();
-            }
-
-            else
-            {
-                return NotFound();
-
-            }
+            return dateRangeIsValid ? Ok() : (ActionResult)NotFound();
         }
     }
 

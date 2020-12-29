@@ -18,6 +18,8 @@ $(document).ready(function () {
     AddPersonnelPayrollTableModalOnShowEvent();
 
     AddArrearPeriodValidator();
+
+    AddDaysWorkedValidator();
 });
 
 function AddArrearPeriodValidator() {
@@ -34,7 +36,26 @@ function AddArrearPeriodValidator() {
             return $.ajax("/api/arrears/validate?" + "period=" + value + "&personnelId=" + personId);
         },
         messages: {
-            en: "Invalid arrear period specified"
+            en: "Arrear period is invalid"
+        }
+    });
+}
+
+function AddDaysWorkedValidator() {
+    Parsley.addValidator('validateDaysWorked', {
+        validateString: function (value) {
+
+            if (value == null || value == '')
+                return false;
+
+            var personId = $('#Personnel_Id').val();
+
+            console.clear();
+
+            return $.ajax("/api/payrolls/ValidateDaysWorked?" + "period=" + value + "&personnelId=" + personId);
+        },
+        messages: {
+            en: "Days range is invalid"
         }
     });
 }
@@ -82,6 +103,7 @@ function AddUpdateCurrentPayrollVariablesLogic() {
     $("#currentPayrollVariablesModal").on("hidden.bs.modal", function (event) {
         $("#currentPayrollVariablesForm").parsley().reset();
         $("#currentPayrollVariablesForm")[0].reset();
+        calendar.clear();
     });
 
 }

@@ -4,6 +4,8 @@ using System.Linq;
 using System.Threading.Tasks;
 using Domain;
 using Microsoft.AspNetCore.Mvc;
+using Utility;
+using static Utility.UtilityFunctions;
 using Utility.DTOs;
 
 namespace Web.API
@@ -31,6 +33,16 @@ namespace Web.API
             }
 
             return Ok(Mapper.Map<IEnumerable<Payroll>, IEnumerable<PersonnelPayrollDto>>(payrolls));
+        }
+
+        [HttpGet("ValidateDaysWorked")]
+        public async Task<ActionResult> IsDaysWorkedValid(string period, string personnelId)
+        {
+            var dateRange = period.ToDateRange();
+            var personnel = await Repository.Get<Personnel>(personnelId);
+            var isPeriodValid = IsDaysWorkedApplicableToPersonnel(dateRange, personnel);
+
+            return isPeriodValid ? Ok() : (ActionResult)NotFound();
         }
 
     }

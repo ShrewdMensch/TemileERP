@@ -332,10 +332,35 @@ function InitializeSelect2Components() {
 
 function InitializeDataTables() {
     if ($("#table").length > 0) {
-        $("#table")
-            .addClass("nowrap")
-            .dataTable({
-                columnDefs: [{ orderable: false, targets: -1 }],
+        $("#table").addClass('nowrap').DataTable(
+            {
+                responsive: true,
+                columnDefs: [
+                    { orderable: false, targets: [-2, -1] },
+                    {
+                        visible: false,
+                        targets: [0, 2, 5, 6, 10, 11, 13, 14, 15, 16, 17]
+                    }
+                ],
+                buttons: [
+                    {
+                        extend: "excelHtml5",
+                        text: '<i class="fa fa-file-o mr-2"></i>Export to excel',
+                        exportOptions: {
+                            columns: ':not(.not-export-col)'
+                        },
+                        title: "List of Temile Personnels"
+                    },
+                    {
+                        extend: "copyHtml5",
+                        text: '<i class="fa fa-copy mr-2"></i>Copy to clipboard',
+                        exportOptions: {
+                            columns: ':not(.not-export-col)'
+                        },
+                        title: "List of Temile Personnels"
+
+                    },
+                ]
             });
 
         $(".right-buttons").append(

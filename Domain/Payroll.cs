@@ -16,11 +16,11 @@ namespace Domain
         public string Id { get; set; }
         public double DailyRate { get; set; }
         public int DaysWorked => GetDaysWorked();
-        public double GrossPay => DailyRate * DaysWorked;
+        public double BasicSalary => DailyRate * DaysWorked;
         public double NetPay => GetNetPay();
         public float TotalDeductedPercentage { get; set; }
         public double TotalDeductedAmount => GetTotalDeductedAmount();
-        public double TotalEarnings => GetTotalEarnings();
+        public double GrossPay => GetTotalEarnings();
         public double TotalArrears => Arrears.Sum(a => a.Amount);
         public DateTime Date { get; set; }
         public bool IsVariablesSet { get; set; }
@@ -49,13 +49,13 @@ namespace Domain
         {
             var totalAllowances = Allowances.Sum(s => s.Amount);
 
-            return GrossPay + totalAllowances + TotalArrears;
+            return BasicSalary + totalAllowances + TotalArrears;
         }
 
         private double GetTotalDeductedAmount()
         {
             var totalSpecificDeductions = SpecificDeductions.Sum(s => s.Amount);
-            var totalDeductions = (GrossPay * (TotalDeductedPercentage / 100)) + totalSpecificDeductions;
+            var totalDeductions = (BasicSalary * (TotalDeductedPercentage / 100)) + totalSpecificDeductions;
 
             return totalDeductions;
         }

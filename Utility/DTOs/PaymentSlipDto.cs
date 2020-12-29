@@ -14,7 +14,7 @@ namespace Utility.DTOs
         public string AccountNumber { get; set; }
         public string TotalDeductedPercentage { get; set; }
         public string TotalDeductedAmount { get; set; }
-        public string TotalEarnings { get; set; }
+        public string BasicSalary { get; set; }
         public string TotalArrears { get; set; }
         public string DailyRate { get; set; }
         public string DaysWorked { get; set; }

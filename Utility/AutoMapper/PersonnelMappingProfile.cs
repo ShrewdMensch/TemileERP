@@ -25,7 +25,16 @@ namespace Utility.AutoMapper
 
             CreateMap<Personnel, PersonnelPayrollDto>()
                 .ForMember(destination => destination.PersonnelName, 
-                option => option.MapFrom(source => source.Name))
+                option => option.MapFrom(source => source.Name)) 
+                
+                .ForMember(destination => destination.PersonnelFullName, 
+                option => option.MapFrom(source => source.FullName)) 
+                
+                .ForMember(destination => destination.PersonnelDesignation, 
+                option => option.MapFrom(source => source.Designation))
+                
+                .ForMember(destination => destination.IsPersonnelActive, 
+                option => option.MapFrom(source => source.IsActive))
 
                 .ForMember(destination => destination.PersonnelId, 
                 option => option.MapFrom(source => source.Id))

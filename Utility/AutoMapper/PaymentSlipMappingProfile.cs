@@ -61,8 +61,8 @@ namespace Utility.AutoMapper
                 .ForMember(destination => destination.TotalDeductedAmount,
                 option => option.MapFrom(source => source.TotalDeductedAmount.ToCurrency()))
                 
-                .ForMember(destination => destination.TotalEarnings,
-                option => option.MapFrom(source => source.TotalEarnings.ToCurrency()))
+                .ForMember(destination => destination.BasicSalary,
+                option => option.MapFrom(source => source.BasicSalary.ToCurrency()))
                 
                 .ForMember(destination => destination.TotalArrears,
                 option => option.MapFrom(source => source.TotalArrears.ToCurrency()))

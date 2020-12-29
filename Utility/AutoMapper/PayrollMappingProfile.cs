@@ -12,6 +12,12 @@ namespace Utility.AutoMapper
             CreateMap<Payroll, PersonnelPayrollDto>()
                 .ForMember(destination => destination.PersonnelName,
                 option => option.MapFrom(source => source.Personnel.Name))
+                
+                .ForMember(destination => destination.PersonnelFullName,
+                option => option.MapFrom(source => source.Personnel.FullName))
+                
+                .ForMember(destination => destination.PersonnelDesignation,
+                option => option.MapFrom(source => source.PersonnelDesignation))
 
                 .ForMember(destination => destination.PersonnelId,
                 option => option.MapFrom(source => source.Personnel.Id))
@@ -36,6 +42,9 @@ namespace Utility.AutoMapper
                 
                 .ForMember(destination => destination.GrossPayInCurrency,
                 option => option.MapFrom(source => source.GrossPay.ToCurrency()))
+                
+                .ForMember(destination => destination.TotalDeductedAmountInCurrency,
+                option => option.MapFrom(source => source.TotalDeductedAmount.ToCurrency()))
                 
                 .ForMember(destination => destination.NetPayInCurrency,
                 option => option.MapFrom(source => source.NetPay.ToCurrency()))

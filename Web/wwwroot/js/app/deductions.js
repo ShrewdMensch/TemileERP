@@ -95,9 +95,30 @@ function AddDeductionEditLogic() {
 
 function InitializeDataTable() {
     if ($("#table").length > 0) {
-        $("#table").dataTable({
-            columnDefs: [{ orderable: false, targets: -1 }],
-        });
+        $("#table").addClass('nowrap').dataTable(
+            {
+                responsive: true,
+                columnDefs: [{ orderable: false, targets: -1 }],
+                buttons: [
+                    {
+                        extend: "excelHtml5",
+                        text: '<i class="fa fa-file-o mr-2"></i>Export to excel',
+                        exportOptions: {
+                            columns: ':not(.not-export-col)'
+                        },
+                        title: "List of Temile General Deductions"
+                    },
+                    {
+                        extend: "copyHtml5",
+                        text: '<i class="fa fa-copy mr-2"></i>Copy to clipboard',
+                        exportOptions: {
+                            columns: ':not(.not-export-col)'
+                        },
+                        title: "List of Temile General Deductions"
+
+                    },
+                ]
+            });
 
         $(".right-buttons").append(
             '<div class="float-right mt-2"> <a data-toggle="modal" data-target="#deductionCreateModal" class="btn btn-primary btn-rounded float-right"><i class="fa fa-plus m-r-5"></i> Add Deduction</a></div>'

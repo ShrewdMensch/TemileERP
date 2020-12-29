@@ -114,10 +114,35 @@ function InitializeVesselsSelect2() {
 
 function InitializeDataTable() {
     if ($("#table").length > 0) {
-        table = $("#table")
-            .addClass("nowrap")
-            .dataTable({
-                columnDefs: [{ orderable: false, targets: -1 }],
+        table = $("#table").addClass('nowrap').dataTable(
+            {
+                responsive: true,
+                columnDefs: [
+                    { orderable: false, targets: -1 },
+                    {
+                        visible: false,
+                        targets: [1, 2, 8]
+                    }
+                ],
+                buttons: [
+                    {
+                        extend: "excelHtml5",
+                        text: '<i class="fa fa-file-o mr-2"></i>Export to excel',
+                        exportOptions: {
+                            columns: ':not(.not-export-col)'
+                        },
+                        title: "Temile Personnels' Payroll(s)"
+                    },
+                    {
+                        extend: "copyHtml5",
+                        text: '<i class="fa fa-copy mr-2"></i>Copy to clipboard',
+                        exportOptions: {
+                            columns: ':not(.not-export-col)'
+                        },
+                        title: "Temile Personnels' Payroll(s)"
+
+                    },
+                ],
                 ajax: {
                     url: "/api/payrolls/AllWithPersonnel",
                     dataSrc: "",
@@ -135,6 +160,15 @@ function InitializeDataTable() {
                         }
                     },
                     {
+                        data: "personnelFullName",
+                    },
+                    {
+                        data: "personnelId",
+                    },
+                    {
+                        data: "personnelDesignation",
+                    },
+                    {
                         data: "dailyRateInCurrency",
                     },
                     {
@@ -145,6 +179,9 @@ function InitializeDataTable() {
                     },
                     {
                         data: "grossPayInCurrency",
+                    },
+                    {
+                        data: "totalDeductedAmountInCurrency",
                     },
                     {
                         data: "netPayInCurrency",
@@ -318,9 +355,9 @@ function UpdateValues(data) {
     $("#accountName").text(data.accountName);
     $("#accountNumber").text(data.accountNumber);
     $("#dailyRate").text(data.dailyRate);
-    $("#grossPay").text(data.grossPay);
+    $("#basicSalary").text(data.basicSalary);
     $("#netPay").text(data.netPay);
-    $("#totalEarnings").text(data.totalEarnings);
+    $("#grossPay").text(data.grossPay);
     $("#netPayInWords").text(
         toWords(parseInt(data.netPayRaw).toString()) + " naira"
     );

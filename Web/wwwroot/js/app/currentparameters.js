@@ -22,7 +22,7 @@ $(document).ready(function () {
 
 function AddArrearPeriodValidator() {
     Parsley.addValidator('validateArrear', {
-        validateString: function(value) {
+        validateString: function (value) {
 
             if (value == null || value == '')
                 return false;
@@ -165,10 +165,35 @@ function UpdateArrearsPeriod(arrears) {
 
 function InitializeDataTables() {
     if ($("#table").length > 0) {
-        $("#table")
-            .addClass("nowrap")
-            .dataTable({
-                columnDefs: [{ orderable: false, targets: -1 }],
+        $("#table").addClass('nowrap').dataTable(
+            {
+                responsive: true,
+                columnDefs: [
+                    { orderable: false, targets: -1 },
+                    {
+                        visible: false,
+                        targets: 1
+                    }
+                ],
+                buttons: [
+                    {
+                        extend: "excelHtml5",
+                        text: '<i class="fa fa-file-o mr-2"></i>Export to excel',
+                        exportOptions: {
+                            columns: ':not(.not-export-col)'
+                        },
+                        title: "List of Temile Current Month Payroll Variables"
+                    },
+                    {
+                        extend: "copyHtml5",
+                        text: '<i class="fa fa-copy mr-2"></i>Copy to clipboard',
+                        exportOptions: {
+                            columns: ':not(.not-export-col)'
+                        },
+                        title: "List of Temile Current Month Payroll Variables"
+
+                    },
+                ]
             });
 
         $(".right-buttons").append(
@@ -295,7 +320,7 @@ function AddDeductionItem(name, amount, count) {
 function AddNewArrearItem() {
     var arrearHtml = '<tr class="arrear"><td class="serial-no">1</td><td><div class="cal-icon">' +
         '<input required="" class="form-control table-input arrearPeriod" type="text" data-parsley-validate-arrear ' +
-        'data-parsley-required-message="Arrear period is required" data-parsley-no-focus name="ArrearPeriods" '+
+        'data-parsley-required-message="Arrear period is required" data-parsley-no-focus name="ArrearPeriods" ' +
         'value="" data-parsley-trigger="input"></div></td><td><a href="javascript:void(0)" title="Remove item"' +
         ' class="js-delete"><i class="text-danger fa fa-trash"></i></a></td></tr>';
 
@@ -319,7 +344,7 @@ function AddNewArrearItem() {
 function AddArrearItem() {
     var arrearHtml = '<tr class="arrear"><td class="serial-no">1</td><td><div class="cal-icon">' +
         '<input required="" class="form-control table-input arrearPeriod" type="text" data-parsley-validate-arrear ' +
-        'data-parsley-required-message="Arrear period is required" data-parsley-no-focus name="ArrearPeriods" ' 
+        'data-parsley-required-message="Arrear period is required" data-parsley-no-focus name="ArrearPeriods" '
         + 'data-parsley-trigger="input"' +
         'value=""></div></td><td><a href="javascript:void(0)" title="Remove item"' +
         ' class="js-delete"><i class="text-danger fa fa-trash"></i></a></td></tr>';

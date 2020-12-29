@@ -283,8 +283,29 @@ function AddBankInstructionsPrintModalLogic() {
 
 function InitializeDataTable() {
     if ($("#table2").length > 0) {
-        $("#table2").dataTable({
-            columnDefs: [{ orderable: false, targets: -1 }],
-        });
+        $("#table2").addClass('nowrap').dataTable(
+            {
+                responsive: true,
+                columnDefs: [{ orderable: false, targets: -1 }],
+                buttons: [
+                    {
+                        extend: "excelHtml5",
+                        text: '<i class="fa fa-file-o mr-2"></i>Export to excel',
+                        exportOptions: {
+                            columns: ':not(.not-export-col)'
+                        },
+                        title: "Temile Instructions To Bank"
+                    },
+                    {
+                        extend: "copyHtml5",
+                        text: '<i class="fa fa-copy mr-2"></i>Copy to clipboard',
+                        exportOptions: {
+                            columns: ':not(.not-export-col)'
+                        },
+                        title: "Temile Instructions To Bank"
+
+                    },
+                ]
+            });
     }
 }

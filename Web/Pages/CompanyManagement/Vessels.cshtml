@@ -20,11 +20,12 @@
 <div class="row" id="cancel-row">
     <div class="col-xl-12 col-lg-12 col-sm-12  layout-spacing">
         <div class="widget-content widget-content-area br-6">
-            <table id="table" class="display text-left" style="width:100%">
+            <table id="table" class="display" width="100%">
                 <thead>
                     <tr>
-                        <th>Vessel Name</th>
+                        <th>VesselName</th>
                         <th>DateAdded</th>
+                        <th>AddedBy</th>
                         <th>ModifiedBy</th>
                         <th>LastModified</th>
                         <th></th>
@@ -36,6 +37,7 @@
                         <tr>
                             <td>@vessel.Name</td>
                             <td>@vessel.DateAdded</td>
+                            <td>@vessel.AddedBy</td>
                             <td>@vessel.ModifiedBy</td>
                             <td>@vessel.LastModified</td>
                             <td class="float-right">
@@ -55,8 +57,9 @@
                 </tbody>
                 <tfoot>
                     <tr>
-                        <th>Vessel Name</th>
+                        <th>VesselName</th>
                         <th>DateAdded</th>
+                        <th>AddedBy</th>
                         <th>ModifiedBy</th>
                         <th>LastModified</th>
                         <th></th>

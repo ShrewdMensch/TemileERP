@@ -97,10 +97,12 @@
 
     <div class="col-xl-12 col-lg-12 col-sm-12  layout-spacing">
         <div class="widget-content widget-content-area br-6">
-            <table id="table" class="display text-left" style="width:100%">
+            <table id="table" class="display" width="100%">
                 <thead>
                     <tr>
-                        <th>Name</th>
+                        <th class="not-export-col">Name</th>
+                        <th>PersonnelName</th>
+                        <th>JobStatus</th>
                         <th>DailyRate</th>
                         <th>DaysWorked</th>
                         <th>Vessel</th>
@@ -121,6 +123,17 @@
                                     </div>
                                     <p class="align-self-center mb-0 admin-name">@payroll.PersonnelName </p>
                                 </div>
+                            </td>
+                            <td>@payroll.PersonnelFullName</td>
+                            <td class="text-left">
+                                @if (payroll.IsPersonnelActive)
+                                {
+                                    <span class="badge badge-pill badge-success">Active</span>
+                                }
+                                else
+                                {
+                                    <span class="badge badge-pill badge-danger">Inactive</span>
+                                }
                             </td>
                             <td class="text-left">@payroll.DailyRate.ToCurrency()</td>
                             <td class="text-left">@payroll.DaysWorked</td>
@@ -153,8 +166,10 @@
                 <tfoot>
                     <tr>
                         <th>Name</th>
+                        <th>PersonnelName</th>
+                        <th>JobStatus</th>
                         <th>DailyRate</th>
-                        <th></th>
+                        <th>Status</th>
                         <th>Vessel</th>
                         <th>GrossPay</th>
                         <th>NetPay</th>

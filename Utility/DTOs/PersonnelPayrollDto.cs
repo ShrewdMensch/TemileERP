@@ -8,6 +8,9 @@ namespace Utility.DTOs
         public string PersonnelId { get; set; }
         public string PayrollId { get; set; }
         public string PersonnelName { get; set; }
+        public string PersonnelFullName { get; set; }
+        public string PersonnelDesignation { get; set; }
+        public bool IsPersonnelActive { get; set; }
         public string DaysWorked { get; set; }
         public double DailyRate { get; set; }
         public string DailyRateInCurrency { get; set; }
@@ -20,6 +23,7 @@ namespace Utility.DTOs
         public double GrossPay { get; set; }
         public string GrossPayInCurrency { get; set; }
         public double TotalDeductedAmount { get; set; }
+        public string TotalDeductedAmountInCurrency { get; set; }
         public float TotalDeductedPercentage { get; set; }
         public bool IsPayrollVariablesSet { get; set; }
         public string PhoneNumber { get; set; }

@@ -1,6 +1,5 @@
 $.extend($.fn.dataTable.defaults, {
     responsive: true,
-    stateSave: true,
     processing: true,
     iDisplayLength: 5,
     aLengthMenu: [
@@ -27,16 +26,8 @@ $.extend($.fn.dataTable.defaults, {
         '<"row">rtip',
     buttons: [
         {
-            extend: "print",
-            text: '<i class="fa fa-print mr-2"></i>Print',
-        },
-        {
             extend: "excelHtml5",
             text: '<i class="fa fa-file-o mr-2"></i>Export to excel',
-        },
-        {
-            extend: "pdfHtml5",
-            text: '<i class="fa fa-file-o mr-2"></i>Export to PDF',
         },
         {
             extend: "copyHtml5",

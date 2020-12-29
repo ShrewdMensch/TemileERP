@@ -28,18 +28,18 @@ function AddAppUserDeleteLogic() {
 }
 
 function AddAppUserCreateLogic() {
-    $("#vesselCreateForm").on("hidden.bs.modal", function (event) {
-        $("#vesselCreateForm").parsley().reset();
-        $("#vesselCreateForm")[0].reset();
+    $("#userCreateForm").on("hidden.bs.modal", function (event) {
+        $("#userCreateForm").parsley().reset();
+        $("#userCreateForm")[0].reset();
     });
 }
 
 function AddAppUserEditLogic() {
-    var form = $("#vesselEditForm");
+    var form = $("#userEditForm");
     var initialform;
 
     $(
-        "#vesselEditForm :input,#vesselEditForm select #vesselEditForm textarea"
+        "#userEditForm :input,#userEditForm select #userEditForm textarea"
     ).on("change", function () {
         $("#editBtn").attr("disabled", initialform === $(form).serialize());
     });
@@ -48,12 +48,12 @@ function AddAppUserEditLogic() {
 }
 
 function AddAppUserEditModalOpenEvent(initialform, form) {
-    $("#vesselEditModal").on("shown.bs.modal", function(event) {
+    $("#userEditModal").on("shown.bs.modal", function (event) {
         var button = $(event.relatedTarget);
         var vesselId = button.data("id");
 
         var modal = $(this);
-        $("#vesselId").val(vesselId);
+        $("#userId").val(vesselId);
 
         modal.find(".modal-body .row").attr("hidden", true);
         modal.find("#loader").attr("hidden", false);
@@ -70,7 +70,7 @@ function LoadValuesFromApiToAppUserEditModal(vesselId, initialform, form, modal)
         url: "/api/vessels/" + vesselId,
         dataType: "json",
         type: "GET",
-        success: function(data) {
+        success: function (data) {
             $("#Edit_Name").val(data.name);
 
             initialform = $(form).serialize();
@@ -78,7 +78,7 @@ function LoadValuesFromApiToAppUserEditModal(vesselId, initialform, form, modal)
             $("#loader").attr("hidden", true);
             $(".spinner-border").attr("hidden", true);
         },
-        error: function() {
+        error: function () {
             alert("Error occurred...");
         },
     });
@@ -87,11 +87,33 @@ function LoadValuesFromApiToAppUserEditModal(vesselId, initialform, form, modal)
 
 function InitializeAppUserDataTable() {
     if ($("#table").length > 0) {
-        $("#table").dataTable({
-            columnDefs: [
-                { orderable: false, targets: 4 },
-                { orderable: false, targets: -1 }],
-        });
+        $("#table").addClass('nowrap').dataTable(
+            {
+                responsive: true,
+                columnDefs: [
+                    { orderable: false, targets: 4 },
+                    { orderable: false, targets: -1 }
+                ],
+                buttons: [
+                    {
+                        extend: "excelHtml5",
+                        text: '<i class="fa fa-file-o mr-2"></i>Export to excel',
+                        exportOptions: {
+                            columns: ':not(.not-export-col)'
+                        },
+                        title: "List of Temile AppUsers"
+                    },
+                    {
+                        extend: "copyHtml5",
+                        text: '<i class="fa fa-copy mr-2"></i>Copy to clipboard',
+                        exportOptions: {
+                            columns: ':not(.not-export-col)'
+                        },
+                        title: "List of Temile AppUsers"
+
+                    },
+                ]
+            });
 
         $(".right-buttons").append(
             '<div class="float-right mt-2"> <a data-toggle="modal" data-target="#userCreateModal" class="btn btn-primary btn-rounded float-right"><i class="fa fa-plus m-r-5"></i> Add AppUser</a></div>'

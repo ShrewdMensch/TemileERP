@@ -60,11 +60,6 @@ button.accept-policy {
 
 /* Sticky footer styles
 -------------------------------------------------- */
-html {
-    position: relative;
-    min-height: 100%;
-}
-
 body {
     color: #888ea8;
     height: 100%;
@@ -74,6 +69,7 @@ body {
     overflow-y: auto;
     letter-spacing: 0.0312rem;
     font-family: 'Lato', sans-serif !important;
+    table-layout: fixed;
 }
 
 .footer {

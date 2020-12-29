@@ -45,7 +45,7 @@ function AddVesselEditLogic() {
 }
 
 function AddVesselEditModalOpenEvent(initialform, form) {
-    $("#vesselEditModal").on("shown.bs.modal", function(event) {
+    $("#vesselEditModal").on("shown.bs.modal", function (event) {
         var button = $(event.relatedTarget);
         var vesselId = button.data("id");
 
@@ -67,7 +67,7 @@ function LoadValuesFromApiToVesselEditModal(vesselId, initialform, form, modal) 
         url: "/api/vessels/" + vesselId,
         dataType: "json",
         type: "GET",
-        success: function(data) {
+        success: function (data) {
             $("#Edit_Name").val(data.name);
 
             initialform = $(form).serialize();
@@ -75,7 +75,7 @@ function LoadValuesFromApiToVesselEditModal(vesselId, initialform, form, modal) 
             $("#loader").attr("hidden", true);
             $(".spinner-border").attr("hidden", true);
         },
-        error: function() {
+        error: function () {
             alert("Error occurred...");
         },
     });
@@ -84,9 +84,30 @@ function LoadValuesFromApiToVesselEditModal(vesselId, initialform, form, modal) 
 
 function InitializeVesselDataTable() {
     if ($("#table").length > 0) {
-        $("#table").dataTable({
-            columnDefs: [{ orderable: false, targets: -1 }],
-        });
+        $("#table").addClass('nowrap').dataTable(
+            {
+                responsive: true,
+                columnDefs: [{ orderable: false, targets: -1 }],
+                buttons: [
+                    {
+                        extend: "excelHtml5",
+                        text: '<i class="fa fa-file-o mr-2"></i>Export to excel',
+                        exportOptions: {
+                            columns: ':not(.not-export-col)'
+                        },
+                        title: "List of Temile Vessels"
+                    },
+                    {
+                        extend: "copyHtml5",
+                        text: '<i class="fa fa-copy mr-2"></i>Copy to clipboard',
+                        exportOptions: {
+                            columns: ':not(.not-export-col)'
+                        },
+                        title: "List of Temile Vessels"
+
+                    },
+                ]
+            });
 
         $(".right-buttons").append(
             '<div class="float-right mt-2"> <a data-toggle="modal" data-target="#vesselCreateModal" class="btn btn-primary btn-rounded float-right"><i class="fa fa-plus m-r-5"></i> Add Vessel</a></div>'

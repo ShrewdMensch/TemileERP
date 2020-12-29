@@ -3,7 +3,6 @@ using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
-using Microsoft.Extensions.Hosting;
 using Domain;
 using Microsoft.AspNetCore.Authentication.Cookies;
 using Microsoft.AspNetCore.Authorization;
@@ -20,37 +19,42 @@ namespace Web
 {
     public class Startup
     {
-        public Startup(IConfiguration configuration)
+
+        public Startup(IConfiguration configuration, IWebHostEnvironment hostingEnvironment)
         {
             Configuration = configuration;
+            WebHostEnvironment = hostingEnvironment;
         }
 
         public IConfiguration Configuration { get; }
+        public IWebHostEnvironment WebHostEnvironment { get; }
 
         // This method gets called by the runtime. Use this method to add services to the container.
-        public void ConfigureDevelopmentServices(IServiceCollection services)
+        public void ConfigureServices(IServiceCollection services)
         {
-            services.AddDbContext<ApplicationDbContext>(options =>
+            if (WebHostEnvironment.EnvironmentName == "Development")
             {
-                options.UseLazyLoadingProxies();
-                options.UseSqlite(
-                    Configuration.GetConnectionString("DevelopmentDbConnection"), x => x.MigrationsAssembly("SQLiteMigrations"));
-            });
+                services.AddDbContext<ApplicationDbContext>(options =>
+                {
+                    options.UseLazyLoadingProxies();
+                    options.UseSqlite(
+                        Configuration.GetConnectionString("DevelopmentDbConnection"), x => x.MigrationsAssembly("SQLiteMigrations"));
+                });
+            }
+            else
+            {
+                services.AddDbContext<ApplicationDbContext>(options =>
+                {
+                    options.UseLazyLoadingProxies();
+                    options.UseMySql(
+                        Configuration.GetConnectionString("ProductionDbConnection"), x => x.MigrationsAssembly("MySqlMigrations"));
+                });
+
+            }
 
             StartUpConfigureServices(services);
         }
 
-        public void ConfigureProductionServices(IServiceCollection services)
-        {
-            services.AddDbContext<ApplicationDbContext>(options =>
-            {
-                options.UseLazyLoadingProxies();
-                options.UseMySql(
-                    Configuration.GetConnectionString("ProductionDbConnection"), x => x.MigrationsAssembly("MySqlMigrations"));
-            });
-
-            StartUpConfigureServices(services);
-        }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
         public void ConfigureDevelopment(IApplicationBuilder app)

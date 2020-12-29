@@ -351,6 +351,12 @@ namespace SQLiteMigrations.Migrations
                     b.Property<DateTime>("DateJoined")
                         .HasColumnType("TEXT");
 
+                    b.Property<DateTime?>("DateLeft")
+                        .HasColumnType("TEXT");
+
+                    b.Property<DateTime>("DateRegistered")
+                        .HasColumnType("TEXT");
+
                     b.Property<string>("Designation")
                         .HasColumnType("TEXT");
 

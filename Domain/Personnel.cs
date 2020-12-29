@@ -10,7 +10,7 @@ namespace Domain
         public Personnel()
         {
             IsActive = true;
-            DateJoined = DateTime.Now;
+            DateRegistered = DateTime.Now;
         }
         public string Id { get; set; }
 
@@ -45,7 +45,9 @@ namespace Domain
         public string NextOfKinPhoneNumber { get; set; }
         public string Designation { get; set; }
         public bool IsActive { get; set; }
+        public DateTime DateRegistered { get; set; }
         public DateTime DateJoined { get; set; }
+        public DateTime? DateLeft { get; set; }
         public string Vessel { get; set; }
         public virtual Photo Photo { get; set; }
         public virtual ICollection<Payroll> Payrolls { get; set; }

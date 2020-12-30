@@ -400,6 +400,11 @@ li.select2-results__option {
     background-color: #eee !important;
 }
 
+.payrollPrintModal .netPay {
+    font-size: 18px;
+    font-weight: 900;
+}
+
 
 .payrollPrintModal .inv--payment-info {
     font-size: 13px;
@@ -481,9 +486,9 @@ table input.form-control {
     min-width: 200px;
 }
 
-table input.form-control.arrearPeriod {
+    table input.form-control.arrearPeriod {
         min-width: 250px;
-}
+    }
 
 table i.fa {
     font-size: 20px;
@@ -494,6 +499,7 @@ table i.fa {
 .flatpickr-input[readonly] {
     color: #888;
 }
+
 span.flatpickr-weekday {
     display: inline-block;
     width: 14.2857143%;

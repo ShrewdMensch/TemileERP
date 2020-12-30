@@ -1,4 +1,5 @@
 $.extend($.fn.dataTable.defaults, {
+    saveState: true,
     responsive: true,
     order: [],
     processing: true,

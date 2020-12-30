@@ -253,6 +253,13 @@ function InitializeDataTables() {
                     {
                         data: "grossPayInCurrency",
                     },
+                    {
+                        data: "isPersonnelActive",
+                        render: function (data) {
+                            return data ? '<span class="badge badge-pill badge-success">Active</span>'
+                                : ' <span class="badge badge-pill badge-danger">Inactive</span>';
+                        },
+                    },
                 ],
             });
     }

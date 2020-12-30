@@ -59,5 +59,8 @@ namespace Utility
         Task<IEnumerable<EmailSentToBankLog>> GetCurrentEmailSentToBankLogs();
         Task<Guid?> GetCurrentMonthEmailSentToBankLogId(string vessel);
         Task CreateOrUpdateEmailSentToBankLog(Guid id, AppUser user, string vessel);
+
+        //CompanyInformation Related
+        Task<CompanyInformation> GetCompanyInformation();
     }
 }

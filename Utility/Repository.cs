@@ -307,5 +307,16 @@ namespace Utility
             }
 
         }
+
+        /***********************************************************************************************************
+               ******* ComapnyInformation Related Queries*************************************************************************
+               ************************************************************************************************************/
+        public async Task<CompanyInformation> GetCompanyInformation()
+        {
+            var companyInfo = (await GetAll<CompanyInformation>()).FirstOrDefault();
+
+            return companyInfo;
+        }
+
     }
 }

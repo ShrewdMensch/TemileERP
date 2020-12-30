@@ -1,0 +1,94 @@
+﻿@page "{handler?}"
+@model CompanyInformationModel
+
+@using Utility
+
+@{
+    ViewData["Title"] = "Company Information";
+    ViewData["Name"] = @ViewData["Title"];
+}
+
+@section StyleSheets{
+    <link rel="stylesheet" href="~/assets/css/pages/companyinformation/style.css">
+}
+
+<input type="text" hidden id="message-body" value="@Model.MessageBody.GetHtmlString()">
+<input type="text" hidden id="message-title" value="@Model.MessageTitle">
+<input type="text" hidden id="message-icon" value="@Model.MessageIcon">
+
+<div class="page-header">
+    <div class="page-title">
+        <h3>Company Information</h3>
+    </div>
+</div>
+
+<div class="col-xl-12 col-lg-12 col-md-12 layout-spacing">
+    <form method="post" id="general-info" class="section general-info clearfix" data-parsley-validate>
+        <div class="info">
+            <div class="row">
+                <div class="form-group col-sm-6">
+                    <label class="control-label" for="Name">
+                        Company Name <span class="text-danger">*</span>
+                    </label>
+                    <input required data-parsley-required-message="Company name is required"
+                           class="form-control" type="text" id="Name" asp-for="CompanyInformation.Name" />
+                    <input hidden asp-for="CompanyInformation.Id" />
+                </div>
+                <div class="form-group col-sm-6">
+                    <label class="control-label" for="Address">
+                        Address <span class="text-danger">*</span>
+                    </label>
+                    <input required data-parsley-required-message="Address is required"
+                           class="form-control" type="text" id="Address" asp-for="CompanyInformation.Address" />
+                </div>
+                <div class="form-group col-sm-6">
+                    <label class="control-label" for="City">
+                        City <span class="text-danger">*</span>
+                    </label>
+                    <input required data-parsley-required-message="City is required"
+                           class="form-control" type="text" id="City" asp-for="CompanyInformation.City" />
+                </div>
+                <div class="form-group col-sm-6">
+                    <label class="control-label" for="State">
+                        State <span class="text-danger">*</span>
+                    </label>
+                    <input required data-parsley-required-message="State is required"
+                           class="form-control" type="text" id="State" asp-for="CompanyInformation.State" />
+                </div>
+                <div class="form-group col-sm-6">
+                    <label class="control-label" for="Country">
+                        Country <span class="text-muted-light">(Specify if not Nigeria)</span>
+                    </label>
+                    <input class="form-control" type="text" id="Country" asp-for="CompanyInformation.Country" />
+                </div>
+                <div class="form-group col-sm-6">
+                    <label class="control-label" for="Email">
+                        Email <span class="text-danger">*</span>
+                    </label>
+                    <input required data-parsley-required-message="Email is required"
+                           class="form-control" type="text" id="Email" asp-for="CompanyInformation.Email" />
+                </div>
+                <div class="form-group col-sm-6">
+                    <label class="control-label" for="Telephone">
+                        Telephone <span class="text-danger">*</span> <span class="text-muted-light">(format: +2348123456789)</span>
+                    </label>
+                    <input required data-parsley-required-message="Telephone is required"
+                           class="form-control" type="tel" id="Telephone" pattern="/^\+234\d{10}$/"
+                           asp-for="CompanyInformation.Telephone" />
+                </div>
+            </div>
+        </div>
+        <button type="submit" class="btn btn-primary float-right">Save</button>
+    </form>
+</div>
+
+@section Scripts{
+    @{
+        await Html.RenderPartialAsync("_ValidationScriptsPartial");
+    }
+
+    @{
+        await Html.RenderPartialAsync("/PartialViews/_SweetAlertPartial.cshtml");
+    }
+
+}

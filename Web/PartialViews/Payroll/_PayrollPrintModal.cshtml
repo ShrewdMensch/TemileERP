@@ -1,4 +1,10 @@
-﻿<!-- Modal -->
+﻿@using Utility
+@inject IRepository repository
+
+@{
+    var companyInformation = await repository.GetCompanyInformation();
+}
+<!-- Modal -->
 <div class="modal fade animated fadeInDown custo-fadeInDown show payrollPrintModal" id="payrollPrintModal"
      data-backdrop="static" data-keyboard="false" tabindex="-1" aria-labelledby="staticBackdropLabel" aria-hidden="true">
     <div class="modal-dialog modal-xl  modal-dialog-centered modal-dialog-scrollable">
@@ -32,13 +38,16 @@
                         <div class="card-box">
                             <h4 class="payslip-title">Payslip for <span id="dateTitle"></span></h4>
                             <div class="row">
-                                <div class="col-sm-6 m-b-20">
+                                <div class="col-sm-6 m-b-30">
                                     <img src="/assets/img/logo-dark.png" class="inv-logo" alt="">
                                     <ul class="list-unstyled m-b-0">
-                                        <li>E.A Temile and Sons Dev. Co. Nig Limited</li>
-                                        <li>Queens Drive, Ekurede,</li>
-                                        <li>Urhobo, Warri</li>
-                                        <li>Delta State, Nigeria</li>
+                                        <li>@companyInformation.Name,</li>
+                                        <li>@companyInformation.Address,</li>
+                                        <li>@companyInformation.City,</li>
+                                        <li>@companyInformation.State,</li>
+                                        <li>@companyInformation.Country.</li>
+                                        <li><strong>@companyInformation.Telephone</strong></li>
+                                        <li><strong>@companyInformation.Email</strong></li>
                                     </ul>
                                 </div>
                                 <div class="col-sm-6 m-b-20">

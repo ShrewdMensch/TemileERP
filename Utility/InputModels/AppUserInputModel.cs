@@ -1,5 +1,3 @@
-using System;
-
 namespace Utility.InputModels
 {
     public class AppUserInputModel

@@ -86,7 +86,26 @@ namespace Persistence
                     }
                 };
 
+               
+
                 await context.AddRangeAsync(vessels);
+
+                await context.SaveChangesAsync();
+            }
+
+
+            if (!await context.CompanyInformation.AnyAsync())
+            {
+                var companyInformation = new CompanyInformation
+                {
+                    Name = "E.A Temile and sons Dev. Co. Nig Limited",
+                    Address = "Queens Drive, Ekurede",
+                    City = "Urhobo, Warri",
+                    State = "Delta State",
+                    Country = "Nigeria",
+                };
+
+                context.Add(companyInformation);
                 await context.SaveChangesAsync();
             }
         }

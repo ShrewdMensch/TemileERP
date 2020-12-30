@@ -99,6 +99,37 @@ namespace Web.Pages.Accounting
 
         private static void PrepareMailMessage(SendMailInputModel sendMailInput, EmailMessage message, string monthYear, string subject)
         {
+            AddAttachments(sendMailInput, message, subject);
+
+            AddRecipients(sendMailInput, message);
+
+            AddMessageBody(message, monthYear);
+        }
+
+        private static void AddMessageBody(EmailMessage message, string monthYear)
+        {
+            message.HtmlContent = "<p>Dear Banker, <br><br> Find attached Temile and Sons Employees' Pay Slip for " + monthYear +
+                            "<br><br>Best Regards, <br>Temile and Sons Limited</p>";
+
+            message.PlainTextContent = "FYA";
+        }
+
+        private static void AddRecipients(SendMailInputModel sendMailInput, EmailMessage message)
+        {
+            message.ToRecipients.Add(new EmailAddress(sendMailInput.Recipient));
+
+
+            if (sendMailInput.CcRecipients != null)
+            {
+                foreach (var ccRecipient in sendMailInput.CcRecipients)
+                {
+                    message.CcRecipients.Add(new EmailAddress(ccRecipient));
+                }
+            }
+        }
+
+        private static void AddAttachments(SendMailInputModel sendMailInput, EmailMessage message, string subject)
+        {
             if (sendMailInput.AttachExcel)
             {
                 message.Attachments.Add(new MailAttachment()
@@ -117,19 +148,6 @@ namespace Web.Pages.Accounting
                 });
 
             }
-
-            message.ToRecipients.Add(new EmailAddress(sendMailInput.Recipient));
-
-
-            foreach (var ccRecipient in sendMailInput.CcRecipients)
-            {
-                message.CcRecipients.Add(new EmailAddress(ccRecipient));
-            }
-
-            message.HtmlContent = "<p>Dear Banker, <br><br> Find attached Temile and Sons Employees' Pay Slip for " + monthYear +
-                "<br><br>Best Regards, <br>Temile and Sons Limited</p>";
-
-            message.PlainTextContent = "FYA";
         }
     }
 }

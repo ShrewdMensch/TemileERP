@@ -400,9 +400,10 @@ li.select2-results__option {
     background-color: #eee !important;
 }
 
-.payrollPrintModal .netPay {
+.payrollPrintModal .netSalary {
     font-size: 18px;
     font-weight: 900;
+    color: #333;
 }
 
 

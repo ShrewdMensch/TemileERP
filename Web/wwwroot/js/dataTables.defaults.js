@@ -1,6 +1,5 @@
 $.extend($.fn.dataTable.defaults, {
-    saveState: true,
-    responsive: true,
+    stateSave: true,
     order: [],
     processing: true,
     iDisplayLength: 5,

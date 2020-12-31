@@ -105,7 +105,7 @@ namespace Utility
             bool IsDaysWorkedApplicable = true;
 
             if ((dateRange.StartDate.Date > dateRange.EndDate.Date) || (dateRange.StartDate.Date < personnel.DateJoined.Date) ||
-                (dateRange.EndDate < personnel.DateJoined.Date))
+                (dateRange.EndDate.Date < personnel.DateJoined.Date))
             {
                 IsDaysWorkedApplicable = false;
             }

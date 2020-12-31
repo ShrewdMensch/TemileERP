@@ -10,9 +10,12 @@ using Utility.InputModels;
 using static Utility.UtilityClasses;
 using static Utility.UtilityFunctions;
 using Microsoft.AspNetCore.Identity;
+using Microsoft.AspNetCore.Authorization;
+using Persistence;
 
 namespace Web.Pages.Account
 {
+    [Authorize(Roles = UserRoles.SystemAdministrator)]
     public class UsersModel : BasePageModel
     {
         private readonly IRepository _repository;

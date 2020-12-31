@@ -7,7 +7,7 @@ var tableFilterParams = {
 var calendar, table;
 
 $(document).ready(function () {
-    InitializeDataTable();
+    InitializePayrollDataTables();
 
     InitializeVesselsSelect2();
 
@@ -112,7 +112,7 @@ function InitializeVesselsSelect2() {
     });
 }
 
-function InitializeDataTable() {
+function InitializePayrollDataTables() {
     if ($("#table").length > 0) {
         table = $("#table").addClass('nowrap').dataTable(
             {
@@ -141,6 +141,14 @@ function InitializeDataTable() {
                         },
                         title: "Temile Personnels' Payroll(s)"
 
+                    },
+                    {
+                        extend: "pdfHtml5",
+                        text: '<i class="fa fa-file-o mr-2"></i>Export to PDF',
+                        exportOptions: {
+                            columns: ':visible :not(.not-export-col)'
+                        },
+                        title: "Temile Personnels' Payroll(s)"
                     },
                 ],
                 ajax: {

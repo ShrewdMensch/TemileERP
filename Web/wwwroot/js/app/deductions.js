@@ -117,6 +117,14 @@ function InitializeDataTable() {
                         title: "List of Temile General Deductions"
 
                     },
+                    {
+                        extend: "pdfHtml5",
+                        text: '<i class="fa fa-file-o mr-2"></i>Export to PDF',
+                        exportOptions: {
+                            columns: ':visible :not(.not-export-col)'
+                        },
+                        title: "List of Temile General Deductions"
+                    },
                 ]
             });
 

@@ -1,6 +1,6 @@
 var joinedCalendar;
 $(document).ready(function () {
-    InitializeDataTables();
+    InitializePersonnelDataTables();
 
     InitializeSelect2Components();
 
@@ -355,7 +355,7 @@ function InitializeSelect2Components() {
     });
 }
 
-function InitializeDataTables() {
+function InitializePersonnelDataTables() {
     if ($("#table").length > 0) {
         $("#table").addClass('nowrap').DataTable(
             {
@@ -384,6 +384,14 @@ function InitializeDataTables() {
                         },
                         title: "List of Temile Personnels"
 
+                    },
+                    {
+                        extend: "pdfHtml5",
+                        text: '<i class="fa fa-file-o mr-2"></i>Export to PDF',
+                        exportOptions: {
+                            columns: ':visible :not(.not-export-col)'
+                        },
+                        title: "List of Temile Personnels"
                     },
                 ]
             });

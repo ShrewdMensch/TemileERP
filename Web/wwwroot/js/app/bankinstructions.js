@@ -305,6 +305,14 @@ function InitializeDataTable() {
                         title: "Temile Instructions To Bank"
 
                     },
+                    {
+                        extend: "pdfHtml5",
+                        text: '<i class="fa fa-file-o mr-2"></i>Export to PDF',
+                        exportOptions: {
+                            columns: ':visible :not(.not-export-col)'
+                        },
+                        title: "Temile Instructions To Bank"
+                    },
                 ]
             });
     }

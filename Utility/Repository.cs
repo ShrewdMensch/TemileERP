@@ -201,11 +201,11 @@ namespace Utility
         public async Task<string> GenerateNewPersonnelId(Personnel personnel)
         {
             var personnels = await GetAll<Personnel>();
-            var personnelsForToday = personnels.Where(c => c.DateJoined.ToFormalDate() == DateTime.Today.ToFormalDate());
-            var dateJoined = DateTime.Now;
+            var dateJoined = personnel.DateJoined;
+            var personnelsForAssociateDate = personnels.Where(c => c.DateJoined.ToFormalDate() == dateJoined.ToFormalDate());
 
             var personnelId = String.Format("TEM{0}{1:D2}{2:D2}{3:D4}",
-            dateJoined.Year, dateJoined.Month, dateJoined.Day, (personnelsForToday.Count() + 1));
+            dateJoined.Year, dateJoined.Month, dateJoined.Day, (personnelsForAssociateDate.Count() + 1));
 
             return personnelId;
         }

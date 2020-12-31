@@ -26,13 +26,13 @@ $(document).ready(function () {
 
 function InitializeDateJoinedCalendarPicker() {
     flatpickr("#Personnel_DateJoined", {
-        dateFormat: "d/m/Y",
+        dateFormat: "M d Y",
         maxDate: 'today',
         position: "auto center"
     });
 
     joinedCalendar = flatpickr("#Edit_DateJoined", {
-        dateFormat: "d/m/Y",
+        dateFormat: "M d Y",
         maxDate: 'today',
         position: "auto center"
     });

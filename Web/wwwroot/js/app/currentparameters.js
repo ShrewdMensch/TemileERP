@@ -36,7 +36,7 @@ function AddArrearPeriodValidator() {
             return $.ajax("/api/arrears/validate?" + "period=" + value + "&personnelId=" + personId);
         },
         messages: {
-            en: "Arrear period is invalid"
+            en: "Specified arrear period not applicable"
         }
     });
 }
@@ -55,7 +55,7 @@ function AddDaysWorkedValidator() {
             return $.ajax("/api/payrolls/ValidateDaysWorked?" + "period=" + value + "&personnelId=" + personId);
         },
         messages: {
-            en: "Days range is invalid"
+            en: "Specified days range not applicable"
         }
     });
 }
@@ -138,7 +138,7 @@ function AddButtonClickListerners() {
 function InitializeCalendar() {
     calendar = flatpickr("#Edit_DaysWorked", {
         mode: "range",
-        dateFormat: "d/m/Y",
+        dateFormat: "M d Y",
         minDate: getFirstDayOfLastMonth(),
         maxDate: getLastDayOfCurrentMonth(),
         mode: "range",
@@ -161,7 +161,7 @@ function UpdateArrearsPeriod(arrears) {
     if ($('.arrearPeriod').length > 0) {
         arrearsCalendar = flatpickr(".arrearPeriod", {
             mode: "range",
-            dateFormat: "d/m/Y",
+            dateFormat: "M d Y",
             maxDate: getLastDayOfLastMonth(),
             mode: "range",
             position: "auto auto"
@@ -364,7 +364,7 @@ function AddNewArrearItem() {
 
     flatpickr(arrearPeriod, {
         mode: "range",
-        dateFormat: "d/m/Y",
+        dateFormat: "M d Y",
         maxDate: getLastDayOfLastMonth(),
         mode: "range",
         position: "auto auto"

@@ -35,12 +35,12 @@
 .widget-card-four .w-info p {
     font-weight: 600;
     margin-bottom: 0;
-    color: #5c1ac3;
+    color: #e7515a;
     font-size: 16px;
 }
 .widget-card-four .w-icon {
-    color: #5c1ac3;
-    background-color: #dccff7;
+    color: #e7515a;
+    background-color: #6cd8aa;
     height: 45px;
     display: inline-flex;
     width: 45px;

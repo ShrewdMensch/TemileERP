@@ -9,7 +9,7 @@
 	===============================
 */
 h1, h2, h3, h4, h5, h6 {
-  color: #3b3f5c; }
+  color: #24875d; }
 
 /*
     Basic
@@ -35,7 +35,7 @@ h1, h2, h3, h4, h5, h6 {
     .card-header section > div.collapsed {
       color: #888ea8; }
     .card-header section > div:not(.collapsed) {
-      color: #1b55e2;
+      color: #24875d;
       /*border-bottom: 2px solid #e0e6ed;*/
       font-weight: 600; }
     .card-header section > div .icons {
@@ -62,11 +62,11 @@ h1, h2, h3, h4, h5, h6 {
     .card .card-body ul li:not(:last-child) {
       margin-bottom: 5px; }
     .card .card-body ul li a {
-      color: #3b3f5c;
+      color: #24875d;
       font-size: 13px;
       font-weight: 600; }
       .card .card-body ul li a:hover {
-        color: #1b55e2; }
+        color: #24875d; }
 
 /*
     No Outer Spacing
@@ -104,5 +104,5 @@ h1, h2, h3, h4, h5, h6 {
     fill: rgba(0, 23, 55, 0.08); }
 
 .accordion-icons div:not(.collapsed) .accordion-icon svg {
-  color: #1b55e2;
+  color: #24875d;
   fill: rgba(27, 85, 226, 0.239216); }

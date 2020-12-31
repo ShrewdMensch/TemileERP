@@ -131,7 +131,12 @@ namespace Web
         private void StartUpConfigure(IApplicationBuilder app)
         {
             app.UseHttpsRedirection();
+
+            AddSecurityHeaders(app);
+            AddContentSecurityPolicy(app);
+
             app.UseStaticFiles();
+
 
             app.UseRouting();
 
@@ -145,6 +150,36 @@ namespace Web
             });
 
             app.UseStatusCodePagesWithRedirects("/Error?code={0}");
+        }
+
+        private static void AddSecurityHeaders(IApplicationBuilder app)
+        {
+            app.UseXContentTypeOptions();
+            app.UseReferrerPolicy(opts => opts.NoReferrer());
+            app.UseXXssProtection(opt => opt.EnabledWithBlockMode());
+            app.UseXfo(opt => opt.Deny());
+        }
+        private static void AddContentSecurityPolicy(IApplicationBuilder app)
+        {
+            app.UseCsp(opt => opt
+                .BlockAllMixedContent()
+
+                .StyleSources(s => s.Self().CustomSources("https://fonts.googleapis.com",
+                "sha256-Y5HGV3cmFL1QmdV9FMkQjm7MR7FR+stNxbf9+GKET60=",
+                "sha256-47DEQpj8HBSa+/TImW+5JCeuQeRkm5NMpJWZG3hSuFU=",
+                "sha256-t6oewASd7J1vBg5mQtX4hl8bg8FeegYFM3scKLIhYUc="))
+
+                .FontSources(s => s.Self().CustomSources("https://fonts.gstatic.com"))
+                .FormActions(s => s.Self())
+                .FrameAncestors(s => s.Self())
+                .ImageSources(s => s.Self())
+
+                .ScriptSources(s => s.Self().UnsafeEval()
+                .CustomSources("sha256-ehPVrgdV2GwJCE7DAMSg8aCgaSH3TZmA66nZZv8XrTg=",
+                "sha256-bXzhOTGGMCZbG9CGP2hWDIT3FLu3HWHtJVwHo3YKTys=",
+                "sha256-bYwdB16yXTuYngDpcLvxximXKlVk0H49c/Wfxn7xxnY=",
+                "sha256-cb/G0bW4bFg70i/kY23hth4jNb3wz/pepJTipMtzupw="))
+            );
         }
     }
 }

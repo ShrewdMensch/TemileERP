@@ -556,3 +556,7 @@ input.form-control.table-input.ccRecipient {
         display: none;
     }
 }
+
+.address-for-pdf-export{
+    display: none;
+}

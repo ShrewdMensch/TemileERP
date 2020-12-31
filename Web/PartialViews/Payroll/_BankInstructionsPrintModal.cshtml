@@ -64,24 +64,16 @@
                                         <li><strong>@companyInformation.Email</strong></li>
                                     </ul>
                                 </div>
-                                @*<div class="col-sm-6 m-b-20">
-                                        <div class="invoice-details">
-                                            <h3 class="text-uppercase">
-                                                Payslip #<span class="text-uppercase"
-                                                               id="paySlipNumber"></span>
-                                            </h3>
-                                            <ul class="list-unstyled">
-                                                <li>Salary Month: <span id="date"></span></li>
-                                            </ul>
-                                        </div>
-                                    </div>*@
                             </div>
                             <div class="row" id="forPDF">
-                                <div style="display:none;">
-                                    <div>E.A Temile and Sons Dev. Co. Nig Limited,</div>
-                                    <div>Queens Drive, Ekurede,</div>
-                                    <div>Urhobo, Warri</div>
-                                    <div>Delta State, Nigeria</div>
+                                <div class="address-for-pdf-export">
+                                    <div>@companyInformation.Name,</div>
+                                    <div>@companyInformation.Address,</div>
+                                    <div>@companyInformation.City,</div>
+                                    <div>@companyInformation.State,</div>
+                                    <div>@companyInformation.Country.</div>
+                                    <div><strong>@companyInformation.Telephone</strong></div>
+                                    <div><strong>@companyInformation.Email</strong></div>
                                     <br />
                                     <div class="date-left" id="todayDate"></div>
                                     <br />

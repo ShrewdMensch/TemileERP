@@ -1,8 +1,7 @@
 ﻿using AutoMapper;
 using Domain;
-using System;
-using System.Collections.Generic;
 using Utility.DTOs;
+using Utility.Extensions;
 
 namespace Utility.AutoMapper
 {

@@ -5,6 +5,7 @@ using AutoMapper;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.Logging;
 using Utility;
+using Utility.Extensions;
 using Domain;
 using Utility.DTOs;
 using Utility.InputModels;

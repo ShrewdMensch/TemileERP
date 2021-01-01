@@ -28,13 +28,15 @@ function InitializeDateJoinedCalendarPicker() {
     flatpickr("#Personnel_DateJoined", {
         dateFormat: "M d Y",
         maxDate: 'today',
-        position: "auto center"
+        position: "auto center",
+        disableMobile: "true"
     });
 
     joinedCalendar = flatpickr("#Edit_DateJoined", {
         dateFormat: "M d Y",
         maxDate: 'today',
-        position: "auto center"
+        position: "auto center",
+        disableMobile: "true"
     });
 }
 

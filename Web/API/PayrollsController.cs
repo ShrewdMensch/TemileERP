@@ -4,7 +4,7 @@ using System.Linq;
 using System.Threading.Tasks;
 using Domain;
 using Microsoft.AspNetCore.Mvc;
-using Utility;
+using Utility.Extensions;
 using static Utility.UtilityFunctions;
 using Utility.DTOs;
 

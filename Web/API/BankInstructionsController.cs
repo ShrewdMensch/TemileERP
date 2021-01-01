@@ -5,7 +5,7 @@ using System.Threading.Tasks;
 using Domain;
 using Microsoft.AspNetCore.Mvc;
 using Utility.DTOs;
-using Utility;
+using Utility.Extensions;
 
 namespace Web.API
 {

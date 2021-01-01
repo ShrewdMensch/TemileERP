@@ -1,16 +1,13 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.Globalization;
 using System.Threading.Tasks;
 using AutoMapper;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.Logging;
-using Web.Pages;
-using Domain;
 using Utility;
+using Utility.Extensions;
 using Utility.DTOs;
 using Utility.InputModels;
-using Microsoft.EntityFrameworkCore;
 using static Utility.UtilityClasses;
 using System.Linq;
 using SendGrid.Helpers.Mail;

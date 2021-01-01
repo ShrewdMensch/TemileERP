@@ -2,6 +2,7 @@ using Domain;
 using Domain.Utility;
 using System;
 using System.Text;
+using Utility.Extensions;
 
 namespace Utility
 {

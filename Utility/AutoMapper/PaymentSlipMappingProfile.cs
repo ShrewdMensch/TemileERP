@@ -2,6 +2,7 @@
 using Domain;
 using System;
 using Utility.DTOs;
+using Utility.Extensions;
 
 namespace Utility.AutoMapper
 {

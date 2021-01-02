@@ -156,7 +156,7 @@ namespace Utility
                     {
                         DeductionName = deduction.Name,
                         DeductedPercentage = deduction.Percentage,
-                        DeductedAmount = currentPayroll.GrossPay * (deduction.Percentage / 100)
+                        DeductedAmount = currentPayroll.BasicSalary * (deduction.Percentage / 100)
                     };
 
                     currentPayroll.DeductionDetails.Add(deductionDetail);
@@ -184,7 +184,7 @@ namespace Utility
                 {
                     DeductionName = deduction.Name,
                     DeductedPercentage = deduction.Percentage,
-                    DeductedAmount = currentPayroll.GrossPay * (deduction.Percentage / 100)
+                    DeductedAmount = currentPayroll.BasicSalary * (deduction.Percentage / 100)
                 };
 
                 currentPayroll.DeductionDetails.Add(deductionDetail);

@@ -139,9 +139,8 @@ function InitializeCalendar() {
     calendar = flatpickr("#Edit_DaysWorked", {
         mode: "range",
         dateFormat: "M d Y",
-        minDate: getFirstDayOfLastMonth(),
-        maxDate: getLastDayOfCurrentMonth(),
         mode: "range",
+        maxDate: getLastDayOfCurrentMonth(),
         position: "auto center",
         onValueUpdate: function (selectedDates, dateStr, instance) {
             if (selectedDates.length > 1) {

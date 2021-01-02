@@ -112,7 +112,7 @@ namespace Web.Pages.CompanyManagement
 
             var clause = (personnel.IsActive) ? "active" : "inactive";
 
-            _ = (personnel.IsActive) ? null : personnel.DateLeft = DateTime.Now;
+            personnel.DateLeft = personnel.IsActive ? null : (DateTime?)DateTime.Now;
 
 
             if (await _repository.SaveAll())

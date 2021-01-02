@@ -39,7 +39,6 @@ namespace Domain
 
         private double GetNetPay()
         {
-            var totalAllowances = Allowances.Sum(s => s.Amount);
             var netPay = GetTotalEarnings() - (TotalDeductedAmount);
 
             return netPay;

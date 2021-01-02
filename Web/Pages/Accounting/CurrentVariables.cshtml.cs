@@ -218,7 +218,7 @@ namespace Web.Pages.Accounting
                 {
                     DeductionName = deduction.Name,
                     DeductedPercentage = deduction.Percentage,
-                    DeductedAmount = payroll.GrossPay * (deduction.Percentage / 100)
+                    DeductedAmount = payroll.BasicSalary * (deduction.Percentage / 100)
                 };
 
                 payroll.DeductionDetails.Add(deductionDetail);
@@ -246,7 +246,7 @@ namespace Web.Pages.Accounting
                 {
                     DeductionName = deduction.Name,
                     DeductedPercentage = deduction.Percentage,
-                    DeductedAmount = newPayroll.GrossPay * (deduction.Percentage / 100),
+                    DeductedAmount = newPayroll.BasicSalary * (deduction.Percentage / 100),
                     Payroll = newPayroll
                 };
 

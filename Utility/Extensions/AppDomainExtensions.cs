@@ -15,5 +15,13 @@ namespace Utility.Extensions
 
         public static IEnumerable<InstructionToBankListDto> DistinctByVessel(this IEnumerable<InstructionToBankListDto> instructionToBankDtos) 
             => instructionToBankDtos.Distinct(new InstructionToBankListDtoComparer());
+
+        public static IEnumerable<Payroll> GetPastPayrolls(this Personnel personnel)
+        {
+            var previousPayrolls = personnel.Payrolls.Where(p => p.Date.ToFormalMonthAndYear() != DateTime.Today.ToFormalMonthAndYear());
+
+            return previousPayrolls;
+        }
     }
+
 }

@@ -1,5 +1,5 @@
 // Set the date we're counting down to
-var getYear = new Date().getFullYear()+1;
+var getYear = new Date().getFullYear();
 var countDownDate = new Date("Jan 31, "+ getYear +" 00:00:00").getTime();
 
 // Update the count down every 1 second

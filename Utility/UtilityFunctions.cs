@@ -1,6 +1,7 @@
 using Domain;
 using Domain.Utility;
 using System;
+using System.Linq;
 using System.Text;
 using Utility.Extensions;
 
@@ -113,18 +114,19 @@ namespace Utility
 
             if (personnel.DateLeft != null)
             {
-                if (dateRange.StartDate.Date > personnel.DateLeft.GetValueOrDefault().Date)
-                {
-                    IsDaysWorkedApplicable = false;
-                }
-
-                if (dateRange.EndDate.Date > personnel.DateLeft.GetValueOrDefault().Date)
+                if (dateRange.StartDate.Date > personnel.DateLeft.GetValueOrDefault().Date || dateRange.EndDate.Date > personnel.DateLeft.GetValueOrDefault().Date)
                 {
                     IsDaysWorkedApplicable = false;
                 }
             }
 
             return IsDaysWorkedApplicable;
+        }
+
+        public static bool IsDateRangeCapturedByAnyPersonnelPastPayroll(DateRange dateRange, Personnel personnel)
+        {
+            return personnel.GetPastPayrolls().Any(p => (dateRange.StartDate.Date >= p.StartDate.Date && dateRange.StartDate <= p.EndDate.Date)
+            || (dateRange.EndDate.Date >= p.StartDate.Date && dateRange.EndDate <= p.EndDate.Date));
         }
     }
 }

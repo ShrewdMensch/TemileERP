@@ -30,7 +30,7 @@ function getFirstDayOfLastMonth() {
     var month = date.getMonth();
 
     month === 0 ? year-- : year;
-    month === 0 ? month= 12 : month;
+    month === 0 ? month = 12 : month;
 
     var firstDay = new Date(year, month - 1, 1);
 
@@ -40,6 +40,13 @@ function getFirstDayOfLastMonth() {
 function getLastDayOfLastMonth() {
     var date = new Date();
     var lastDay = new Date(date.getFullYear(), date.getMonth(), 0);
+
+    return lastDay;
+}
+
+function getLastDayOfNextMonth() {
+    var date = new Date();
+    var lastDay = new Date(date.getFullYear(), date.getMonth() + 2, 0);
 
     return lastDay;
 }

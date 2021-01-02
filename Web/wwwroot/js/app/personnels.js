@@ -176,7 +176,6 @@ function LoadValuesFromApiToPersonnelEditForm(id, initialform, form, modal) {
         dataType: "json",
         type: "GET",
         success: function (data) {
-            console.log(data);
             $("#Edit_Surname").val(data.lastName);
             $("#Edit_FirstName").val(data.firstName);
             $("#Edit_OtherName").val(data.otherName);

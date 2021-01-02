@@ -40,7 +40,8 @@ namespace Web.API
         {
             var dateRange = period.ToDateRange();
             var personnel = await Repository.Get<Personnel>(personnelId);
-            var isPeriodValid = IsDaysWorkedApplicableToPersonnel(dateRange, personnel);
+            var isPeriodValid = IsDaysWorkedApplicableToPersonnel(dateRange, personnel) && 
+                !IsDateRangeCapturedByAnyPersonnelPastPayroll(dateRange,personnel);
 
             return isPeriodValid ? Ok() : (ActionResult)NotFound();
         }

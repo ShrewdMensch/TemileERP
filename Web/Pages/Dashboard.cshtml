@@ -1,18 +1,148 @@
 ﻿@page
 @model DashboardModel
 @using Utility
+@using Utility.Extensions
+@using static Utility.UtilityFunctions
+@inject IRepository Repository
 
 @{
     ViewData["Title"] = "Dashboard";
     ViewData["Name"] = "Dashboard";
+
+    var numberOfProcessedPayroll = await Repository.GetNumberOfAllPayrolls();
+    var numberOfActivePersonnels = await Repository.GetNumberOfActivePersonnels();
+    var numberOfInactivePersonnels = await Repository.GetNumberOfInctivePersonnels();
 }
 
 @section StyleSheets{
-    <link rel="stylesheet" href="~/assets/css/pages/coming-soon/style.css">
+    <link rel="stylesheet" href="~/assets/css/dashboard/styles.css">
 }
 
+<div class="page-header">
+    <div class="page-title">
+        <h3>Dashboard</h3>
+    </div>
+</div>
 
-<partial name="/PartialViews/ComingSoon/_PageComingSoonPartial.cshtml" />
+<input type="text" hidden id="message-body" value="@Model.MessageBody.GetHtmlString()">
+<input type="text" hidden id="message-title" value="@Model.MessageTitle">
+<input type="text" hidden id="message-icon" value="@Model.MessageIcon">
+
+<div class="row d-flex justify-content-betwe mt-3">
+    <div class=" col-md-4 col-sm-12 layout-spacing">
+        <div class="card component-card_1">
+            <a asp-page="/CompanyManagement/CompanyInformation">
+                <div class="card-body">
+                    <div class="icon-svg">
+                        <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24"
+                             fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-settings">
+                            <circle cx="12" cy="12" r="3"></circle>
+                            <path d="M19.4 15a1.65 1.65 0 0 0 .33 1.82l.06.06a2 2 0 0 1 0 2.83 2 2 0 0 1-2.83 0l-.06-.06a1.65 1.65 0 0 0-1.82-.33 1.65 1.65 0 0 0-1 1.51V21a2 2 0 0 1-2 2 2 2 0 0 1-2-2v-.09A1.65 1.65 0 0 0 9 19.4a1.65 1.65 0 0 0-1.82.33l-.06.06a2 2 0 0 1-2.83 0 2 2 0 0 1 0-2.83l.06-.06a1.65 1.65 0 0 0 .33-1.82 1.65 1.65 0 0 0-1.51-1H3a2 2 0 0 1-2-2 2 2 0 0 1 2-2h.09A1.65 1.65 0 0 0 4.6 9a1.65 1.65 0 0 0-.33-1.82l-.06-.06a2 2 0 0 1 0-2.83 2 2 0 0 1 2.83 0l.06.06a1.65 1.65 0 0 0 1.82.33H9a1.65 1.65 0 0 0 1-1.51V3a2 2 0 0 1 2-2 2 2 0 0 1 2 2v.09a1.65 1.65 0 0 0 1 1.51 1.65 1.65 0 0 0 1.82-.33l.06-.06a2 2 0 0 1 2.83 0 2 2 0 0 1 0 2.83l-.06.06a1.65 1.65 0 0 0-.33 1.82V9a1.65 1.65 0 0 0 1.51 1H21a2 2 0 0 1 2 2 2 2 0 0 1-2 2h-.09a1.65 1.65 0 0 0-1.51 1z"></path>
+                        </svg>
+                    </div>
+                    <h5 class="card-title">Company Management</h5>
+                    <p class="card-text">Company Information, Personnels and Vessel Management</p>
+                </div>
+            </a>
+        </div>
+    </div>
+    <div class=" col-md-4 col-sm-12 layout-spacing">
+        <div class="card component-card_1">
+            <a asp-page="/Accounting/Payroll">
+                <div class="card-body">
+                    <div class="icon-svg">
+                        <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none"
+                             stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"
+                             class="feather feather-dollar-sign">
+                            <line x1="12" y1="1" x2="12" y2="23"></line>
+                            <path d="M17 5H9.5a3.5 3.5 0 0 0 0 7h5a3.5 3.5 0 0 1 0 7H6"></path>
+                        </svg>
+                    </div>
+                    <h5 class="card-title">Accounting</h5>
+                    <p class="card-text">Current Variables, Payroll Processing, Deductions Mgt, Bank Instructions</p>
+                </div>
+            </a>
+        </div>
+    </div>
+    <div class=" col-md-4 col-sm-12 layout-spacing">
+        <div class="card component-card_1">
+            <a asp-page="/Safety/Index">
+                <div class="card-body">
+                    <div class="icon-svg">
+                        <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none"
+                             stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"
+                             class="feather feather-alert-triangle">
+                            <path d="M10.29 3.86L1.82 18a2 2 0 0 0 1.71 3h16.94a2 2 0 0 0 1.71-3L13.71 3.86a2 2 0 0 0-3.42 0z">
+                            </path>
+                            <line x1="12" y1="9" x2="12" y2="13"></line>
+                            <line x1="12" y1="17" x2="12.01" y2="17"></line>
+                        </svg>
+                    </div>
+                    <h5 class="card-title">Safety</h5>
+                    <p class="card-text">Safety Management</p>
+                </div>
+            </a>
+        </div>
+    </div> 
+    <div class=" col-md-4 col-sm-12 layout-spacing">
+        <div class="card component-card_1">
+            <a asp-page="/MarineAndCrew/Index">
+                <div class="card-body">
+                    <div class="icon-svg">
+                        <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none"
+                             stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"
+                             class="feather feather-anchor">
+                            <circle cx="12" cy="5" r="3"></circle>
+                            <line x1="12" y1="22" x2="12" y2="8"></line>
+                            <path d="M5 12H2a10 10 0 0 0 20 0h-3"></path>
+                        </svg>
+                    </div>
+                    <h5 class="card-title">Marine and Crew</h5>
+                    <p class="card-text">Marine and Crew Management</p>
+                </div>
+            </a>
+        </div>
+    </div>
+    <div class=" col-md-4 col-sm-12 layout-spacing">
+        <div class="card component-card_1">
+            <a asp-page="/InventoryMgt/Index">
+                <div class="card-body">
+                    <div class="icon-svg">
+                        <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none"
+                             stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"
+                             class="feather feather-truck">
+                            <rect x="1" y="3" width="15" height="13"></rect>
+                            <polygon points="16 8 20 8 23 11 23 16 16 16 16 8"></polygon>
+                            <circle cx="5.5" cy="18.5" r="2.5"></circle>
+                            <circle cx="18.5" cy="18.5" r="2.5"></circle>
+                        </svg>
+                    </div>
+                    <h5 class="card-title">Inventory Management</h5>
+                    <p class="card-text">Inventory Management</p>
+                </div>
+            </a>
+        </div>
+    </div>
+    <div class=" col-md-4 col-sm-12 layout-spacing">
+        <div class="card component-card_1">
+            <a asp-page="/Procurement/Index">
+                <div class="card-body">
+                    <div class="icon-svg">
+                        <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none"
+                             stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"
+                             class="feather feather-shopping-cart">
+                            <circle cx="9" cy="21" r="1"></circle>
+                            <circle cx="20" cy="21" r="1"></circle>
+                            <path d="M1 1h4l2.68 13.39a2 2 0 0 0 2 1.61h9.72a2 2 0 0 0 2-1.61L23 6H6"></path>
+                        </svg>
+                    </div>
+                    <h5 class="card-title">Procurement Management</h5>
+                    <p class="card-text">Procurement Management</p>
+                </div>
+            </a>
+        </div>
+    </div>
+</div>
 
 
 @section Scripts{

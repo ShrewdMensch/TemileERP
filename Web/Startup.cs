@@ -92,7 +92,6 @@ namespace Web
             }).AddRazorRuntimeCompilation();
 
 
-            services.AddSingleton(Configuration.GetSection("SendGridSetting").Get<SendGridSetting>());
 
 
             services.AddControllers(opt =>
@@ -126,6 +125,7 @@ namespace Web
             services.AddScoped<IUserAccessor, UserAccessor>();
             services.AddScoped<IRepository, Repository>();
             services.AddScoped<ISend, Send>();
+            services.AddSingleton(Configuration.GetSection("SendGridSetting").Get<SendGridSetting>());
         }
 
         private void StartUpConfigure(IApplicationBuilder app)

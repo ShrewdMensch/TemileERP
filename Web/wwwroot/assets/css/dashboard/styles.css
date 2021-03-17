@@ -1,0 +1,49 @@
+.component-card_1 {
+    border: 1px solid #e0e6ed;
+    border-radius: 6px;
+    width: 19rem;
+    margin: 0 auto;
+    box-shadow: 4px 6px 10px -3px #bfc9d4;
+}
+
+    .component-card_1 .card-body {
+        padding: 28px 25px;
+    }
+
+    .component-card_1 .icon-svg {
+        margin-bottom: 20px;
+        display: inline-block;
+        background: #24875d;
+        padding: 12px;
+        border-radius: 50%;
+        color: #f1f2f3;
+    }
+
+    .component-card_1 svg {
+        width: 100px;
+        height: 100px;
+    }
+
+    .component-card_1 .card-title {
+        font-size: 20px;
+        font-weight: 600;
+        letter-spacing: 1px;
+        margin-bottom: 15px;
+    }
+
+    .component-card_1 .card-text {
+        color: #888ea8;
+    }
+
+.links {
+    margin: 10px 25px;
+    padding: 30px;
+}
+
+.component-card_1 a,
+.component-card_1 a:active,
+.component-card_1 a:hover,
+.component-card_1 a:visited,
+.component-card_1 a:link{
+    text-decoration: none!important;
+}
